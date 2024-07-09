@@ -2,6 +2,7 @@
   import { hasSubData, linkedSubData } from "../lib/easydbHelpers"
 
   import FieldDispatch from "./FieldDispatch.svelte";
+  import Link from "./Link.svelte";
   import LinkedTable from "./LinkedTable.svelte";
   import Panel from "./Panel.svelte";
   import Tabs from "./Tabs.svelte";
@@ -88,6 +89,8 @@
       <p>Splitter of type {firstField.type} not yet implemented.</p>
       <svelte:self fields={fields.slice(1)} data={data} table={table}/>
     {/if}
+  {:else if firstField.kind === "link" }
+    <Link field={firstField} data={data} table={table}/>
   {:else}
     <p>Mask element of kind {firstField.kind} not yet implemented.</p>
     <svelte:self fields={fields.slice(1)} data={data} table={table}/>
