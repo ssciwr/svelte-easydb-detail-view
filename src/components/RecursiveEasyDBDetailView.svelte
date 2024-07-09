@@ -1,10 +1,11 @@
 <script>
-  import { hasSubData, linkedSubData } from "../lib/easydbHelpers"
+  import { hasReverseSubData, hasSubData, linkedSubData, reverseLinkedSubData } from "../lib/easydbHelpers"
 
   import FieldDispatch from "./FieldDispatch.svelte";
   import Link from "./Link.svelte";
   import LinkedTable from "./LinkedTable.svelte";
   import Panel from "./Panel.svelte";
+  import ReverseLinkedTable from "./ReverseLinkedTable.svelte";
   import Tabs from "./Tabs.svelte";
   import TabItem from "./TabItem.svelte";
   
@@ -72,6 +73,13 @@
       </LinkedTable>
     {/if}
     <svelte:self fields={fields.slice(1)} data={data} table={table}/>
+  {:else if firstField.kind === "reverse-linked-table" }
+    {#if hasReverseSubData(data, table, firstField) }
+      {#each reverseLinkedSubData(data, table, firstField) as subdata }
+        <svelte:self fields={firstField.mask.fields} data={subdata} table={firstField.other_table_name_hint} />
+      {/each}
+    {/if}
+    <svelte:self fields={fields.slice(1)} data={data} table={table}/>
   {:else if firstField.kind === "splitter" }
     {#if firstField.type === "panel-begin" }
       <Panel fields={fields.slice(0, findMatch("panel-begin", "panel-end"))} data={data} table={table}>
@@ -93,6 +101,7 @@
     {/if}
   {:else if firstField.kind === "link" }
     <Link field={firstField} data={data} table={table}/>
+    <svelte:self fields={fields.slice(1)} data={data} table={table}/>
   {:else}
     <p>Mask element of kind {firstField.kind} not yet implemented.</p>
     <svelte:self fields={fields.slice(1)} data={data} table={table}/>

@@ -16,32 +16,32 @@ export function fieldLabel(table, field, lang) {
 
 // Given a data JSON object and the field definition from a mask, return a boolean whether it exists in the data
 export function hasField(data, table, field) {
-  // Depending on whether we are dealing with a linked table, we have
-  // a different nesting of the data.
-  if (table in data) {
-    return field.column_name_hint in data[table];
-  } else {
-    return field.column_name_hint in data;
-  }
+  const dtable = table in data ? data[table] : data;
+  return field.column_name_hint in dtable;
 }
 
 // Given a data JSON object and the field definition from a mask, return the value of the field
 export function fieldData(data, table, field) {
-  // Depending on whether we are dealing with a linked table, we have
-  // a different nesting of the data.
-  if(table in data) {
-    return data[table][field.column_name_hint];  
-  } else {
-    return data[field.column_name_hint];
-  }
+  const dtable = table in data ? data[table] : data;
+  return dtable[field.column_name_hint];  
 }
 
 export function hasSubData(data, table, field) {
-  return `_nested:${field.other_table_name_hint}` in data[table];
+  const dtable = table in data ? data[table] : data;
+  return `_nested:${field.other_table_name_hint}` in dtable;
 }
 
 export function linkedSubData(data, table, field) {
-  return data[table][`_nested:${field.other_table_name_hint}`];
+  const dtable = table in data ? data[table] : data;
+  return dtable[`_nested:${field.other_table_name_hint}`];
+}
+
+export function hasReverseSubData(data, table, field) {
+  return `_reverse_nested:${field.other_table_name_hint}:${field.other_column_name_hint}` in data[table];
+}
+
+export function reverseLinkedSubData(data, table, field) {
+  return data[table][`_reverse_nested:${field.other_table_name_hint}:${field.other_column_name_hint}`];
 }
 
 export function splitterTitle(data, table, options, lang) {
@@ -54,6 +54,9 @@ export function hasContent(data, table, fields) {
       return true;
     }
     if ((field.kind === 'linked-table') && (hasSubData(data, table, field))) {
+      return true;
+    }
+    if ((field.kind === 'reverse-linked-table') && (hasReverseSubData(data, table, field))) {
       return true;
     }
   }
