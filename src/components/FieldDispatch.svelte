@@ -25,7 +25,7 @@
       <CustomDataTypeUbhdgnd data={data} field={field} table={table}/>
     {:else if fieldtype === "daterange" }
       <Daterange data={data} field={field} table={table}/>
-    {:else if fieldtype === "text" }
+    {:else if fieldtype === "text" || fieldtype === "string" }
       <TextField data={data} field={field} table={table}/>
     {:else if fieldtype === "text_l10n" }
       <L10nTextField data={data} field={field} table={table}/>
