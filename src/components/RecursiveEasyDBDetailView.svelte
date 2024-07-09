@@ -1,5 +1,6 @@
 <script>
-  import { hasReverseSubData, hasSubData, linkedSubData, reverseLinkedSubData } from "../lib/easydbHelpers"
+  import { hasReverseSubData, hasSubData, linkedSubData, reverseLinkedSubData, splitterTitle } from "../lib/easydbHelpers"
+  import { lang } from "../lib/l10n";
 
   import FieldDispatch from "./FieldDispatch.svelte";
   import Link from "./Link.svelte";
@@ -75,9 +76,11 @@
     <svelte:self fields={fields.slice(1)} data={data} table={table}/>
   {:else if firstField.kind === "reverse-linked-table" }
     {#if hasReverseSubData(data, table, firstField) }
-      {#each reverseLinkedSubData(data, table, firstField) as subdata }
-        <svelte:self fields={firstField.mask.fields} data={subdata} table={firstField.other_table_name_hint} />
-      {/each}
+      <ReverseLinkedTable>
+        {#each reverseLinkedSubData(data, table, firstField) as subdata }
+          <svelte:self fields={firstField.mask.fields} data={subdata} table={firstField.other_table_name_hint} />
+        {/each}
+      </ReverseLinkedTable>
     {/if}
     <svelte:self fields={fields.slice(1)} data={data} table={table}/>
   {:else if firstField.kind === "splitter" }
@@ -95,6 +98,9 @@
         {/each}
       </Tabs>
       <svelte:self fields={fields.slice(findMatch("tabs-begin", "tabs-end") + 1)} data={data} table={table}/>
+    {:else if firstField.type === "split" }
+      {splitterTitle(data, table, JSON.parse(firstField.options), lang)}
+      <svelte:self fields={fields.slice(1)} data={data} table={table}/>
     {:else}
       <p>Splitter of type {firstField.type} not yet implemented.</p>
       <svelte:self fields={fields.slice(1)} data={data} table={table}/>
