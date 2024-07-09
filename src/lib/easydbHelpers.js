@@ -41,9 +41,7 @@ export function hasSubData(data, table, field) {
 }
 
 export function linkedSubData(data, table, field) {
-  // I am very much concerned with the [0] here as I have no idea why the data
-  // is a list in the first place.
-  return data[table][`_nested:${field.other_table_name_hint}`][0];
+  return data[table][`_nested:${field.other_table_name_hint}`];
 }
 
 export function splitterTitle(data, table, options, lang) {

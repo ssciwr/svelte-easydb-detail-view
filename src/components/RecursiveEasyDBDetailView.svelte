@@ -66,7 +66,9 @@
   {:else if firstField.kind === "linked-table" }
     {#if hasSubData(data, table, firstField)}
       <LinkedTable>
-        <svelte:self fields={firstField.mask.fields} data={linkedSubData(data, table, firstField)} table={firstField.other_table_name_hint}/>
+        {#each linkedSubData(data, table, firstField) as subdata}
+          <svelte:self fields={firstField.mask.fields} data={subdata} table={firstField.other_table_name_hint}/>
+        {/each}
       </LinkedTable>
     {/if}
     <svelte:self fields={fields.slice(1)} data={data} table={table}/>
