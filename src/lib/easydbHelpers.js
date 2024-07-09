@@ -37,11 +37,13 @@ export function linkedSubData(data, table, field) {
 }
 
 export function hasReverseSubData(data, table, field) {
-  return `_reverse_nested:${field.other_table_name_hint}:${field.other_column_name_hint}` in data[table];
+  const dtable = table in data ? data[table] : data;
+  return `_reverse_nested:${field.other_table_name_hint}:${field.other_column_name_hint}` in dtable;
 }
 
 export function reverseLinkedSubData(data, table, field) {
-  return data[table][`_reverse_nested:${field.other_table_name_hint}:${field.other_column_name_hint}`];
+  const dtable = table in data ? data[table] : data;
+  return dtable[`_reverse_nested:${field.other_table_name_hint}:${field.other_column_name_hint}`];
 }
 
 export function splitterTitle(data, table, options, lang) {
@@ -50,7 +52,7 @@ export function splitterTitle(data, table, options, lang) {
 
 export function hasContent(data, table, fields) {
   for (let field of fields) {
-    if ((field.kind === 'field') && (hasField(data, table, field))) {
+    if (((field.kind === 'field') || (field.kind === 'link')) && (hasField(data, table, field))) {
       return true;
     }
     if ((field.kind === 'linked-table') && (hasSubData(data, table, field))) {
