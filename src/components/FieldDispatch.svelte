@@ -2,6 +2,7 @@
   import { findSchemaColumn, hasField } from "../lib/easydbHelpers";
 
   // Import our field components
+  import CustomDataTypeUbhdgnd from "./CustomDataTypeUBHDGND.svelte";
   import Daterange from "./Daterange.svelte";
   import L10nTextField from "./L10nTextField.svelte";
   import OnelineL10nTextField from "./OnelineL10nTextField.svelte";
@@ -20,7 +21,9 @@
   <!-- Fields that are not present in the data are also omitted -->
   {#if hasField(data, table, field) }
     <!-- Dispath based on the detected field type -->
-    {#if fieldtype === "daterange" }
+    {#if fieldtype === "custom:base.custom-data-type-ubhdgnd.ubhdgnd"}
+      <CustomDataTypeUbhdgnd data={data} field={field} table={table}/>
+    {:else if fieldtype === "daterange" }
       <Daterange data={data} field={field} table={table}/>
     {:else if fieldtype === "text" }
       <TextField data={data} field={field} table={table}/>
