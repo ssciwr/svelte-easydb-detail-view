@@ -2,6 +2,7 @@
   import { findSchemaColumn, hasField } from "../lib/easydbHelpers";
 
   // Import our field components
+  import Eas from "./Eas.svelte";
   import FieldLabel from "./FieldLabel.svelte";
   import CustomDataTypeUbhdgnd from "./CustomDataTypeUBHDGND.svelte";
   import Daterange from "./Daterange.svelte";
@@ -30,6 +31,8 @@
       <CustomDataTypeUbhdgnd data={data} field={field} table={table}/>
     {:else if fieldtype === "daterange" }
       <Daterange data={data} field={field} table={table}/>
+    {:else if fieldtype === "eas" }
+      <Eas data={data} field={field} table={table} />
     {:else if fieldtype === "text" || fieldtype === "string" }
       <TextField data={data} field={field} table={table}/>
     {:else if fieldtype === "text_l10n" }
