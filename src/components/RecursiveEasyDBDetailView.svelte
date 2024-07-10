@@ -20,6 +20,16 @@
   const lang = getContext("l10n");
   const firstField = fields[0];
 
+  let tab_is_open = false;
+  function openTab() {
+    if (tab_is_open) {
+      return false;
+    }
+    else {
+      tab_is_open = true;
+      return true;
+    }
+  }
   function findMatch(start, end) {
     let count = 0;
     for (const [i, field] of fields.entries()) {
@@ -101,7 +111,7 @@
     {:else if firstField.type === "tabs-begin" }
       <Tabs fields={fields} data={data} table={table}>
         {#each findTabs() as tab}
-          <TabItem fields={tab} data={data} table={table}>
+          <TabItem fields={tab} data={data} table={table} open={openTab()}>
             <svelte:self fields={tab.slice(1)} data={data} table={table} label={label}/>
           </TabItem>
         {/each}
