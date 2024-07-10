@@ -1,7 +1,7 @@
 <script>
   import { getContext } from "svelte";
   import { hasContent, splitterTitle } from "../lib/easydbHelpers";
-  
+
   import { Accordion, AccordionItem } from "flowbite-svelte";
 
   export let data;

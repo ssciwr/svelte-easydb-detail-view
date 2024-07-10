@@ -1,4 +1,5 @@
 import { l10n, masks, schemas } from './easydb';
+import { bestLanguage } from './l10n';
 
 export function maskObj(data) {
   return masks[data._mask];
@@ -11,7 +12,7 @@ export function findSchemaColumn(table, field) {
 
 // Given a data JSON object and the field definition from a mask, return the label of the field with the language code lang
 export function fieldLabel(table, field, lang) {
-  return l10n[`schema.${table}.column.${field.column_name_hint}`][lang];
+  return bestLanguage(l10n[`schema.${table}.column.${field.column_name_hint}`], lang);
 }
 
 // Given a data JSON object and the field definition from a mask, return a boolean whether it exists in the data
@@ -47,7 +48,7 @@ export function reverseLinkedSubData(data, table, field) {
 }
 
 export function splitterTitle(data, table, options, lang) {
-  return l10n[`mask.${schemas[table].table_id}.${maskObj(data).name}.splitter.${String(options.splitterIdx)}`][lang];
+  return bestLanguage(l10n[`mask.${schemas[table].table_id}.${maskObj(data).name}.splitter.${String(options.splitterIdx)}`], lang);
 }
 
 export function hasContent(data, table, fields) {

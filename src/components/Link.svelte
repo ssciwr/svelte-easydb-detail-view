@@ -1,12 +1,13 @@
 <script>
   import { fieldData, fieldLabel, hasField } from "../lib/easydbHelpers";
-  import { lang } from "../lib/l10n"
   import { A, P } from "flowbite-svelte";
+  import { getContext } from "svelte";
 
   export let field;
   export let data;
   export let table;
 
+  const lang = getContext("l10n");
   const fdata = fieldData(data, table, field);
 </script>
 
