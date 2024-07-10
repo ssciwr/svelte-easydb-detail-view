@@ -1,8 +1,8 @@
 <script>
   import { hasReverseSubData, hasSubData, linkedSubData, reverseLinkedSubData, splitterTitle } from "../lib/easydbHelpers"
   import { Li, List } from "flowbite-svelte";
-  import { lang } from "../lib/l10n";
-
+  import { getContext } from "svelte";
+  
   import FieldDispatch from "./FieldDispatch.svelte";
   import Link from "./Link.svelte";
   import LinkedTable from "./LinkedTable.svelte";
@@ -11,12 +11,13 @@
   import Tabs from "./Tabs.svelte";
   import TabItem from "./TabItem.svelte";
   import FieldLabel from "./FieldLabel.svelte";
-  
+
   export let fields;
   export let data;
   export let table;
   export let label = true;
 
+  const lang = getContext("l10n");
   const firstField = fields[0];
 
   function findMatch(start, end) {

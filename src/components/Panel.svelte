@@ -1,7 +1,7 @@
 <script>
+  import { getContext } from "svelte";
   import { hasContent, splitterTitle } from "../lib/easydbHelpers";
-  import { lang } from "../lib/l10n";
-
+  
   import { Accordion, AccordionItem } from "flowbite-svelte";
 
   export let data;
@@ -9,7 +9,7 @@
   export let table;
 
   const options = JSON.parse(fields[0].options);
-
+  const lang = getContext("l10n");
 </script>
 
 {#if hasContent(data, table, fields)}
