@@ -2,6 +2,7 @@
   import { findSchemaColumn, hasField } from "../lib/easydbHelpers";
 
   // Import our field components
+  import FieldLabel from "./FieldLabel.svelte";
   import CustomDataTypeUbhdgnd from "./CustomDataTypeUBHDGND.svelte";
   import Daterange from "./Daterange.svelte";
   import L10nTextField from "./L10nTextField.svelte";
@@ -12,6 +13,7 @@
   export let field;
   export let data;
   export let table;
+  export let label;
 
   const fieldtype = findSchemaColumn(table, field).type;
 </script>
@@ -20,6 +22,9 @@
 {#if field.output.detail }
   <!-- Fields that are not present in the data are also omitted -->
   {#if hasField(data, table, field) }
+    {#if label}
+      <FieldLabel table={table} field={field}/>
+    {/if}
     <!-- Dispath based on the detected field type -->
     {#if fieldtype === "custom:base.custom-data-type-ubhdgnd.ubhdgnd"}
       <CustomDataTypeUbhdgnd data={data} field={field} table={table}/>

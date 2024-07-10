@@ -1,6 +1,5 @@
 <script>
-    import { fieldLabel, fieldData } from "../lib/easydbHelpers";
-    import { lang } from "../lib/l10n";
+    import { fieldData } from "../lib/easydbHelpers";
     import { P } from "flowbite-svelte";
   
     export let data;
@@ -10,5 +9,4 @@
     const fdata = fieldData(data, table, field);
   </script>
   
-  <P size="sm">{fieldLabel(table, field, lang)}</P>
   <P size="sm">{fdata["from"]} - {fdata["to"]}</P>
