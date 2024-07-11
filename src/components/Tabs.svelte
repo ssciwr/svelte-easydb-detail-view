@@ -8,7 +8,7 @@
 </script>
 
 {#if hasContent(data, table, fields) }
-  <Tabs>
+  <Tabs class="flex justify-center">
     <slot />
   </Tabs>
 {/if}

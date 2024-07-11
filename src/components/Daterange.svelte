@@ -9,4 +9,4 @@
     const fdata = fieldData(data, table, field);
   </script>
   
-  <P size="sm">{fdata["from"]} - {fdata["to"]}</P>
+  <span class="easydb-daterange-field">{fdata["from"]} - {fdata["to"]}</span>

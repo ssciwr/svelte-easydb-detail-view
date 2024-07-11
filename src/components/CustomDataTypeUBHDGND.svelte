@@ -9,7 +9,7 @@
   const fdata = fieldData(data, table, field);
 </script>
 
-<P size="sm">
+<span class="easydb-custom-ubhdgnd">
   {fdata.conceptName}
   <A href={fdata.conceptURI}>GND</A>
-</P>
+</span>

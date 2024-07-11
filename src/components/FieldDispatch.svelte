@@ -1,5 +1,6 @@
 <script>
   import { findSchemaColumn, hasField } from "../lib/easydbHelpers";
+  import { P } from "flowbite-svelte";
 
   // Import our field components
   import Eas from "./Eas.svelte";
@@ -17,32 +18,39 @@
   export let label;
 
   const fieldtype = findSchemaColumn(table, field).type;
+  console.log(fieldtype);
+  console.log(label);
+  
 </script>
 
 <!-- Some fields are omitted from the detail view -->
 {#if field.output.detail }
   <!-- Fields that are not present in the data are also omitted -->
   {#if hasField(data, table, field) }
-    {#if label}
-      <FieldLabel table={table} field={field}/>
-    {/if}
-    <!-- Dispath based on the detected field type -->
-    {#if fieldtype === "custom:base.custom-data-type-ubhdgnd.ubhdgnd"}
-      <CustomDataTypeUbhdgnd data={data} field={field} table={table}/>
-    {:else if fieldtype === "daterange" }
-      <Daterange data={data} field={field} table={table}/>
-    {:else if fieldtype === "eas" }
-      <Eas data={data} field={field} table={table} />
-    {:else if fieldtype === "text" || fieldtype === "string" }
-      <TextField data={data} field={field} table={table}/>
-    {:else if fieldtype === "text_l10n" }
-      <L10nTextField data={data} field={field} table={table}/>
-    {:else if fieldtype === "text_l10n_oneline" }
-      <OnelineL10nTextField data={data} field={field} table={table}/>
-    {:else if fieldtype === "text_oneline" }
-      <OnelineTextField data={data} field={field} table={table}/>
-    {:else}
-      <p>Field Type {fieldtype} not yet implemented.</p>
-    {/if}
+    <P>
+      {#if label}
+        <P class="pt-4">
+          <FieldLabel table={table} field={field}/>
+        </P>
+      {/if}
+      <!-- Dispath based on the detected field type -->
+      {#if fieldtype === "custom:base.custom-data-type-ubhdgnd.ubhdgnd"}
+        <CustomDataTypeUbhdgnd data={data} field={field} table={table}/>
+      {:else if fieldtype === "daterange" }
+        <Daterange data={data} field={field} table={table}/>
+      {:else if fieldtype === "eas" }
+        <Eas data={data} field={field} table={table} />
+      {:else if fieldtype === "text" || fieldtype === "string" }
+        <TextField data={data} field={field} table={table}/>
+      {:else if fieldtype === "text_l10n" }
+        <L10nTextField data={data} field={field} table={table}/>
+      {:else if fieldtype === "text_l10n_oneline" }
+        <OnelineL10nTextField data={data} field={field} table={table}/>
+      {:else if fieldtype === "text_oneline" }
+        <OnelineTextField data={data} field={field} table={table}/>
+      {:else}
+        Field Type {fieldtype} not yet implemented.
+      {/if}
+    </P>
   {/if}
 {/if}

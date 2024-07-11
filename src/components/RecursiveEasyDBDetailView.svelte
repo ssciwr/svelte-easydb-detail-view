@@ -1,6 +1,6 @@
 <script>
   import { hasReverseSubData, hasSubData, linkedSubData, reverseLinkedSubData, splitterTitle } from "../lib/easydbHelpers"
-  import { Li, List } from "flowbite-svelte";
+  import { Li, List, P } from "flowbite-svelte";
   import { getContext } from "svelte";
   
   import FieldDispatch from "./FieldDispatch.svelte";

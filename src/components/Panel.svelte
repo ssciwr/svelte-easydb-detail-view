@@ -13,10 +13,12 @@
 </script>
 
 {#if hasContent(data, table, fields)}
-  <Accordion>
+  <Accordion class="pt-6">
     <AccordionItem open={options.default_open_detail}>
       <span slot="header">{splitterTitle(data, table, options, lang)}</span>
-      <slot />
+      <div class="-mt-4">
+        <slot />
+      </div>
     </AccordionItem>
   </Accordion>
 {/if}

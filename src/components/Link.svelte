@@ -1,7 +1,9 @@
 <script>
-  import { fieldData, fieldLabel, hasField } from "../lib/easydbHelpers";
+  import { fieldData, hasField } from "../lib/easydbHelpers";
   import { A, P } from "flowbite-svelte";
   import { getContext } from "svelte";
+
+  import FieldLabel from "./FieldLabel.svelte";
 
   export let field;
   export let data;
@@ -12,10 +14,10 @@
 </script>
 
 {#if hasField(data, table, field)}
-  <P size="sm">{fieldLabel(table, field, lang)}</P>
-  <P size="sm">
+  <FieldLabel table={table} field={field} />
+  <span class="easydb-link">
     <A href="https://heidicon.ub.uni-heidelberg.de/#/detail/{fdata._uuid}">
       {fdata["_standard"]["1"].text[lang]}
     </A>
-  </P>
+  </span>
 {/if}

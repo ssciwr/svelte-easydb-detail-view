@@ -1,10 +1,9 @@
 <script>
-    import { fieldData } from "../lib/easydbHelpers";
-    import { P } from "flowbite-svelte";
+  import { fieldData } from "../lib/easydbHelpers";
+
+  export let data;
+  export let field;
+  export let table;
+</script>
   
-    export let data;
-    export let field;
-    export let table;
-  </script>
-  
-  <P size="sm">{fieldData(data, table, field)}</P>
+<span class="easydb-oneline-text-field">{fieldData(data, table, field)}</span>

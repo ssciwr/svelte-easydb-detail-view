@@ -2,7 +2,6 @@
   import { getContext } from "svelte";
   import { fieldData } from "../lib/easydbHelpers";
   import { bestLanguage } from "../lib/l10n";
-  import { P } from "flowbite-svelte";
   
   export let data;
   export let field;
@@ -11,4 +10,4 @@
   const lang = getContext("l10n");
 </script>
   
-<P size="sm">{bestLanguage(fieldData(data, table, field), lang)}</P>
+<span class="easydb-l10n-text-field">{bestLanguage(fieldData(data, table, field), lang)}</span>
