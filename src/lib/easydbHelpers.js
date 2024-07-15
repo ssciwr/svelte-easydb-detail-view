@@ -1,18 +1,19 @@
-import { l10n, masks, schemas } from './easydb';
+import { easydbDataStore } from './stores';
+import { get } from 'svelte/store';
 import { bestLanguage } from './l10n';
 
 export function maskObj(data) {
-  return masks[data._mask];
+  return get(easydbDataStore).masks[data._mask];
 }
 
 // Given a data JSON object and a field from a mask, return the schema for that column
 export function findSchemaColumn(table, field) {
-  return schemas[table].columns.find((column) => column.name === field.column_name_hint);
+  return get(easydbDataStore).schemas[table].columns.find((column) => column.name === field.column_name_hint);
 }
 
 // Given a data JSON object and the field definition from a mask, return the label of the field with the language code lang
 export function fieldLabel(table, field, lang) {
-  return bestLanguage(l10n[`schema.${table}.column.${field.column_name_hint}`], lang);
+  return bestLanguage(get(easydbDataStore).l10n[`schema.${table}.column.${field.column_name_hint}`], lang);
 }
 
 // Given a data JSON object and the field definition from a mask, return a boolean whether it exists in the data
@@ -48,7 +49,7 @@ export function reverseLinkedSubData(data, table, field) {
 }
 
 export function splitterTitle(data, table, options, lang) {
-  return bestLanguage(l10n[`mask.${schemas[table].table_id}.${maskObj(data).name}.splitter.${String(options.splitterIdx)}`], lang);
+  return bestLanguage(get(easydbDataStore).l10n[`mask.${get(easydbDataStore).schemas[table].table_id}.${maskObj(data).name}.splitter.${String(options.splitterIdx)}`], lang);
 }
 
 export function hasContent(data, table, fields) {

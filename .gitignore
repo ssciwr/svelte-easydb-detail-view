@@ -1,3 +1,6 @@
+# This file is regularyl overwritten for pregeneration
+src/lib/easydb.js
+
 # Logs
 logs
 *.log

@@ -3,6 +3,7 @@
   import EasyDbDetailView from "./components/EasyDBDetailView.svelte";
 
   let uuid = "859e2318-32f6-4013-8468-ef8cec0b581b";
+  let instance = "http://localhost:8080/https://heidicon.ub.uni-heidelberg.de";
 
   let languages = [
     { value: 'de-DE', name: 'Deutsch'},
@@ -21,6 +22,12 @@
         explain what can be interactively controlled from the JavaScript side.
         On the right hand side, we see the detail view component result.
       </p>
+      <div class="space-y-2 p-4">
+        <Label>
+          URL of the EasyDB instance
+        </Label>
+        <Input type="text" bind:value={instance} size="lg" class="w-full"></Input>
+      </div>
       <div class="space-y-2 p-4">
         <Label>
           UUID of EasyDB record
@@ -52,7 +59,7 @@
       </div>
     </div>
     <div class="w-1/2 p-4 border border-gray-300">
-      <EasyDbDetailView uuid={uuid} l10n={selected_language} />
+      <EasyDbDetailView uuid={uuid} l10n={selected_language} easydb_instance={instance} />
     </div>
   </div>
 </main>
