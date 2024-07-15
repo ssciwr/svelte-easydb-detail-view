@@ -1,5 +1,5 @@
 <script>
-  import { Button, Label, Input, Select } from "flowbite-svelte";
+  import { Button, Heading, Label, Input, Select } from "flowbite-svelte";
   import EasyDbDetailView from "./components/EasyDBDetailView.svelte";
 
   let uuid = "859e2318-32f6-4013-8468-ef8cec0b581b";
@@ -14,6 +14,13 @@
 <main class="container mx-auto">
   <div class="flex justify-between">
     <div class="w-1/2">
+      <Heading class="p-4">Svelte EasyDB DetailView Demo</Heading>
+      <p class="p-4">
+        This demo showcases the EasyDBDetailView Svelte component. The controls
+        on the left hand side are purely for demonstration purposes and merely
+        explain what can be interactively controlled from the JavaScript side.
+        On the right hand side, we see the detail view component result.
+      </p>
       <div class="space-y-2 p-4">
         <Label>
           UUID of EasyDB record
