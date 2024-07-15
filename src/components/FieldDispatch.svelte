@@ -18,9 +18,7 @@
   export let label;
 
   const fieldtype = findSchemaColumn(table, field).type;
-  console.log(fieldtype);
-  console.log(label);
-  
+
 </script>
 
 <!-- Some fields are omitted from the detail view -->

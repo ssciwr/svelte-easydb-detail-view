@@ -13,7 +13,7 @@
 </script>
 
 {#if hasContent(data, table, fields) }
-  <TabItem open={open} title={splitterTitle(data, table, options, lang)}>
+  <TabItem open={open} title={splitterTitle(data, table, options, $lang)}>
     <slot />
   </TabItem>
 {/if}

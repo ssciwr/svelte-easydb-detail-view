@@ -10,4 +10,4 @@
   const lang = getContext("l10n");
 </script>
   
-<span class="easydb-oneline-l10n-text-field">{bestLanguage(fieldData(data, table, field), lang)}</span>
+<span class="easydb-oneline-l10n-text-field">{bestLanguage(fieldData(data, table, field), $lang)}</span>

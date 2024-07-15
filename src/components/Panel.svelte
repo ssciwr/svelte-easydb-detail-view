@@ -15,7 +15,7 @@
 {#if hasContent(data, table, fields)}
   <Accordion class="pt-6">
     <AccordionItem open={options.default_open_detail}>
-      <span slot="header">{splitterTitle(data, table, options, lang)}</span>
+      <span slot="header">{splitterTitle(data, table, options, $lang)}</span>
       <div class="-mt-4">
         <slot />
       </div>

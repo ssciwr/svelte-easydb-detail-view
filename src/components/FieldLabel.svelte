@@ -5,7 +5,7 @@
   export let field;
   export let table;
 
-  const lang = getContext("l10n");
+  let lang = getContext("l10n");
 </script>
 
-<span class="text-sm easydb-label">{fieldLabel(table, field, lang)}</span>
+<span class="text-sm easydb-label">{fieldLabel(table, field, $lang)}</span>

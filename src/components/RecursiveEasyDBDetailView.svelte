@@ -118,7 +118,7 @@
       </Tabs>
       <svelte:self fields={fields.slice(findMatch("tabs-begin", "tabs-end") + 1)} data={data} table={table} label={label}/>
     {:else if firstField.type === "split" }
-      {splitterTitle(data, table, JSON.parse(firstField.options), lang)}
+      {splitterTitle(data, table, JSON.parse(firstField.options), $lang)}
       <svelte:self fields={fields.slice(1)} data={data} table={table} label={label}/>
     {:else}
       <p>Splitter of type {firstField.type} not yet implemented.</p>
