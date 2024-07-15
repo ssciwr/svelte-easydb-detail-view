@@ -1,0 +1,33 @@
+name: Deploy to Github Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Generate EasyDB data
+        run: npm run easydb
+
+      - name: Build
+        run: npm run build
+
+      - uses: JamesIves/github-pages-deploy-action@v4
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        name: Deploy to gh-pages
+        with:
+          branch: gh-pages
+          folder: dist
+          single-commit: true
