@@ -3,7 +3,7 @@
   import EasyDbDetailView from "./components/EasyDBDetailView.svelte";
 
   let uuid = "859e2318-32f6-4013-8468-ef8cec0b581b";
-  let instance = "http://localhost:8080/https://heidicon.ub.uni-heidelberg.de";
+  let instance = "https://heidicon.ub.uni-heidelberg.de";
 
   let languages = [
     { value: 'de-DE', name: 'Deutsch'},
