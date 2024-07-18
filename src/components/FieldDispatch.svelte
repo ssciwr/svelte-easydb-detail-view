@@ -11,6 +11,7 @@
   import OnelineL10nTextField from "./OnelineL10nTextField.svelte";
   import OnelineTextField from "./OnelineTextField.svelte";
   import TextField from "./TextField.svelte";
+  import NotImplemented from "./NotImplemented.svelte";
 
   export let field;
   export let data;
@@ -47,7 +48,7 @@
       {:else if fieldtype === "text_oneline" }
         <OnelineTextField data={data} field={field} table={table}/>
       {:else}
-        Field Type {fieldtype} not yet implemented.
+        <NotImplemented message="Field Type {fieldtype} not yet implemented." />
       {/if}
     </P>
   {/if}

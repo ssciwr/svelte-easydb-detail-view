@@ -11,6 +11,7 @@
   import Tabs from "./Tabs.svelte";
   import TabItem from "./TabItem.svelte";
   import FieldLabel from "./FieldLabel.svelte";
+  import NotImplemented from "./NotImplemented.svelte";
 
   export let fields;
   export let data;
@@ -127,7 +128,7 @@
     <Link field={firstField} data={data} table={table}/>
     <svelte:self fields={fields.slice(1)} data={data} table={table} label={label}/>
   {:else}
-    <p>Mask element of kind {firstField.kind} not yet implemented.</p>
+    <NotImplemented message="Mask element of kind {firstField.kind} not yet implemented" />
     <svelte:self fields={fields.slice(1)} data={data} table={table} label={label}/>
   {/if}
 {/if}
