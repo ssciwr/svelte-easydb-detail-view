@@ -9,7 +9,7 @@
     { value: 'de-DE', name: 'Deutsch'},
     { value: 'en-US', name: 'English'},
   ];
-  let selected_language = 'de-DE';
+  let selected_app_language = 'de-DE';
 </script>
 
 <main class="container mx-auto">
@@ -53,13 +53,13 @@
       </div>
       <div class="space-y-2 p-4">
         <Label>
-          Language:
+          Application Language:
         </Label>
-        <Select class="w-full" items={languages} bind:value={selected_language} />
+        <Select class="w-full" items={languages} bind:value={selected_app_language} />
       </div>
     </div>
     <div class="w-1/2 p-4 border border-gray-300">
-      <EasyDbDetailView uuid={uuid} l10n={selected_language} easydb_instance={instance} />
+      <EasyDbDetailView uuid={uuid} appLanguage={selected_app_language} easydb_instance={instance} />
     </div>
   </div>
 </main>

@@ -5,7 +5,7 @@
   export let field;
   export let table;
 
-  let lang = getContext("l10n");
+  let lang = getContext("appLanguage");
 </script>
 
 <span class="text-sm easydb-label">{fieldLabel(table, field, $lang)}</span>

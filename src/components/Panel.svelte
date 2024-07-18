@@ -9,7 +9,7 @@
   export let table;
 
   const options = JSON.parse(fields[0].options);
-  const lang = getContext("l10n");
+  const lang = getContext("appLanguage");
 </script>
 
 {#if hasContent(data, table, fields)}

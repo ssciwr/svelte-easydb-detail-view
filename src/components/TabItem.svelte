@@ -8,7 +8,7 @@
   export let table;
   export let open;
 
-  const lang = getContext("l10n");
+  const lang = getContext("appLanguage");
   const options = JSON.parse(fields[0].options);
 </script>
 

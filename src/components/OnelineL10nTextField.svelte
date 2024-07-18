@@ -7,7 +7,7 @@
   export let field;
   export let table;
 
-  const lang = getContext("l10n");
+  const lang = getContext("appLanguage");
 </script>
   
 <span class="easydb-oneline-l10n-text-field">{bestLanguage(fieldData(data, table, field), $lang)}</span>

@@ -22,7 +22,7 @@ async function pregenDefaults() {
 }
 
 // This manages the global state of the current language
-export const l10nStore = writable(null);
+export const appLanguageStore = writable(null);
 
 // This manages the global state of the EasyDB instance we are talking to
 export const easydbInstanceStore = writable(null);

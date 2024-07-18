@@ -17,7 +17,7 @@
   export let table;
   export let label = true;
 
-  const lang = getContext("l10n");
+  const lang = getContext("appLanguage");
   const firstField = fields[0];
 
   let tab_is_open = false;

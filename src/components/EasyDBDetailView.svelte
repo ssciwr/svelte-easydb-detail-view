@@ -3,18 +3,18 @@
   import { pregen_instance } from "../lib/easydbPregen";
   import { maskObj } from "../lib/easydbHelpers";
   import { setContext } from "svelte";
-  import { l10nStore, easydbDataStore, easydbInstanceStore, easydbDataPromiseStore } from "../lib/stores";
+  import { appLanguageStore, easydbInstanceStore, easydbDataPromiseStore } from "../lib/stores";
 
   import RecursiveEasyDbDetailView from "./RecursiveEasyDBDetailView.svelte";
 
   export let uuid = "";
-  export let l10n = "de-DE";
+  export let appLanguage = "de-DE";
   export let easydb_instance = pregen_instance;
 
-  $: l10nStore.set(l10n);
+  $: appLanguageStore.set(appLanguage);
   $: easydbInstanceStore.set(easydb_instance);
 
-  setContext("l10n", l10nStore);
+  setContext("appLanguage", appLanguageStore);
 </script>
 
 {#await $easydbDataPromiseStore }
