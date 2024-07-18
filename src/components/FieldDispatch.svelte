@@ -3,10 +3,11 @@
   import { P } from "flowbite-svelte";
 
   // Import our field components
+  import CustomDataTypeUbhdgnd from "./CustomDataTypeUBHDGND.svelte";
+  import Date from "./Date.svelte";
+  import Daterange from "./Daterange.svelte";
   import Eas from "./Eas.svelte";
   import FieldLabel from "./FieldLabel.svelte";
-  import CustomDataTypeUbhdgnd from "./CustomDataTypeUBHDGND.svelte";
-  import Daterange from "./Daterange.svelte";
   import L10nTextField from "./L10nTextField.svelte";
   import OnelineL10nTextField from "./OnelineL10nTextField.svelte";
   import OnelineTextField from "./OnelineTextField.svelte";
@@ -35,6 +36,8 @@
       <!-- Dispath based on the detected field type -->
       {#if fieldtype === "custom:base.custom-data-type-ubhdgnd.ubhdgnd"}
         <CustomDataTypeUbhdgnd data={data} field={field} table={table}/>
+      {:else if fieldtype === "date" }
+        <Date data={data} field={field} table={table}/>
       {:else if fieldtype === "daterange" }
         <Daterange data={data} field={field} table={table}/>
       {:else if fieldtype === "eas" }
