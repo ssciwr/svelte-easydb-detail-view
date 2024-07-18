@@ -24,6 +24,17 @@
 
   const fieldtype = findSchemaColumn(table, field).type;
 
+  const componentMapping = {
+    "custom:base.custom-data-type-ubhdgnd.ubhdgnd": CustomDataTypeUbhdgnd,
+    "date": Date,
+    "daterange": Daterange,
+    "eas": Eas,
+    "text": TextField,
+    "string": TextField,
+    "text_l10n": L10nTextField,
+    "text_l10n_oneline": OnelineL10nTextField,
+    "text_oneline": OnelineTextField,
+  };
 </script>
 
 <!-- Some fields are omitted from the detail view -->
@@ -36,23 +47,8 @@
           <FieldLabel table={table} field={field}/>
         </P>
       {/if}
-      <!-- Dispath based on the detected field type -->
-      {#if fieldtype === "custom:base.custom-data-type-ubhdgnd.ubhdgnd"}
-        <CustomDataTypeUbhdgnd data={data} field={field} table={table}/>
-      {:else if fieldtype === "date" }
-        <Date data={data} field={field} table={table}/>
-      {:else if fieldtype === "daterange" }
-        <Daterange data={data} field={field} table={table}/>
-      {:else if fieldtype === "eas" }
-        <Eas data={data} field={field} table={table} />
-      {:else if fieldtype === "text" || fieldtype === "string" }
-        <TextField data={data} field={field} table={table}/>
-      {:else if fieldtype === "text_l10n" }
-        <L10nTextField data={data} field={field} table={table}/>
-      {:else if fieldtype === "text_l10n_oneline" }
-        <OnelineL10nTextField data={data} field={field} table={table}/>
-      {:else if fieldtype === "text_oneline" }
-        <OnelineTextField data={data} field={field} table={table}/>
+      {#if fieldtype in componentMapping}
+        <svelte:component this={componentMapping[fieldtype]} data={data} field={field} table={table}/>
       {:else}
         <NotImplemented message="Field Type {fieldtype} not yet implemented." />
       {/if}
