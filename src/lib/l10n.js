@@ -16,3 +16,25 @@ export function bestLanguage(data, lang) {
   // Finally, we select any language that we can find
   return Object.values(data)[0];
 }
+
+// Order the languages in a multi-language display
+export function orderLanguages(available, chosen) {
+  // The return data structure
+  let ret = [];
+
+  // First we iterate all the chosen languages and see whether they are available
+  for (let chosen_lang of chosen) {
+    if (chosen_lang in available) {
+      ret.push(chosen_lang);
+    }
+  }
+
+  // Then we iterate all those that are not chosen and append them
+  for (let avail_lang of available) {
+    if (!(avail_lang  in chosen)) {
+      ret.push(avail_lang);
+    }
+  }
+
+  return ret;
+}
