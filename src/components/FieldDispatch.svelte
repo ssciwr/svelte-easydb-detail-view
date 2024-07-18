@@ -13,11 +13,14 @@
   import OnelineTextField from "./OnelineTextField.svelte";
   import TextField from "./TextField.svelte";
   import NotImplemented from "./NotImplemented.svelte";
+  import NoOp from "./NoOp.svelte";
 
   export let field;
   export let data;
   export let table;
-  export let label;
+  export let nested;
+
+  const WrapperComponent = nested ? NoOp : P;
 
   const fieldtype = findSchemaColumn(table, field).type;
 
@@ -27,8 +30,8 @@
 {#if field.output.detail }
   <!-- Fields that are not present in the data are also omitted -->
   {#if hasField(data, table, field) }
-    <P>
-      {#if label}
+    <svelte:component this={WrapperComponent} class="pt-4">
+      {#if !nested}
         <P class="pt-4">
           <FieldLabel table={table} field={field}/>
         </P>
@@ -53,6 +56,6 @@
       {:else}
         <NotImplemented message="Field Type {fieldtype} not yet implemented." />
       {/if}
-    </P>
+    </svelte:component>
   {/if}
 {/if}
