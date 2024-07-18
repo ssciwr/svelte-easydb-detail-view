@@ -2,7 +2,6 @@
   import { easydb_api_object } from "../lib/apiaccess";
   import { pregen_instance } from "../lib/easydbPregen";
   import { maskObj } from "../lib/easydbHelpers";
-  import { setContext } from "svelte";
   import { appLanguageStore, dataLanguagesStore, easydbInstanceStore, easydbDataPromiseStore } from "../lib/stores";
 
   import RecursiveEasyDbDetailView from "./RecursiveEasyDBDetailView.svelte";
@@ -15,9 +14,6 @@
   $: appLanguageStore.set(appLanguage);
   $: dataLanguagesStore.set(dataLanguages);
   $: easydbInstanceStore.set(easydbInstance);
-
-  setContext("appLanguage", appLanguageStore);
-  setContext("dataLanguages", dataLanguagesStore);
 </script>
 
 {#await $easydbDataPromiseStore }

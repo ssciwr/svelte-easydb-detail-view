@@ -1,7 +1,7 @@
 <script>
   import { fieldData, hasField } from "../lib/easydbHelpers";
-  import { A, P } from "flowbite-svelte";
-  import { getContext } from "svelte";
+  import { dataLanguagesStore } from "../lib/stores";
+  import { A } from "flowbite-svelte";
 
   import FieldLabel from "./FieldLabel.svelte";
 
@@ -9,7 +9,6 @@
   export let data;
   export let table;
 
-  const lang = getContext("dataLanguages")[0];
   const fdata = fieldData(data, table, field);
 </script>
 
@@ -17,7 +16,7 @@
   <FieldLabel table={table} field={field} />
   <span class="easydb-link">
     <A href="https://heidicon.ub.uni-heidelberg.de/#/detail/{fdata._uuid}">
-      {fdata["_standard"]["1"].text[lang]}
+      {fdata["_standard"]["1"].text[$dataLanguagesStore[0]]}
     </A>
   </span>
 {/if}

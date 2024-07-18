@@ -1,7 +1,7 @@
 <script>
-  import { hasReverseSubData, hasSubData, linkedSubData, reverseLinkedSubData, splitterTitle } from "../lib/easydbHelpers"
+  import { hasReverseSubData, hasSubData, linkedSubData, reverseLinkedSubData, splitterTitle } from "../lib/easydbHelpers";
+  import { appLanguageStore } from "../lib/stores";
   import { Li, List, P } from "flowbite-svelte";
-  import { getContext } from "svelte";
   
   import FieldDispatch from "./FieldDispatch.svelte";
   import Link from "./Link.svelte";
@@ -17,7 +17,6 @@
   export let table;
   export let label = true;
 
-  const lang = getContext("appLanguage");
   const firstField = fields[0];
 
   let tab_is_open = false;
@@ -118,7 +117,7 @@
       </Tabs>
       <svelte:self fields={fields.slice(findMatch("tabs-begin", "tabs-end") + 1)} data={data} table={table} label={label}/>
     {:else if firstField.type === "split" }
-      {splitterTitle(data, table, JSON.parse(firstField.options), $lang)}
+      {splitterTitle(data, table, JSON.parse(firstField.options), $appLanguageStore)}
       <svelte:self fields={fields.slice(1)} data={data} table={table} label={label}/>
     {:else}
       <p>Splitter of type {firstField.type} not yet implemented.</p>

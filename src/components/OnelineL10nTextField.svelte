@@ -1,13 +1,11 @@
 <script>
   import { fieldData } from "../lib/easydbHelpers";
+  import { dataLanguagesStore } from "../lib/stores";
   import { bestLanguage } from "../lib/l10n";
-  import { getContext } from "svelte";
 
   export let data;
   export let field;
   export let table;
-
-  const lang = getContext("dataLanguages")[0];
 </script>
   
-<span class="easydb-oneline-l10n-text-field">{bestLanguage(fieldData(data, table, field), $lang)}</span>
+<span class="easydb-oneline-l10n-text-field">{bestLanguage(fieldData(data, table, field), $dataLanguagesStore)}</span>
