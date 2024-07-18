@@ -1,5 +1,5 @@
 <script>
-  import { Button, Heading, Label, Input, Select } from "flowbite-svelte";
+  import { Button, Heading, Input, Label, MultiSelect, Select } from "flowbite-svelte";
   import EasyDbDetailView from "./components/EasyDBDetailView.svelte";
 
   let uuid = "859e2318-32f6-4013-8468-ef8cec0b581b";
@@ -10,6 +10,7 @@
     { value: 'en-US', name: 'English'},
   ];
   let selected_app_language = 'de-DE';
+  let selected_data_languages = ['de-DE', 'en-US'];
 </script>
 
 <main class="container mx-auto">
@@ -57,9 +58,15 @@
         </Label>
         <Select class="w-full" items={languages} bind:value={selected_app_language} />
       </div>
+      <div class="space-y-2 p-4">
+        <Label>
+          Data Languages:
+        </Label>
+        <MultiSelect items={languages} bind:value={selected_data_languages} />
+      </div>
     </div>
     <div class="w-1/2 p-4 border border-gray-300">
-      <EasyDbDetailView uuid={uuid} appLanguage={selected_app_language} easydb_instance={instance} />
+      <EasyDbDetailView uuid={uuid} appLanguage={selected_app_language} dataLanguages={selected_data_languages} easydbInstance={instance} />
     </div>
   </div>
 </main>

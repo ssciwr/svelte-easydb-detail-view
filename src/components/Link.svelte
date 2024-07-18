@@ -9,7 +9,7 @@
   export let data;
   export let table;
 
-  const lang = getContext("appLanguage");
+  const lang = getContext("dataLanguages")[0];
   const fdata = fieldData(data, table, field);
 </script>
 
