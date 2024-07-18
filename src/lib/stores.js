@@ -34,7 +34,7 @@ export const easydbInstanceStore = writable(null);
 export const easydbDataPromiseStore = derived(
   easydbInstanceStore,
   ($instance) => {
-    if ($instance === pregen_instance) {
+    if (($instance === null) || ($instance === pregen_instance)) {
       return pregenDefaults();
     }
     return accessInstance($instance);
