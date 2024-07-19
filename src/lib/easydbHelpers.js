@@ -13,7 +13,13 @@ export function findSchemaColumn(table, field) {
 
 // Given a data JSON object and the field definition from a mask, return the label of the field with the language code lang
 export function fieldLabel(table, field, lang) {
-  return bestLanguage(get(easydbDataStore).l10n[`schema.${table}.column.${field.column_name_hint}`], lang);
+  if (field.column_name_hint) {
+    return bestLanguage(get(easydbDataStore).l10n[`schema.${table}.column.${field.column_name_hint}`], lang);
+  }
+  if (field.other_table_name_hint) {
+    return bestLanguage(get(easydbDataStore).l10n[`schema.${field.other_table_name_hint}.name`], lang);
+  }
+  return "Error retrieving label";
 }
 
 // Given a data JSON object and the field definition from a mask, return a boolean whether it exists in the data

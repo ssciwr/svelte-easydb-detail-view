@@ -83,7 +83,7 @@
     {#if hasSubData(data, table, firstField)}
       {#if !nested }
         <P class="pt-4">
-          <FieldLabel field={firstField.mask.fields[0]} table={firstField.other_table_name_hint}/>
+          <FieldLabel field={firstField} table={firstField.other_table_name_hint}/>
         </P>
       {/if}
       <LinkedTable>
