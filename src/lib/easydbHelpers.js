@@ -22,16 +22,27 @@ export function fieldLabel(table, field, lang) {
   return "Error retrieving label";
 }
 
-// Given a data JSON object and the field definition from a mask, return a boolean whether it exists in the data
-export function hasField(data, table, field) {
-  const dtable = table in data ? data[table] : data;
-  return field.column_name_hint in dtable;
-}
-
 // Given a data JSON object and the field definition from a mask, return the value of the field
 export function fieldData(data, table, field) {
   const dtable = table in data ? data[table] : data;
   return dtable[field.column_name_hint];  
+}
+
+// Given a data JSON object and the field definition from a mask, return a boolean whether it exists in the data
+export function hasField(data, table, field) {
+  // Boolean fields with custom_settings.boolean_show_false set to false should not be shown if the value is false
+  if (
+    (field.kind === 'field') &&
+    (findSchemaColumn(table, field).type === 'boolean') &&
+    (field.custom_settings.boolean_show_false === false) &&
+    (fieldData(data, table, field) === false)
+  ) {
+    return false;
+  }
+
+  // For all other fields, check if the field exists in the data
+  const dtable = table in data ? data[table] : data;
+  return field.column_name_hint in dtable;
 }
 
 export function hasSubData(data, table, field) {
