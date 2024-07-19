@@ -81,9 +81,11 @@
     <svelte:self fields={fields.slice(1)} data={data} table={table} nested={nested}/>
   {:else if firstField.kind === "linked-table" }
     {#if hasSubData(data, table, firstField)}
-      <P class="pt-4">
-        <FieldLabel field={firstField.mask.fields[0]} table={firstField.other_table_name_hint}/>
-      </P>
+      {#if !nested }
+        <P class="pt-4">
+          <FieldLabel field={firstField.mask.fields[0]} table={firstField.other_table_name_hint}/>
+        </P>
+      {/if}
       <LinkedTable>
         <List>
           {#each linkedSubData(data, table, firstField) as subdata}
@@ -127,7 +129,7 @@
       <svelte:self fields={fields.slice(1)} data={data} table={table} nested={nested}/>
     {/if}
   {:else if firstField.kind === "link" }
-    <Link field={firstField} data={data} table={table}/>
+    <Link field={firstField} data={data} table={table} nested={nested}/>
     <svelte:self fields={fields.slice(1)} data={data} table={table} nested={nested}/>
   {:else}
     <NotImplemented message="Mask element of kind {firstField.kind} not yet implemented" />
