@@ -3,6 +3,7 @@
   import { P } from "flowbite-svelte";
 
   // Import our field components
+  import Boolean from "./Boolean.svelte";
   import CustomDataTypeUbhdgnd from "./CustomDataTypeUBHDGND.svelte";
   import Date from "./Date.svelte";
   import Daterange from "./Daterange.svelte";
@@ -25,6 +26,7 @@
   const fieldtype = findSchemaColumn(table, field).type;
 
   const componentMapping = {
+    "boolean": Boolean,
     "custom:base.custom-data-type-ubhdgnd.ubhdgnd": CustomDataTypeUbhdgnd,
     "date": Date,
     "daterange": Daterange,
