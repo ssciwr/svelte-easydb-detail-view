@@ -10,6 +10,7 @@
   export let appLanguage = "de-DE";
   export let dataLanguages = ["de-DE", "en-US"];
   export let easydbInstance = pregen_instance;
+  export let mask = "";
 
   $: appLanguageStore.set(appLanguage);
   $: dataLanguagesStore.set(dataLanguages);
@@ -19,7 +20,7 @@
 {#await $easydbDataPromiseStore }
   Accessing the EasyDB instance...
 {:then}
-  {#await easydb_api_object(uuid) }
+  {#await easydb_api_object(uuid, mask) }
     Waiting for API response...
   {:then data }
     <RecursiveEasyDbDetailView fields={maskObj(data).fields} data={data} table={maskObj(data).table_name_hint}/>

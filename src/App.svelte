@@ -3,6 +3,7 @@
   import EasyDbDetailView from "./components/EasyDBDetailView.svelte";
 
   let uuid = "859e2318-32f6-4013-8468-ef8cec0b581b";
+  let mask = "";
   let instance = "https://heidicon.ub.uni-heidelberg.de";
 
   let languages = [
@@ -64,9 +65,15 @@
         </Label>
         <MultiSelect items={languages} bind:value={selected_data_languages} />
       </div>
+      <div class="space-y-2 p-4">
+        <Label>
+          Mask (leave empty for default mask):
+        </Label>
+        <Input bind:value={mask} />
+      </div>
     </div>
     <div class="w-1/2 p-4 border border-gray-300">
-      <EasyDbDetailView uuid={uuid} appLanguage={selected_app_language} dataLanguages={selected_data_languages} easydbInstance={instance} />
+      <EasyDbDetailView uuid={uuid} appLanguage={selected_app_language} dataLanguages={selected_data_languages} easydbInstance={instance} mask={mask}/>
     </div>
   </div>
 </main>
