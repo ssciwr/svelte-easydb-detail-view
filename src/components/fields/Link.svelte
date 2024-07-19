@@ -1,6 +1,6 @@
 <script>
-  import { fieldData, hasField } from "../lib/easydbHelpers";
-  import { dataLanguagesStore } from "../lib/stores";
+  import { fieldData, hasField } from "../../lib/easydbHelpers";
+  import { dataLanguagesStore } from "../../lib/stores";
   import { A, P } from "flowbite-svelte";
 
   import FieldLabel from "./FieldLabel.svelte";

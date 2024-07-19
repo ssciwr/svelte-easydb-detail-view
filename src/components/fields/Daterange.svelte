@@ -1,5 +1,5 @@
 <script>
-    import { fieldData } from "../lib/easydbHelpers";
+    import { fieldData } from "../../lib/easydbHelpers";
     import { P } from "flowbite-svelte";
   
     export let data;

@@ -1,5 +1,5 @@
 <script>
-  import { hasContent } from "../lib/easydbHelpers";
+  import { hasContent } from "../../lib/easydbHelpers";
   import { Tabs } from "flowbite-svelte";
 
   export let data;

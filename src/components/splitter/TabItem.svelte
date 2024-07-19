@@ -1,7 +1,7 @@
 <script>
   import { TabItem } from "flowbite-svelte";
-  import { hasContent, splitterTitle } from "../lib/easydbHelpers";
-  import { appLanguageStore } from "../lib/stores";
+  import { hasContent, splitterTitle } from "../../lib/easydbHelpers";
+  import { appLanguageStore } from "../../lib/stores";
 
   export let data;
   export let fields;

@@ -1,7 +1,7 @@
 <script>
-  import { fieldData } from "../lib/easydbHelpers";
-  import { dataLanguagesStore } from "../lib/stores";
-  import { orderLanguages } from "../lib/l10n";
+  import { fieldData } from "../../lib/easydbHelpers";
+  import { dataLanguagesStore } from "../../lib/stores";
+  import { orderLanguages } from "../../lib/l10n";
 
   import { Table, TableBody, TableBodyRow, TableBodyCell } from "flowbite-svelte";
 

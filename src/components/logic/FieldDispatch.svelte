@@ -1,20 +1,20 @@
 <script>
-  import { findSchemaColumn, hasField } from "../lib/easydbHelpers";
+  import { findSchemaColumn, hasField } from "../../lib/easydbHelpers";
   import { P } from "flowbite-svelte";
 
   // Import our field components
-  import Boolean from "./Boolean.svelte";
-  import CustomDataTypeUbhdgnd from "./CustomDataTypeUBHDGND.svelte";
-  import Date from "./Date.svelte";
-  import Daterange from "./Daterange.svelte";
-  import Eas from "./Eas.svelte";
-  import FieldLabel from "./FieldLabel.svelte";
-  import L10nTextField from "./L10nTextField.svelte";
-  import OnelineL10nTextField from "./OnelineL10nTextField.svelte";
-  import OnelineTextField from "./OnelineTextField.svelte";
-  import TextField from "./TextField.svelte";
-  import NotImplemented from "./NotImplemented.svelte";
-  import NoOp from "./NoOp.svelte";
+  import Boolean from "../fields/Boolean.svelte";
+  import CustomDataTypeUbhdgnd from "../fields/CustomDataTypeUBHDGND.svelte";
+  import Date from "../fields/Date.svelte";
+  import Daterange from "../fields/Daterange.svelte";
+  import Eas from "../fields/Eas.svelte";
+  import FieldLabel from "../fields/FieldLabel.svelte";
+  import L10nTextField from "../fields/L10nTextField.svelte";
+  import OnelineL10nTextField from "../fields/OnelineL10nTextField.svelte";
+  import OnelineTextField from "../fields/OnelineTextField.svelte";
+  import TextField from "../fields/TextField.svelte";
+  import NotImplemented from "../utils/NotImplemented.svelte";
+  import NoOp from "../utils/NoOp.svelte";
 
   export let field;
   export let data;

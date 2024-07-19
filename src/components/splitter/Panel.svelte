@@ -1,6 +1,6 @@
 <script>
-  import { hasContent, splitterTitle } from "../lib/easydbHelpers";
-  import { appLanguageStore } from "../lib/stores";
+  import { hasContent, splitterTitle } from "../../lib/easydbHelpers";
+  import { appLanguageStore } from "../../lib/stores";
 
   import { Accordion, AccordionItem } from "flowbite-svelte";
 

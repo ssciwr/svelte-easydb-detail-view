@@ -1,6 +1,6 @@
 <script>
-  import { fieldLabel } from "../lib/easydbHelpers";
-  import { appLanguageStore } from "../lib/stores";
+  import { fieldLabel } from "../../lib/easydbHelpers";
+  import { appLanguageStore } from "../../lib/stores";
 
   export let field;
   export let table;

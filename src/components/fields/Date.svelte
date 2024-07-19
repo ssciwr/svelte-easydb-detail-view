@@ -1,5 +1,5 @@
 <script>
-    import { fieldData } from "../lib/easydbHelpers";
+    import { fieldData } from "../../lib/easydbHelpers";
   
     export let data;
     export let field;

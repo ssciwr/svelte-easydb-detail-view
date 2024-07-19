@@ -1,6 +1,6 @@
 <script>
   import { VERSION } from "svelte/compiler";
-import { fieldData } from "../lib/easydbHelpers";
+import { fieldData } from "../../lib/easydbHelpers";
   import { Img } from "flowbite-svelte";
 
   export let data;

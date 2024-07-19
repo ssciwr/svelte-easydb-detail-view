@@ -1,17 +1,17 @@
 <script>
-  import { hasReverseSubData, hasSubData, linkedSubData, reverseLinkedSubData, splitterTitle } from "../lib/easydbHelpers";
-  import { appLanguageStore } from "../lib/stores";
+  import { hasReverseSubData, hasSubData, linkedSubData, reverseLinkedSubData, splitterTitle } from "../../lib/easydbHelpers";
+  import { appLanguageStore } from "../../lib/stores";
   import { Li, List, P } from "flowbite-svelte";
   
   import FieldDispatch from "./FieldDispatch.svelte";
-  import Link from "./Link.svelte";
-  import LinkedTable from "./LinkedTable.svelte";
-  import Panel from "./Panel.svelte";
-  import ReverseLinkedTable from "./ReverseLinkedTable.svelte";
-  import Tabs from "./Tabs.svelte";
-  import TabItem from "./TabItem.svelte";
-  import FieldLabel from "./FieldLabel.svelte";
-  import NotImplemented from "./NotImplemented.svelte";
+  import Link from "../fields/Link.svelte";
+  import LinkedTable from "../fields/LinkedTable.svelte";
+  import Panel from "../splitter/Panel.svelte";
+  import ReverseLinkedTable from "../fields/ReverseLinkedTable.svelte";
+  import Tabs from "../splitter/Tabs.svelte";
+  import TabItem from "../splitter/TabItem.svelte";
+  import FieldLabel from "../fields/FieldLabel.svelte";
+  import NotImplemented from "../utils/NotImplemented.svelte";
 
   export let fields;
   export let data;

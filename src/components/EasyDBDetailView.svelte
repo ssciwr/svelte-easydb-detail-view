@@ -4,7 +4,7 @@
   import { maskObj } from "../lib/easydbHelpers";
   import { appLanguageStore, dataLanguagesStore, easydbInstanceStore, easydbDataPromiseStore } from "../lib/stores";
 
-  import RecursiveEasyDbDetailView from "./RecursiveEasyDBDetailView.svelte";
+  import RecursiveEasyDbDetailView from "./logic/RecursiveEasyDBDetailView.svelte";
 
   export let uuid = "";
   export let appLanguage = "de-DE";
