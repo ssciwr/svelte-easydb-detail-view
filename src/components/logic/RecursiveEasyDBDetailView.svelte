@@ -74,6 +74,20 @@
     }
     return polished;
   }
+
+  // A function to decide whether an entry of a linked table should be displayed
+  // in condensed form with bullet point or in full form. It was a really hard task
+  // to reverse engineer this from EasyDB. So it might need more revisions if we
+  // find counter examples.
+  function decideCondense(field) {
+    if (field.mask.fields.length === 1) {
+      return true;
+    }
+    if (field.custom_settings.condensed_output) {
+      return true;
+    }
+    return false;
+  }
 </script>
 
 {#if fields.length > 0}
@@ -91,7 +105,7 @@
         <List>
           {#each linkedSubData(data, table, firstField) as subdata}
             <Li>
-              <svelte:self fields={firstField.mask.fields} data={subdata} table={firstField.other_table_name_hint} condensed={true} />
+              <svelte:self fields={firstField.mask.fields} data={subdata} table={firstField.other_table_name_hint} condensed={decideCondense(firstField)} />
             </Li>
           {/each}
         </List>
