@@ -6,14 +6,22 @@
   export let table;
 
   const fdata = fieldData(data, table, field);
-  const from = Number(fdata["from"]);
-  const to = Number(fdata["to"]);
+
+  function format(date) {
+    // We do have dates of the form "0300", which should be displayed as "300".
+    if (!isNaN(Number(date))) {
+      return String(Number(date));
+    }
+    // Additional formatting rules might be required here.
+
+    return date;
+  }
 </script>
 
 <!-- EasyDB seems to have a shortcut to collapse date ranges to actual dates if
 start and end that coincide. We do the same here. -->
-{#if from === to}
-  <span class="easydb-daterange-field">{from}</span>
+{#if fdata["from"] === fdata["to"]}
+  <span class="easydb-daterange-field">{format(fdata["from"])}</span>
 {:else}
-  <span class="easydb-daterange-field">{from} - {to}</span>
+  <span class="easydb-daterange-field">{format(fdata["from"])} - {format(fdata["to"])}</span>
 {/if}
