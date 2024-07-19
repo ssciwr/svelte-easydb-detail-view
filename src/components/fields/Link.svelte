@@ -8,13 +8,13 @@
   export let field;
   export let data;
   export let table;
-  export let nested;
+  export let condensed;
 
   const fdata = fieldData(data, table, field);
 </script>
 
 {#if hasField(data, table, field)}
-  {#if !nested}
+  {#if !condensed}
     <P class="pt-4">
       <FieldLabel table={table} field={field} />
     </P>

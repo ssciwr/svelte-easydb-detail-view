@@ -16,7 +16,7 @@
   export let fields;
   export let data;
   export let table;
-  export let nested = false;
+  export let condensed = false;
 
   const firstField = fields[0];
 
@@ -30,6 +30,7 @@
       return true;
     }
   }
+
   function findMatch(start, end) {
     let count = 0;
     for (const [i, field] of fields.entries()) {
@@ -77,11 +78,11 @@
 
 {#if fields.length > 0}
   {#if firstField.kind === "field" }
-    <FieldDispatch field={firstField} data={data} table={table} nested={nested}/>
-    <svelte:self fields={fields.slice(1)} data={data} table={table} nested={nested}/>
+    <FieldDispatch field={firstField} data={data} table={table} condensed={condensed}/>
+    <svelte:self fields={fields.slice(1)} data={data} table={table} condensed={condensed}/>
   {:else if firstField.kind === "linked-table" }
     {#if hasSubData(data, table, firstField)}
-      {#if !nested }
+      {#if !condensed }
         <P class="pt-4">
           <FieldLabel field={firstField} table={firstField.other_table_name_hint}/>
         </P>
@@ -90,49 +91,49 @@
         <List>
           {#each linkedSubData(data, table, firstField) as subdata}
             <Li>
-              <svelte:self fields={firstField.mask.fields} data={subdata} table={firstField.other_table_name_hint} nested={true} />
+              <svelte:self fields={firstField.mask.fields} data={subdata} table={firstField.other_table_name_hint} condensed={true} />
             </Li>
           {/each}
         </List>
       </LinkedTable>
     {/if}
-    <svelte:self fields={fields.slice(1)} data={data} table={table} nested={nested}/>
+    <svelte:self fields={fields.slice(1)} data={data} table={table} condensed={condensed}/>
   {:else if firstField.kind === "reverse-linked-table" }
     {#if hasReverseSubData(data, table, firstField) }
       <ReverseLinkedTable>
         {#each reverseLinkedSubData(data, table, firstField) as subdata }
-          <svelte:self fields={firstField.mask.fields} data={subdata} table={firstField.other_table_name_hint} nested={nested}/>
+          <svelte:self fields={firstField.mask.fields} data={subdata} table={firstField.other_table_name_hint} condensed={condensed}/>
         {/each}
       </ReverseLinkedTable>
     {/if}
-    <svelte:self fields={fields.slice(1)} data={data} table={table} nested={nested}/>
+    <svelte:self fields={fields.slice(1)} data={data} table={table} condensed={condensed}/>
   {:else if firstField.kind === "splitter" }
     {#if firstField.type === "panel-begin" }
       <Panel fields={fields.slice(0, findMatch("panel-begin", "panel-end"))} data={data} table={table}>
-        <svelte:self fields={fields.slice(1, findMatch("panel-begin", "panel-end"))} data={data} table={table} nested={nested}/>
+        <svelte:self fields={fields.slice(1, findMatch("panel-begin", "panel-end"))} data={data} table={table} condensed={condensed}/>
       </Panel>
-      <svelte:self fields={fields.slice(findMatch("panel-begin", "panel-end") + 1)} data={data} table={table} nested={nested}/>
+      <svelte:self fields={fields.slice(findMatch("panel-begin", "panel-end") + 1)} data={data} table={table} condensed={condensed}/>
     {:else if firstField.type === "tabs-begin" }
       <Tabs fields={fields} data={data} table={table}>
         {#each findTabs() as tab}
           <TabItem fields={tab} data={data} table={table} open={openTab()}>
-            <svelte:self fields={tab.slice(1)} data={data} table={table} nested={nested}/>
+            <svelte:self fields={tab.slice(1)} data={data} table={table} condensed={condensed}/>
           </TabItem>
         {/each}
       </Tabs>
-      <svelte:self fields={fields.slice(findMatch("tabs-begin", "tabs-end") + 1)} data={data} table={table} nested={nested}/>
+      <svelte:self fields={fields.slice(findMatch("tabs-begin", "tabs-end") + 1)} data={data} table={table} condensed={condensed}/>
     {:else if firstField.type === "split" }
       {splitterTitle(data, table, JSON.parse(firstField.options), $appLanguageStore)}
-      <svelte:self fields={fields.slice(1)} data={data} table={table} nested={nested}/>
+      <svelte:self fields={fields.slice(1)} data={data} table={table} condensed={condensed}/>
     {:else}
       <p>Splitter of type {firstField.type} not yet implemented.</p>
-      <svelte:self fields={fields.slice(1)} data={data} table={table} nested={nested}/>
+      <svelte:self fields={fields.slice(1)} data={data} table={table} condensed={condensed}/>
     {/if}
   {:else if firstField.kind === "link" }
-    <Link field={firstField} data={data} table={table} nested={nested}/>
-    <svelte:self fields={fields.slice(1)} data={data} table={table} nested={nested}/>
+    <Link field={firstField} data={data} table={table} condensed={condensed}/>
+    <svelte:self fields={fields.slice(1)} data={data} table={table} condensed={condensed}/>
   {:else}
     <NotImplemented message="Mask element of kind {firstField.kind} not yet implemented" />
-    <svelte:self fields={fields.slice(1)} data={data} table={table} nested={nested}/>
+    <svelte:self fields={fields.slice(1)} data={data} table={table} condensed={condensed}/>
   {/if}
 {/if}

@@ -19,9 +19,9 @@
   export let field;
   export let data;
   export let table;
-  export let nested;
+  export let condensed;
 
-  const WrapperComponent = nested ? NoOp : P;
+  const WrapperComponent = condensed ? NoOp : P;
 
   const fieldtype = findSchemaColumn(table, field).type;
 
@@ -44,7 +44,7 @@
   <!-- Fields that are not present in the data are also omitted -->
   {#if hasField(data, table, field) }
     <svelte:component this={WrapperComponent} class="pt-4">
-      {#if !nested}
+      {#if !condensed}
         <P class="pt-4">
           <FieldLabel table={table} field={field}/>
         </P>
