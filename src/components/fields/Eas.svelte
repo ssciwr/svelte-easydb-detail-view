@@ -17,7 +17,7 @@
 </script>
 
 {#each fdata as image}
-  <Card img={has_preview_image(image) ? image.versions["preview"].url : null} horizontal class="w-full">
+  <Card img={has_preview_image(image) ? image.versions["preview"].url : null} horizontal class="max-w-full">
     {image.original_filepath}
     {image.versions["preview"].dpi} DPI
   </Card>
