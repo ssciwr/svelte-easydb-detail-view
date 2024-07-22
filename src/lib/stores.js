@@ -27,6 +27,10 @@ export const appLanguageStore = writable(null);
 // This manages the global state of the current data language
 export const dataLanguagesStore = writable(null);
 
+// This manages the global state of the currently shown object UUID
+// It is organized as a stack to allow for back navigation
+export const uuidStore = writable([]);
+
 // This manages the global state of the EasyDB instance we are talking to
 export const easydbInstanceStore = writable(null);
 
