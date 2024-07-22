@@ -1,6 +1,6 @@
 <script>
   import { fieldData } from "../../lib/easydbHelpers";
-  import { Card } from "flowbite-svelte";
+  import { Card, P } from "flowbite-svelte";
 
   export let data;
   export let field;
@@ -18,7 +18,15 @@
 
 {#each fdata as image}
   <Card img={has_preview_image(image) ? image.versions["preview"].url : null} horizontal class="max-w-full">
-    {image.original_filepath}
-    {image.versions["preview"].dpi} DPI
+    <P>
+      {image.original_filepath}
+    </P>
+    <P>
+      {#if image.versions.original.compiled}
+        {image.versions.original.compiled}
+      {:else}
+        Need to freestyle information here.
+      {/if}
+    </P>
   </Card>
 {/each}
