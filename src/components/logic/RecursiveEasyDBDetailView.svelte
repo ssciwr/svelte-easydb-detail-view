@@ -8,6 +8,7 @@
   import LinkedTable from "../fields/LinkedTable.svelte";
   import Panel from "../splitter/Panel.svelte";
   import ReverseLinkedTable from "../fields/ReverseLinkedTable.svelte";
+  import Split from "../splitter/Split.svelte";
   import Tabs from "../splitter/Tabs.svelte";
   import TabItem from "../splitter/TabItem.svelte";
   import FieldLabel from "../fields/FieldLabel.svelte";
@@ -137,7 +138,7 @@
       </Tabs>
       <svelte:self fields={fields.slice(findMatch("tabs-begin", "tabs-end") + 1)} data={data} table={table} condensed={condensed}/>
     {:else if firstField.type === "split" }
-      {splitterTitle(data, table, JSON.parse(firstField.options), $appLanguageStore)}
+      <Split field={firstField} data={data} table={table}/>
       <svelte:self fields={fields.slice(1)} data={data} table={table} condensed={condensed}/>
     {:else}
       <p>Splitter of type {firstField.type} not yet implemented.</p>
