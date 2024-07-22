@@ -4,6 +4,7 @@
   import { maskObj } from "../lib/easydbHelpers";
   import { appLanguageStore, dataLanguagesStore, easydbInstanceStore, easydbInstanceDataPromiseStore, uuidStore } from "../lib/stores";
 
+  import AssetViewer from "./logic/AssetViewer.svelte";
   import RecursiveEasyDbDetailView from "./logic/RecursiveEasyDBDetailView.svelte";
 
   export let uuid = "";
@@ -24,6 +25,7 @@
   {#await easydb_api_object($uuidStore.at(-1), mask) }
     Waiting for API response...
   {:then data }
+    <AssetViewer fields={maskObj(data).fields} data={data} table={maskObj(data).table_name_hint}/>
     <RecursiveEasyDbDetailView fields={maskObj(data).fields} data={data} table={maskObj(data).table_name_hint}/>
   {/await}
 {/await}
