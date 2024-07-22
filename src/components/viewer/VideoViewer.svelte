@@ -4,4 +4,4 @@
   export let asset;
 </script>
 
-<Video src={asset.versions.original.url} controls />
+<Video src={asset.versions.original.url} poster={asset.versions.preview.url} controls />
