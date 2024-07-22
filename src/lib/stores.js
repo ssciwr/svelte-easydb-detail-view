@@ -35,7 +35,7 @@ export const uuidStore = writable([]);
 export const easydbInstanceStore = writable(null);
 
 // A derived store that delivers a promise.
-export const easydbDataPromiseStore = derived(
+export const easydbInstanceDataPromiseStore = derived(
   easydbInstanceStore,
   ($instance) => {
     if (($instance === null) || ($instance === pregen_instance)) {
@@ -48,4 +48,4 @@ export const easydbDataPromiseStore = derived(
 // A derived store that awaits above promise. It would be better to not even
 // expose the promise store, but I did not get this to work without the explicit
 // await in EasyDBDetailView.svelte.
-export const easydbDataStore = derivedPromise(easydbDataPromiseStore);
+export const easydbInstanceDataStore = derivedPromise(easydbInstanceDataPromiseStore);

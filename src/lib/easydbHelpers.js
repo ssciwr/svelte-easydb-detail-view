@@ -1,23 +1,23 @@
-import { easydbDataStore } from './stores';
+import { easydbInstanceDataStore } from './stores';
 import { get } from 'svelte/store';
 import { bestLanguage } from './l10n';
 
 export function maskObj(data) {
-  return get(easydbDataStore).masks[data._mask];
+  return get(easydbInstanceDataStore).masks[data._mask];
 }
 
 // Given a data JSON object and a field from a mask, return the schema for that column
 export function findSchemaColumn(table, field) {
-  return get(easydbDataStore).schemas[table].columns.find((column) => column.name === field.column_name_hint);
+  return get(easydbInstanceDataStore).schemas[table].columns.find((column) => column.name === field.column_name_hint);
 }
 
 // Given a data JSON object and the field definition from a mask, return the label of the field with the language code lang
 export function fieldLabel(table, field, lang) {
   if (field.column_name_hint) {
-    return bestLanguage(get(easydbDataStore).l10n[`schema.${table}.column.${field.column_name_hint}`], lang);
+    return bestLanguage(get(easydbInstanceDataStore).l10n[`schema.${table}.column.${field.column_name_hint}`], lang);
   }
   if (field.other_table_name_hint) {
-    return bestLanguage(get(easydbDataStore).l10n[`schema.${field.other_table_name_hint}.name`], lang);
+    return bestLanguage(get(easydbInstanceDataStore).l10n[`schema.${field.other_table_name_hint}.name`], lang);
   }
   return "Error retrieving label";
 }
@@ -66,7 +66,7 @@ export function reverseLinkedSubData(data, table, field) {
 }
 
 export function splitterTitle(data, table, options, lang) {
-  return bestLanguage(get(easydbDataStore).l10n[`mask.${get(easydbDataStore).schemas[table].table_id}.${maskObj(data).name}.splitter.${String(options.splitterIdx)}`], lang);
+  return bestLanguage(get(easydbInstanceDataStore).l10n[`mask.${get(easydbInstanceDataStore).schemas[table].table_id}.${maskObj(data).name}.splitter.${String(options.splitterIdx)}`], lang);
 }
 
 export function hasContent(data, table, fields) {

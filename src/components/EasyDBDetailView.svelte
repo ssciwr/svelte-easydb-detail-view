@@ -2,7 +2,7 @@
   import { easydb_api_object } from "../lib/apiaccess";
   import { pregen_instance } from "../lib/easydbPregen";
   import { maskObj } from "../lib/easydbHelpers";
-  import { appLanguageStore, dataLanguagesStore, easydbInstanceStore, easydbDataPromiseStore, uuidStore } from "../lib/stores";
+  import { appLanguageStore, dataLanguagesStore, easydbInstanceStore, easydbInstanceDataPromiseStore, uuidStore } from "../lib/stores";
 
   import RecursiveEasyDbDetailView from "./logic/RecursiveEasyDBDetailView.svelte";
 
@@ -18,7 +18,7 @@
   $: uuidStore.update((existing) => [...existing, uuid]);
 </script>
 
-{#await $easydbDataPromiseStore }
+{#await $easydbInstanceDataPromiseStore }
   Accessing the EasyDB instance...
 {:then}
   {#await easydb_api_object($uuidStore.at(-1), mask) }
