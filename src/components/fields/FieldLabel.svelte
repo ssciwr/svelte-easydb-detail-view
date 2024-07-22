@@ -6,4 +6,6 @@
   export let table;
 </script>
 
-<span class="text-sm easydb-label">{fieldLabel(table, field, $appLanguageStore)}</span>
+{#if !(field.custom_settings.hide_label === true)}
+  <span class="text-sm easydb-label">{fieldLabel(table, field, $appLanguageStore)}</span>
+{/if}

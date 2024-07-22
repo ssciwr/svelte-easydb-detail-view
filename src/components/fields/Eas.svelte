@@ -1,7 +1,6 @@
 <script>
-  import { VERSION } from "svelte/compiler";
-import { fieldData } from "../../lib/easydbHelpers";
-  import { Img } from "flowbite-svelte";
+  import { fieldData } from "../../lib/easydbHelpers";
+  import { Card } from "flowbite-svelte";
 
   export let data;
   export let field;
@@ -9,22 +8,19 @@ import { fieldData } from "../../lib/easydbHelpers";
 
   const fdata = fieldData(data, table, field);
 
-  // The order of priority for selecting the preview image
-  const preview_priority = ["preview", "small", "huge", "full", "original"];
-
-  function select_preview_image(img) {
-    for(let version of preview_priority) {
-      if("download_url" in img.versions[version]) {
-        return version;
-      }
+  function has_preview_image(img) {
+    if (img.versions.preview.class === "image") {
+      return true;
     }
+    return false;
   }
 </script>
 
 {#each fdata as image}
-  {#if select_preview_image(image) !== undefined }
-    <Img src={image.versions[select_preview_image(image)].download_url} />
+  {#if has_preview_image(image)}
+    <Card img={has_preview_image(image) ? image.versions["preview"].url : null} horizontal class="w-full">
+      {image.original_filepath}
+      {image.versions["preview"].dpi} DPI
+    </Card>
   {/if}
-  {image.original_filepath}
-  {image.versions[select_preview_image(image)].dpi} DPI
 {/each}
