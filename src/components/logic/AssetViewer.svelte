@@ -48,7 +48,9 @@
   component readily available from flowbite svelte -->
   {#if assets.every((asset) => asset.class === "image") }
     <Carousel images={getCarouselImages(assets)} imgClass="object-contain" class="bg-gray-200" let:Controls>
-      <Controls />
+      {#if assets.length > 1}
+        <Controls />
+      {/if}
     </Carousel>
   {:else}
     <!-- In this case we construct our own carousel-like thing with pagination -->
