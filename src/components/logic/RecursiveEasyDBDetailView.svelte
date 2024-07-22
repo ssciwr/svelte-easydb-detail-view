@@ -1,8 +1,8 @@
 <script>
   import { hasReverseSubData, hasSubData, linkedSubData, reverseLinkedSubData, splitterTitle } from "../../lib/easydbHelpers";
-  import { appLanguageStore } from "../../lib/stores";
   import { Li, List, P } from "flowbite-svelte";
   
+  import CustomSplitterDispatch from "./CustomSplitterDispatch.svelte";
   import FieldDispatch from "./FieldDispatch.svelte";
   import Link from "../fields/Link.svelte";
   import LinkedTable from "../fields/LinkedTable.svelte";
@@ -139,6 +139,9 @@
       <svelte:self fields={fields.slice(findMatch("tabs-begin", "tabs-end") + 1)} data={data} table={table} condensed={condensed}/>
     {:else if firstField.type === "split" }
       <Split field={firstField} data={data} table={table}/>
+      <svelte:self fields={fields.slice(1)} data={data} table={table} condensed={condensed}/>
+    {:else if firstField.type === "custom-begin" }
+      <CustomSplitterDispatch field={firstField} data={data} table={table}/>
       <svelte:self fields={fields.slice(1)} data={data} table={table} condensed={condensed}/>
     {:else}
       <p>Splitter of type {firstField.type} not yet implemented.</p>
