@@ -39,7 +39,6 @@
   }
 
   const assets = findAssets(fields, table, data);
-  console.log(assets);
 </script>
 
 <!-- If there are no assets, no viewer is shown -->
