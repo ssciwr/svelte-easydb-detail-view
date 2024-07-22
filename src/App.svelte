@@ -1,5 +1,6 @@
 <script>
   import { Button, Heading, Input, Label, MultiSelect, Select } from "flowbite-svelte";
+  import { assetStore, easydbInstanceStore, easydbInstanceDataStore, easydbInstanceDataPromiseStore, uuidStore } from "./lib/stores";
   import EasyDbDetailView from "./components/EasyDBDetailView.svelte";
 
   let uuid = "859e2318-32f6-4013-8468-ef8cec0b581b";
@@ -12,6 +13,14 @@
   ];
   let selected_app_language = 'de-DE';
   let selected_data_languages = ['de-DE', 'en-US'];
+
+  function dumpStores() {
+    console.log("assetStore: ", $assetStore);
+    console.log("easydbInstanceStore: ", $easydbInstanceStore);
+    console.log("easydbInstanceDataStore: ", $easydbInstanceDataStore);
+    console.log("easydbInstanceDataPromiseStore: ", $easydbInstanceDataPromiseStore);
+    console.log("uuidStore: ", $uuidStore);
+  }
 </script>
 
 <main class="container mx-auto">
@@ -70,6 +79,9 @@
           Mask (leave empty for default mask):
         </Label>
         <Input bind:value={mask} />
+      </div>
+      <div class="space-y-2 p-4">
+        <Button on:click={dumpStores} class="w-full">Dump all stores to the console (Debugging)</Button>
       </div>
     </div>
     <div class="w-1/2 p-4 border border-gray-300">
