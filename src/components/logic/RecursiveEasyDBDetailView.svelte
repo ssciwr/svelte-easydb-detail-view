@@ -1,6 +1,6 @@
 <script>
   import { hasReverseSubData, hasSubData, linkedSubData, reverseLinkedSubData, splitterTitle } from "../../lib/easydbHelpers";
-  import { Li, List, P } from "flowbite-svelte";
+  import { Card, Li, List, P } from "flowbite-svelte";
   
   import CustomSplitterDispatch from "./CustomSplitterDispatch.svelte";
   import FieldDispatch from "./FieldDispatch.svelte";
@@ -117,7 +117,9 @@
     {#if hasReverseSubData(data, table, firstField) }
       <ReverseLinkedTable>
         {#each reverseLinkedSubData(data, table, firstField) as subdata }
-          <svelte:self fields={firstField.mask.fields} data={subdata} table={firstField.other_table_name_hint} condensed={condensed}/>
+          <Card class="max-w-full">
+            <svelte:self fields={firstField.mask.fields} data={subdata} table={firstField.other_table_name_hint} condensed={condensed}/>
+          </Card>
         {/each}
       </ReverseLinkedTable>
     {/if}
