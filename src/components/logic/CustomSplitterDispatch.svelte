@@ -3,9 +3,12 @@
   export let data;
   export let table;
 
+  import UbhdObjMaskSplitter from "../splitter/UBHDObjMaskSplitter.svelte";
+
   import NotImplemented from "../utils/NotImplemented.svelte";
 
   const componentMapping = {
+    "ubhd-obj-mask-splitter": UbhdObjMaskSplitter,
   };
 
   const options = JSON.parse(field.options);
