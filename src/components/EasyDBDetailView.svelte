@@ -16,7 +16,7 @@
   $: appLanguageStore.set(appLanguage);
   $: dataLanguagesStore.set(dataLanguages);
   $: easydbInstanceStore.set(easydbInstance);
-  $: uuidStore.update((existing) => [...existing, uuid]);
+  $: uuidStore.set([uuid]);
 </script>
 
 {#await $easydbInstanceDataPromiseStore }
