@@ -4,6 +4,7 @@
 
   // Import our field components
   import Boolean from "../fields/Boolean.svelte";
+  import CustomDataTypeLink from "../fields/CustomDataTypeLink.svelte";
   import CustomDataTypeUbhdgnd from "../fields/CustomDataTypeUBHDGND.svelte";
   import Date from "../fields/Date.svelte";
   import Daterange from "../fields/Daterange.svelte";
@@ -27,6 +28,7 @@
 
   const componentMapping = {
     "boolean": Boolean,
+    "custom:base.custom-data-type-link.link": CustomDataTypeLink,
     "custom:base.custom-data-type-ubhdgnd.ubhdgnd": CustomDataTypeUbhdgnd,
     "date": Date,
     "daterange": Daterange,
