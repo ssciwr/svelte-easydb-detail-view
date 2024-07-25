@@ -39,21 +39,18 @@
   };
 </script>
 
-<!-- Some fields are omitted from the detail view -->
-{#if field.output.detail }
-  <!-- Fields that are not present in the data are also omitted -->
-  {#if hasField(data, table, field) }
-    <svelte:component this={WrapperComponent} class="pt-4">
-      {#if !condensed}
-        <P class="pt-4">
-          <FieldLabel table={table} field={field}/>
-        </P>
-      {/if}
-      {#if fieldtype in componentMapping}
-        <svelte:component this={componentMapping[fieldtype]} data={data} field={field} table={table}/>
-      {:else}
-        <NotImplemented message="Field Type {fieldtype} not yet implemented." />
-      {/if}
-    </svelte:component>
-  {/if}
+<!-- Fields that are not present in the data are also omitted -->
+{#if hasField(data, table, field) }
+  <svelte:component this={WrapperComponent} class="pt-4">
+    {#if !condensed}
+      <P class="pt-4">
+        <FieldLabel table={table} field={field}/>
+      </P>
+    {/if}
+    {#if fieldtype in componentMapping}
+      <svelte:component this={componentMapping[fieldtype]} data={data} field={field} table={table}/>
+    {:else}
+      <NotImplemented message="Field Type {fieldtype} not yet implemented." />
+    {/if}
+  </svelte:component>
 {/if}

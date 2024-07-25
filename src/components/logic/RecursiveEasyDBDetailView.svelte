@@ -18,6 +18,7 @@
   export let data;
   export let table;
   export let condensed = false;
+  export let output = "detail";
 
   const firstField = fields[0];
 
@@ -93,10 +94,12 @@
 
 {#if fields.length > 0}
   {#if firstField.kind === "field" }
-    <FieldDispatch field={firstField} data={data} table={table} condensed={condensed}/>
+    {#if firstField.output[output] }
+      <FieldDispatch field={firstField} data={data} table={table} condensed={condensed}/>
+    {/if}
     <svelte:self fields={fields.slice(1)} data={data} table={table} condensed={condensed}/>
   {:else if firstField.kind === "linked-table" }
-    {#if hasSubData(data, table, firstField)}
+    {#if firstField.output[output] && hasSubData(data, table, firstField)}
       {#if !condensed }
         <P class="pt-4">
           <FieldLabel field={firstField} table={firstField.other_table_name_hint}/>
@@ -114,7 +117,7 @@
     {/if}
     <svelte:self fields={fields.slice(1)} data={data} table={table} condensed={condensed}/>
   {:else if firstField.kind === "reverse-linked-table" }
-    {#if hasReverseSubData(data, table, firstField) }
+    {#if firstField.output[output] && hasReverseSubData(data, table, firstField) }
       <ReverseLinkedTable>
         {#each reverseLinkedSubData(data, table, firstField) as subdata }
           <Card class="max-w-full">
@@ -150,7 +153,9 @@
       <svelte:self fields={fields.slice(1)} data={data} table={table} condensed={condensed}/>
     {/if}
   {:else if firstField.kind === "link" }
-    <Link field={firstField} data={data} table={table} condensed={condensed}/>
+    {#if firstField.output[output] }
+      <Link field={firstField} data={data} table={table} condensed={condensed}/>
+    {/if}
     <svelte:self fields={fields.slice(1)} data={data} table={table} condensed={condensed}/>
   {:else}
     <NotImplemented message="Mask element of kind {firstField.kind} not yet implemented" />
