@@ -14,10 +14,21 @@
     }
     return false;
   }
+
+  function technical_metadata(image) {
+    let snippets = [];
+    if("dpi" in image.technical_metadata) {
+      snippets.push(`${image.technical_metadata.dpi} DPI`);
+    }
+    if("colorprofile" in image.technical_metadata) {
+      snippets.push(image.technical_metadata.colorprofile);
+    }
+    return snippets.join(", ");
+  }
 </script>
 
 {#each fdata as image}
-  <Card img={has_preview_image(image) ? image.versions["preview"].url : null} horizontal class="max-w-full">
+  <Card img={has_preview_image(image) ? image.versions["preview"].url : null} horizontal class="max-w-full h-24">
     <P>
       {image.original_filepath}
     </P>
@@ -25,7 +36,7 @@
       {#if image.versions.original.compiled}
         {image.versions.original.compiled}
       {:else}
-        Need to freestyle information here.
+        {technical_metadata(image)}
       {/if}
     </P>
   </Card>
