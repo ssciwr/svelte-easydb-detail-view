@@ -16,6 +16,7 @@
   import FieldLabel from "../fields/FieldLabel.svelte";
   import NotImplemented from "../utils/NotImplemented.svelte";
   import Waiting from "../utils/Waiting.svelte";
+  import BracketList from "../utils/BracketList.svelte";
 
   export let fields;
   export let data;
@@ -114,13 +115,13 @@
         </P>
       {/if}
       <LinkedTable>
-        <List>
+        <svelte:component this={decideCondense(firstField) ? List : BracketList}>
           {#each linkedSubData(data, table, firstField) as subdata}
             <Li>
               <svelte:self fields={firstField.mask.fields} data={subdata} table={firstField.other_table_name_hint} condensed={decideCondense(firstField)} output={output}/>
             </Li>
           {/each}
-        </List>
+          </svelte:component>
       </LinkedTable>
     {/if}
     <svelte:self fields={fields.slice(1)} data={data} table={table} condensed={condensed} output={output}/>
