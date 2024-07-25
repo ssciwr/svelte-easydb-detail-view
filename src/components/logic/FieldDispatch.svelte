@@ -4,6 +4,7 @@
 
   // Import our field components
   import Boolean from "../fields/Boolean.svelte";
+  import CustomDataTypeGeonames from "../fields/CustomDataTypeGeonames.svelte";
   import CustomDataTypeLink from "../fields/CustomDataTypeLink.svelte";
   import CustomDataTypeUbhdgnd from "../fields/CustomDataTypeUBHDGND.svelte";
   import Date from "../fields/Date.svelte";
@@ -28,6 +29,7 @@
 
   const componentMapping = {
     "boolean": Boolean,
+    "custom:base.custom-data-type-geonames.geonames": CustomDataTypeGeonames,
     "custom:base.custom-data-type-link.link": CustomDataTypeLink,
     "custom:base.custom-data-type-ubhdgnd.ubhdgnd": CustomDataTypeUbhdgnd,
     "date": Date,
