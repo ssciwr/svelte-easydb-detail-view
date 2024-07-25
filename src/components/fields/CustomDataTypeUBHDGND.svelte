@@ -1,6 +1,8 @@
 <script>
   import { fieldData } from "../../lib/easydbHelpers";
-  import { A, P } from "flowbite-svelte";
+
+  import { A } from "flowbite-svelte";
+  import { ArrowUpRightFromSquareOutline } from "flowbite-svelte-icons";
 
   export let data;
   export let table;
@@ -28,5 +30,7 @@
 
 <span class="easydb-custom-ubhdgnd">
   {fdata.conceptName}{detailString(fdata.conceptDetails)}
-  <A href={fdata.conceptURI}>GND</A>
+  <A href={fdata.conceptURI}>
+    <ArrowUpRightFromSquareOutline class="w-4 h-4"/>
+  </A>
 </span>
