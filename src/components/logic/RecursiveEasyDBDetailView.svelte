@@ -1,5 +1,7 @@
 <script>
   import { fieldData, hasReverseSubData, hasSubData, linkedSubData, maskObj, reverseLinkedSubData, splitterTitle } from "../../lib/easydbHelpers";
+  import { easydb_api_object } from "../../lib/apiaccess";
+
   import { Card, Li, List, P } from "flowbite-svelte";
   
   import CustomSplitterDispatch from "./CustomSplitterDispatch.svelte";
@@ -13,7 +15,7 @@
   import TabItem from "../splitter/TabItem.svelte";
   import FieldLabel from "../fields/FieldLabel.svelte";
   import NotImplemented from "../utils/NotImplemented.svelte";
-  import { easydb_api_object } from "../../lib/apiaccess";
+  import Waiting from "../utils/Waiting.svelte";
 
   export let fields;
   export let data;
@@ -165,7 +167,9 @@
       {:else if firstField.inline === "text" }
         <Card horizontal class="max-w-full block">
           {#await loadAdditionalUUID(firstField)}
-            Loading...
+            <Waiting>
+              Accessing API...
+            </Waiting>
           {:then additionalData}
             <svelte:self fields={maskObj(additionalData).fields} data={additionalData} table={maskObj(additionalData).table_name_hint} condensed={condensed} output="text"/>
           {/await}

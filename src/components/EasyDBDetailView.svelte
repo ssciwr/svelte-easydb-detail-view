@@ -4,10 +4,12 @@
   import { maskObj } from "../lib/easydbHelpers";
   import { appLanguageStore, dataLanguagesStore, easydbInstanceStore, easydbInstanceDataPromiseStore, uuidStore } from "../lib/stores";
 
-  import AssetViewer from "./logic/AssetViewer.svelte";
-  import RecursiveEasyDbDetailView from "./logic/RecursiveEasyDBDetailView.svelte";
   import { A } from "flowbite-svelte";
   import { ArrowLeftOutline } from "flowbite-svelte-icons";
+
+  import AssetViewer from "./logic/AssetViewer.svelte";
+  import RecursiveEasyDbDetailView from "./logic/RecursiveEasyDBDetailView.svelte";
+  import Waiting from "./utils/Waiting.svelte";
 
   export let uuid = "";
   export let appLanguage = "de-DE";
@@ -29,10 +31,14 @@
 </script>
 
 {#await $easydbInstanceDataPromiseStore }
-  Accessing the EasyDB instance...
+  <Waiting>
+    Accessing the EasyDB instance...
+  </Waiting>
 {:then}
   {#await easydb_api_object($uuidStore.at(-1), mask) }
-    Waiting for API response...
+    <Waiting>
+      Waiting for API response...
+    </Waiting>
   {:then data }
     {#if $uuidStore.length > 1}
       <A on:click={() => { uuidStore.update((existing) => existing.slice(0, -1)); }}>
