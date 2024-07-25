@@ -162,7 +162,7 @@
     {/if}
   {:else if firstField.kind === "link" }
     {#if firstField.output[output] }
-      {#if firstField.inline === "standard" }
+      {#if (firstField.inline === "standard") || (firstField.inline === "short") }
         <Link field={firstField} data={data} table={table} condensed={condensed}/>
       {:else if firstField.inline === "text" }
         <Card horizontal class="max-w-full block">
@@ -175,7 +175,7 @@
           {/await}
         </Card>
       {:else}
-        <NotImplemented message="Link elemenoutput mode '{firstField.inline}'' not yet implemented" />
+        <NotImplemented message="Link output mode '{firstField.inline}' not yet implemented" />
       {/if}
     {/if}
     <svelte:self fields={fields.slice(1)} data={data} table={table} condensed={condensed} output={output}/>
