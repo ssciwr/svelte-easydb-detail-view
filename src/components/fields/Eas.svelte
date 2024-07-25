@@ -28,7 +28,7 @@
 </script>
 
 {#each fdata as image}
-  <Card img={has_preview_image(image) ? image.versions["preview"].url : null} horizontal class="max-w-full h-24">
+  <Card img={has_preview_image(image) ? image.versions["preview"].url : null} horizontal class="max-w-full">
     <P>
       {image.original_filepath}
     </P>
