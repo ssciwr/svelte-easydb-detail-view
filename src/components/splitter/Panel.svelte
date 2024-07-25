@@ -7,11 +7,12 @@
   export let data;
   export let fields;
   export let table;
+  export let output;
 
   const options = JSON.parse(fields[0].options);
 </script>
 
-{#if hasContent(data, table, fields)}
+{#if hasContent(data, table, fields, output)}
   <Accordion class="pt-6">
     <AccordionItem open={options.default_open_detail}>
       <span slot="header">{splitterTitle(data, table, options, $appLanguageStore)}</span>

@@ -6,12 +6,13 @@
   export let data;
   export let fields;
   export let table;
+  export let output;
   export let open;
 
   const options = JSON.parse(fields[0].options);
 </script>
 
-{#if hasContent(data, table, fields) }
+{#if hasContent(data, table, fields, output) }
   <TabItem open={open} title={splitterTitle(data, table, options, $appLanguageStore)}>
     <slot />
   </TabItem>

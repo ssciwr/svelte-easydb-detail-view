@@ -69,8 +69,11 @@ export function splitterTitle(data, table, options, lang) {
   return bestLanguage(get(easydbInstanceDataStore).l10n[`mask.${get(easydbInstanceDataStore).schemas[table].table_id}.${maskObj(data).name}.splitter.${String(options.splitterIdx)}`], lang);
 }
 
-export function hasContent(data, table, fields) {
+export function hasContent(data, table, fields, output) {
   for (let field of fields) {
+    if (("output" in field) && (field.output[output] === false)) {
+      continue;
+    }
     if (((field.kind === 'field') || (field.kind === 'link')) && (hasField(data, table, field))) {
       return true;
     }

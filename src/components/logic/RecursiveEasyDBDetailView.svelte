@@ -1,5 +1,5 @@
 <script>
-  import { hasReverseSubData, hasSubData, linkedSubData, reverseLinkedSubData, splitterTitle } from "../../lib/easydbHelpers";
+  import { fieldData, hasReverseSubData, hasSubData, linkedSubData, maskObj, reverseLinkedSubData, splitterTitle } from "../../lib/easydbHelpers";
   import { Card, Li, List, P } from "flowbite-svelte";
   
   import CustomSplitterDispatch from "./CustomSplitterDispatch.svelte";
@@ -13,6 +13,7 @@
   import TabItem from "../splitter/TabItem.svelte";
   import FieldLabel from "../fields/FieldLabel.svelte";
   import NotImplemented from "../utils/NotImplemented.svelte";
+  import { easydb_api_object } from "../../lib/apiaccess";
 
   export let fields;
   export let data;
@@ -90,6 +91,11 @@
     }
     return false;
   }
+
+  function loadAdditionalUUID(field) {
+    const fdata = fieldData(data, table, field);
+    return easydb_api_object(fdata._uuid, fdata._mask);
+  }
 </script>
 
 {#if fields.length > 0}
@@ -97,7 +103,7 @@
     {#if firstField.output[output] }
       <FieldDispatch field={firstField} data={data} table={table} condensed={condensed}/>
     {/if}
-    <svelte:self fields={fields.slice(1)} data={data} table={table} condensed={condensed}/>
+    <svelte:self fields={fields.slice(1)} data={data} table={table} condensed={condensed} output={output}/>
   {:else if firstField.kind === "linked-table" }
     {#if firstField.output[output] && hasSubData(data, table, firstField)}
       {#if !condensed }
@@ -109,56 +115,68 @@
         <List>
           {#each linkedSubData(data, table, firstField) as subdata}
             <Li>
-              <svelte:self fields={firstField.mask.fields} data={subdata} table={firstField.other_table_name_hint} condensed={decideCondense(firstField)} />
+              <svelte:self fields={firstField.mask.fields} data={subdata} table={firstField.other_table_name_hint} condensed={decideCondense(firstField)} output={output}/>
             </Li>
           {/each}
         </List>
       </LinkedTable>
     {/if}
-    <svelte:self fields={fields.slice(1)} data={data} table={table} condensed={condensed}/>
+    <svelte:self fields={fields.slice(1)} data={data} table={table} condensed={condensed} output={output}/>
   {:else if firstField.kind === "reverse-linked-table" }
     {#if firstField.output[output] && hasReverseSubData(data, table, firstField) }
       <ReverseLinkedTable>
         {#each reverseLinkedSubData(data, table, firstField) as subdata }
           <Card class="max-w-full">
-            <svelte:self fields={firstField.mask.fields} data={subdata} table={firstField.other_table_name_hint} condensed={condensed}/>
+            <svelte:self fields={firstField.mask.fields} data={subdata} table={firstField.other_table_name_hint} condensed={condensed} output={output}/>
           </Card>
         {/each}
       </ReverseLinkedTable>
     {/if}
-    <svelte:self fields={fields.slice(1)} data={data} table={table} condensed={condensed}/>
+    <svelte:self fields={fields.slice(1)} data={data} table={table} condensed={condensed} output={output}/>
   {:else if firstField.kind === "splitter" }
     {#if firstField.type === "panel-begin" }
-      <Panel fields={fields.slice(0, findMatch("panel-begin", "panel-end"))} data={data} table={table}>
-        <svelte:self fields={fields.slice(1, findMatch("panel-begin", "panel-end"))} data={data} table={table} condensed={condensed}/>
+      <Panel fields={fields.slice(0, findMatch("panel-begin", "panel-end"))} data={data} table={table} output={output}>
+        <svelte:self fields={fields.slice(1, findMatch("panel-begin", "panel-end"))} data={data} table={table} condensed={condensed} output={output}/>
       </Panel>
-      <svelte:self fields={fields.slice(findMatch("panel-begin", "panel-end") + 1)} data={data} table={table} condensed={condensed}/>
+      <svelte:self fields={fields.slice(findMatch("panel-begin", "panel-end") + 1)} data={data} table={table} condensed={condensed} output={output}/>
     {:else if firstField.type === "tabs-begin" }
-      <Tabs fields={fields} data={data} table={table}>
+      <Tabs fields={fields} data={data} table={table} output={output}>
         {#each findTabs() as tab}
-          <TabItem fields={tab} data={data} table={table} open={openTab()}>
-            <svelte:self fields={tab.slice(1)} data={data} table={table} condensed={condensed}/>
+          <TabItem fields={tab} data={data} table={table} open={openTab()} output={output}>
+            <svelte:self fields={tab.slice(1)} data={data} table={table} condensed={condensed} output={output}/>
           </TabItem>
         {/each}
       </Tabs>
-      <svelte:self fields={fields.slice(findMatch("tabs-begin", "tabs-end") + 1)} data={data} table={table} condensed={condensed}/>
+      <svelte:self fields={fields.slice(findMatch("tabs-begin", "tabs-end") + 1)} data={data} table={table} condensed={condensed} output={output}/>
     {:else if firstField.type === "split" }
       <Split field={firstField} data={data} table={table}/>
-      <svelte:self fields={fields.slice(1)} data={data} table={table} condensed={condensed}/>
+      <svelte:self fields={fields.slice(1)} data={data} table={table} condensed={condensed} output={output}/>
     {:else if firstField.type === "custom-begin" }
       <CustomSplitterDispatch field={firstField} data={data} table={table}/>
-      <svelte:self fields={fields.slice(1)} data={data} table={table} condensed={condensed}/>
+      <svelte:self fields={fields.slice(1)} data={data} table={table} condensed={condensed} output={output}/>
     {:else}
       <p>Splitter of type {firstField.type} not yet implemented.</p>
-      <svelte:self fields={fields.slice(1)} data={data} table={table} condensed={condensed}/>
+      <svelte:self fields={fields.slice(1)} data={data} table={table} condensed={condensed} output={output}/>
     {/if}
   {:else if firstField.kind === "link" }
     {#if firstField.output[output] }
-      <Link field={firstField} data={data} table={table} condensed={condensed}/>
+      {#if firstField.inline === "standard" }
+        <Link field={firstField} data={data} table={table} condensed={condensed}/>
+      {:else if firstField.inline === "text" }
+        <Card horizontal class="max-w-full block">
+          {#await loadAdditionalUUID(firstField)}
+            Loading...
+          {:then additionalData}
+            <svelte:self fields={maskObj(additionalData).fields} data={additionalData} table={maskObj(additionalData).table_name_hint} condensed={condensed} output="text"/>
+          {/await}
+        </Card>
+      {:else}
+        <NotImplemented message="Link elemenoutput mode '{firstField.inline}'' not yet implemented" />
+      {/if}
     {/if}
-    <svelte:self fields={fields.slice(1)} data={data} table={table} condensed={condensed}/>
+    <svelte:self fields={fields.slice(1)} data={data} table={table} condensed={condensed} output={output}/>
   {:else}
     <NotImplemented message="Mask element of kind {firstField.kind} not yet implemented" />
-    <svelte:self fields={fields.slice(1)} data={data} table={table} condensed={condensed}/>
+    <svelte:self fields={fields.slice(1)} data={data} table={table} condensed={condensed} output={output}/>
   {/if}
 {/if}
