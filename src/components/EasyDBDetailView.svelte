@@ -4,9 +4,9 @@
   import { maskObj } from "../lib/easydbHelpers";
   import { appLanguageStore, dataLanguagesStore, easydbInstanceStore, easydbInstanceDataPromiseStore, uuidStore } from "../lib/stores";
 
-  import AssetViewer from "./logic/AssetViewer.svelte";
   import RecursiveEasyDbDetailView from "./logic/RecursiveEasyDBDetailView.svelte";
   import TitleDisplay from "./logic/TitleDisplay.svelte";
+  import ViewerPanel from "./logic/ViewerPanel.svelte";
   import Waiting from "./utils/Waiting.svelte";
   import DetailControls from "./logic/DetailControls.svelte";
 
@@ -33,7 +33,7 @@
     </Waiting>
   {:then data }
     <DetailControls data={data}/>
-    <AssetViewer fields={maskObj(data).fields} data={data} table={maskObj(data).table_name_hint}/>
+    <ViewerPanel fields={maskObj(data).fields} data={data} table={maskObj(data).table_name_hint}/>
     <!-- <TitleDisplay data={data} table={maskObj(data).table_name_hint}/> -->
     <RecursiveEasyDbDetailView fields={maskObj(data).fields} data={data} table={maskObj(data).table_name_hint}/>
   {/await}
