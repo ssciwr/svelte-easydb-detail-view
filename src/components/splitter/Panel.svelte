@@ -13,10 +13,10 @@
 </script>
 
 {#if hasContent(data, table, fields, output)}
-  <Accordion class="pt-6">
+  <Accordion>
     <AccordionItem open={options.default_open_detail}>
       <span slot="header">{splitterTitle(data, table, options, $appLanguageStore)}</span>
-      <div class="-mt-4">
+      <div class="space-y-4">
         <slot />
       </div>
     </AccordionItem>

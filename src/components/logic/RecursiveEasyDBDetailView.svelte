@@ -2,7 +2,7 @@
   import { fieldData, hasReverseSubData, hasSubData, linkedSubData, maskObj, reverseLinkedSubData, splitterTitle } from "../../lib/easydbHelpers";
   import { easydb_api_object } from "../../lib/apiaccess";
 
-  import { Card, Li, List, P } from "flowbite-svelte";
+  import { Card, Li, P } from "flowbite-svelte";
   
   import CustomSplitterDispatch from "./CustomSplitterDispatch.svelte";
   import FieldDispatch from "./FieldDispatch.svelte";
@@ -109,18 +109,16 @@
   {:else if firstField.kind === "linked-table" }
     {#if firstField.output[output] && hasSubData(data, table, firstField)}
       {#if !condensed }
-        <P class="pt-4">
+        <P>
           <FieldLabel field={firstField} table={firstField.other_table_name_hint}/>
         </P>
       {/if}
-      <LinkedTable>
-        <List>
-          {#each linkedSubData(data, table, firstField) as subdata}
-            <Li>
-              <svelte:self fields={firstField.mask.fields} data={subdata} table={firstField.other_table_name_hint} condensed={decideCondense(firstField)} output={output}/>
-            </Li>
-          {/each}
-        </List>
+      <LinkedTable bracket={!decideCondense(firstField)}>
+        {#each linkedSubData(data, table, firstField) as subdata}
+          <Li>
+            <svelte:self fields={firstField.mask.fields} data={subdata} table={firstField.other_table_name_hint} condensed={decideCondense(firstField)} output={output}/>
+          </Li>
+        {/each}
       </LinkedTable>
     {/if}
     <svelte:self fields={fields.slice(1)} data={data} table={table} condensed={condensed} output={output}/>
@@ -128,7 +126,7 @@
     {#if firstField.output[output] && hasReverseSubData(data, table, firstField) }
       <ReverseLinkedTable>
         {#each reverseLinkedSubData(data, table, firstField) as subdata }
-          <Card class="max-w-full">
+          <Card class="max-w-full space-y-4">
             <svelte:self fields={firstField.mask.fields} data={subdata} table={firstField.other_table_name_hint} condensed={condensed} output={output}/>
           </Card>
         {/each}

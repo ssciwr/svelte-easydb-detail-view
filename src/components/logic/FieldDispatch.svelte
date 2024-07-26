@@ -47,9 +47,9 @@
 
 <!-- Fields that are not present in the data are also omitted -->
 {#if hasField(data, table, field) }
-  <svelte:component this={WrapperComponent} class="pt-4">
+  <svelte:component this={WrapperComponent}>
     {#if !condensed}
-      <P class="pt-4">
+      <P>
         <FieldLabel table={table} field={field}/>
       </P>
     {/if}

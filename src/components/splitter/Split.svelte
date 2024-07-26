@@ -9,6 +9,6 @@
   export let table;
 </script>
 
-<Heading tag="h6" class="pt-4">
+<Heading tag="h6">
   {splitterTitle(data, table, JSON.parse(field.options), $appLanguageStore)}
 </Heading>

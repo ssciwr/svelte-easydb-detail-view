@@ -14,6 +14,8 @@
 
 {#if hasContent(data, table, fields, output) }
   <TabItem open={open} title={splitterTitle(data, table, options, $appLanguageStore)}>
-    <slot />
+    <div class="space-y-4">
+      <slot />
+    </div>
   </TabItem>
 {/if}

@@ -31,7 +31,7 @@
 
 {#if hasField(data, table, field)}
   {#if !condensed}
-    <P class="pt-4">
+    <P>
       <FieldLabel table={table} field={field} />
     </P>
   {/if}
