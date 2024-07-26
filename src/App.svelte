@@ -1,6 +1,6 @@
 <script>
   import { Button, Heading, Input, Label, MultiSelect, Select } from "flowbite-svelte";
-  import { easydbInstanceStore, easydbInstanceDataStore, easydbInstanceDataPromiseStore, uuidStore } from "./lib/stores";
+  import { easydbInstanceStore, easydbInstanceDataStore, easydbInstanceDataPromiseStore, uuidStore, viewerPanelStateStore } from "./lib/stores";
   import EasyDbDetailView from "./components/EasyDBDetailView.svelte";
 
   let uuid = "859e2318-32f6-4013-8468-ef8cec0b581b";
@@ -19,6 +19,7 @@
     console.log("easydbInstanceDataStore: ", $easydbInstanceDataStore);
     console.log("easydbInstanceDataPromiseStore: ", $easydbInstanceDataPromiseStore);
     console.log("uuidStore: ", $uuidStore);
+    console.log("viewerPanelStateStore: ", $viewerPanelStateStore);
   }
 </script>
 
@@ -57,8 +58,8 @@
         <Button class="w-full" on:click={() => { uuid = "acbc91a3-2c1f-49be-b937-9d78de838640"; }}>
           acbc91a3-2c1f-49be-b937-9d78de838640
         </Button>
-        <Button class="w-full" on:click={() => { uuid = "ade6b39c-86c0-40ff-98f0-a47fb8ec669d"; }}>
-          ade6b39c-86c0-40ff-98f0-a47fb8ec669d
+        <Button class="w-full" on:click={() => { uuid = "2ee862d1-180d-4222-bbbf-41a8ec06e41a"; }}>
+          2ee862d1-180d-4222-bbbf-41a8ec06e41a
         </Button>
       </div>
       <div class="space-y-2 p-4">

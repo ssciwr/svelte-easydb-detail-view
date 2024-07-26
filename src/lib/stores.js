@@ -49,3 +49,7 @@ export const easydbInstanceDataPromiseStore = derived(
 // expose the promise store, but I did not get this to work without the explicit
 // await in EasyDBDetailView.svelte.
 export const easydbInstanceDataStore = derivedPromise(easydbInstanceDataPromiseStore);
+
+// A store that stores what we currently are displaying in the asset viewer.
+// Possible values are "hierarchy", "asset" and "map" (currently).
+export const viewerPanelStateStore = writable("asset");

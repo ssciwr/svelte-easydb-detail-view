@@ -4,13 +4,11 @@
   import { maskObj } from "../lib/easydbHelpers";
   import { appLanguageStore, dataLanguagesStore, easydbInstanceStore, easydbInstanceDataPromiseStore, uuidStore } from "../lib/stores";
 
-  import { A } from "flowbite-svelte";
-  import { ArrowLeftOutline } from "flowbite-svelte-icons";
-
   import AssetViewer from "./logic/AssetViewer.svelte";
   import RecursiveEasyDbDetailView from "./logic/RecursiveEasyDBDetailView.svelte";
   import TitleDisplay from "./logic/TitleDisplay.svelte";
   import Waiting from "./utils/Waiting.svelte";
+  import DetailControls from "./logic/DetailControls.svelte";
 
   export let uuid = "";
   export let appLanguage = "de-DE";
@@ -22,13 +20,6 @@
   $: dataLanguagesStore.set(dataLanguages);
   $: easydbInstanceStore.set(easydbInstance);
   $: uuidStore.set([uuid]);
-
-  const l10n = {
-    "returntext": {
-      "de-DE": "Zurück zu Objekt ",
-      "en-US": "Return to object ",
-    },
-  };
 </script>
 
 {#await $easydbInstanceDataPromiseStore }
@@ -41,15 +32,9 @@
       Waiting for API response...
     </Waiting>
   {:then data }
-    {#if $uuidStore.length > 1}
-      <!-- A link for back navigation within the widget -->
-      <A on:click={() => { uuidStore.update((existing) => existing.slice(0, -1)); }}>
-        <ArrowLeftOutline class="inline-block w-6 h-6"/>
-        {l10n.returntext[$appLanguageStore]}{$uuidStore.at(-2)}
-      </A>
-    {/if}
+    <DetailControls data={data}/>
     <AssetViewer fields={maskObj(data).fields} data={data} table={maskObj(data).table_name_hint}/>
-    <TitleDisplay data={data} table={maskObj(data).table_name_hint}/>
+    <!-- <TitleDisplay data={data} table={maskObj(data).table_name_hint}/> -->
     <RecursiveEasyDbDetailView fields={maskObj(data).fields} data={data} table={maskObj(data).table_name_hint}/>
   {/await}
 {/await}
