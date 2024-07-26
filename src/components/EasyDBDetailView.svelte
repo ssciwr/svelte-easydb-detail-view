@@ -9,6 +9,7 @@
 
   import AssetViewer from "./logic/AssetViewer.svelte";
   import RecursiveEasyDbDetailView from "./logic/RecursiveEasyDBDetailView.svelte";
+  import TitleDisplay from "./logic/TitleDisplay.svelte";
   import Waiting from "./utils/Waiting.svelte";
 
   export let uuid = "";
@@ -41,12 +42,14 @@
     </Waiting>
   {:then data }
     {#if $uuidStore.length > 1}
+      <!-- A link for back navigation within the widget -->
       <A on:click={() => { uuidStore.update((existing) => existing.slice(0, -1)); }}>
         <ArrowLeftOutline class="inline-block w-6 h-6"/>
         {l10n.returntext[$appLanguageStore]}{$uuidStore.at(-2)}
       </A>
     {/if}
     <AssetViewer fields={maskObj(data).fields} data={data} table={maskObj(data).table_name_hint}/>
+    <TitleDisplay data={data} table={maskObj(data).table_name_hint}/>
     <RecursiveEasyDbDetailView fields={maskObj(data).fields} data={data} table={maskObj(data).table_name_hint}/>
   {/await}
 {/await}
