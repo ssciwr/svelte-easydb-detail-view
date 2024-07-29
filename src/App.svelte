@@ -50,17 +50,45 @@
         <Label>
           Some pre-selected UUIDs:
         </Label>
-        <Button class="w-full" on:click={() => { uuid = "6deddff8-c600-447e-8892-3359c3516a94"; }}>
-          6deddff8-c600-447e-8892-3359c3516a94
+        <Button class="w-full" on:click={
+          () => { 
+            uuid = "6deddff8-c600-447e-8892-3359c3516a94";
+            instance = "https://heidicon.ub.uni-heidelberg.de";
+          }
+        }>
+          6deddff8-c600-447e-8892-3359c3516a94@HeidICON
         </Button>
-        <Button class="w-full" on:click={() => { uuid = "859e2318-32f6-4013-8468-ef8cec0b581b"; }}>
-          859e2318-32f6-4013-8468-ef8cec0b581b
+        <Button class="w-full" on:click={
+          () => {
+            uuid = "859e2318-32f6-4013-8468-ef8cec0b581b";
+            instance = "https://heidicon.ub.uni-heidelberg.de";
+          }
+        }>
+          859e2318-32f6-4013-8468-ef8cec0b581b@HeidICON
         </Button>
-        <Button class="w-full" on:click={() => { uuid = "acbc91a3-2c1f-49be-b937-9d78de838640"; }}>
-          acbc91a3-2c1f-49be-b937-9d78de838640
+        <Button class="w-full" on:click={
+          () => { 
+            uuid = "acbc91a3-2c1f-49be-b937-9d78de838640";
+            instance = "https://heidicon.ub.uni-heidelberg.de"; 
+          }
+        }>
+          acbc91a3-2c1f-49be-b937-9d78de838640@HeidICON
         </Button>
-        <Button class="w-full" on:click={() => { uuid = "2ee862d1-180d-4222-bbbf-41a8ec06e41a"; }}>
-          2ee862d1-180d-4222-bbbf-41a8ec06e41a
+        <Button class="w-full" on:click={
+          () => {
+            uuid = "2ee862d1-180d-4222-bbbf-41a8ec06e41a";
+            instance = "https://heidicon.ub.uni-heidelberg.de";
+          }
+        }>
+          2ee862d1-180d-4222-bbbf-41a8ec06e41a@HeidICON
+        </Button>
+        <Button class="w-full" on:click={
+          () => {
+            uuid = "bc679b8c-e8af-48d3-9339-5260c20c3e77";
+            instance = "https://dmmp.ub.uni-heidelberg.de";
+          }
+        }>
+          bc679b8c-e8af-48d3-9339-5260c20c3e77@DMMP
         </Button>
       </div>
       <div class="space-y-2 p-4">
