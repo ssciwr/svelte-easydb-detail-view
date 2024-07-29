@@ -17,7 +17,7 @@ jobs:
         run: npm install
       
       - name: Generate EasyDB data
-        run: npm run easydb
+        run: node src/generate.js --instance="https://heidicon.ub.uni-heidelberg.de"
 
       - name: Build
         run: npm run build
