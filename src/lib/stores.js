@@ -1,4 +1,4 @@
-import { derived, writable } from "svelte/store";
+import { derived, get, writable } from "svelte/store";
 import { accessInstance } from "./easydbData";
 import { pregen_instance, pregen_l10n, pregen_masks, pregen_schemas } from "./easydbPregen";
 
@@ -45,6 +45,33 @@ export const easydbInstanceDataPromiseStore = derived(
   }
 );
 
+export const easydbTokenPromiseStore = derived(
+  easydbInstanceStore,
+  ($instance, set) => {
+    fetch(`${$instance}/api/session`).then(
+      response => {
+        response.json().then(
+          response_json => {
+            const token = response_json.token;
+            fetch(
+              `${get(easydbInstanceStore)}/api/session/authenticate?` +
+              new URLSearchParams({
+                token: token,
+                method: 'anonymous',
+              }),
+              {
+                method: 'POST',
+              }
+            ).then(
+              auth_response =>  { set(new Promise((resolve, reject) => { resolve(token);})) }
+            );
+          }
+        );
+      }
+    )
+  }
+);
+
 // A derived store that awaits above promise. It would be better to not even
 // expose the promise store, but I did not get this to work without the explicit
 // await in EasyDBDetailView.svelte.
@@ -53,3 +80,14 @@ export const easydbInstanceDataStore = derivedPromise(easydbInstanceDataPromiseS
 // A store that stores what we currently are displaying in the asset viewer.
 // Possible values are "hierarchy", "asset" and "map" (currently).
 export const viewerPanelStateStore = writable("asset");
+
+// A helper function to add a new UUID to the store and reset relevant other stores
+export function pushUUID(uuid) {
+  uuidStore.update(uuids => [...uuids, uuid]);
+  viewerPanelStateStore.set("asset");
+}
+
+export function popUUID() {
+  uuidStore.update(uuids => uuids.slice(0, -1));
+  viewerPanelStateStore.set("asset");
+}

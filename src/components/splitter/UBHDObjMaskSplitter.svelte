@@ -1,6 +1,5 @@
 <script>
-  import { fieldData } from "../../lib/easydbHelpers";
-  import { appLanguageStore, uuidStore } from "../../lib/stores";
+  import { appLanguageStore, pushUUID } from "../../lib/stores";
 
   import { A, P } from "flowbite-svelte";
   import { ArrowDownOutline, ArrowRightOutline } from "flowbite-svelte-icons";
@@ -29,14 +28,10 @@
       "en-US": "Item/Work"
     },
   };
-
-  function switchToObject() {
-    uuidStore.update((existing) => [...existing, data._uuid]);
-  }
 </script>
 
 <P class="text-right ubhd-obj-mask-splitter-text">
-  <A on:click={switchToObject}>
+  <A on:click={() => { pushUUID(data._uuid); }}>
     {l10n.hinweistext1[$appLanguageStore]}
     {l10n[options.label][$appLanguageStore]}
     {l10n.hinweistext2[$appLanguageStore]}

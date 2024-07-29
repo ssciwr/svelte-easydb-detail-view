@@ -13,12 +13,12 @@
     width: 10px;
     height: 2px;
     left: 0;
-  }
+}
 
-  .bracket-list::before {
+.bracket-list::before {
     top: 0;
-  }
+}
 
-  .bracket-list::after {
+.bracket-list::after {
     bottom: 0;
-  }
+}

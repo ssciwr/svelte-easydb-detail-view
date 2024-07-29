@@ -1,6 +1,6 @@
 <script>
   import { Button, Heading, Input, Label, MultiSelect, Select } from "flowbite-svelte";
-  import { easydbInstanceStore, easydbInstanceDataStore, easydbInstanceDataPromiseStore, uuidStore, viewerPanelStateStore } from "./lib/stores";
+  import { easydbInstanceStore, easydbInstanceDataStore, easydbInstanceDataPromiseStore, easydbTokenPromiseStore, uuidStore, viewerPanelStateStore } from "./lib/stores";
   import EasyDbDetailView from "./components/EasyDBDetailView.svelte";
 
   let uuid = "859e2318-32f6-4013-8468-ef8cec0b581b";
@@ -18,6 +18,7 @@
     console.log("easydbInstanceStore: ", $easydbInstanceStore);
     console.log("easydbInstanceDataStore: ", $easydbInstanceDataStore);
     console.log("easydbInstanceDataPromiseStore: ", $easydbInstanceDataPromiseStore);
+    console.log("easydbTokenPromiseStore: ", $easydbTokenPromiseStore);
     console.log("uuidStore: ", $uuidStore);
     console.log("viewerPanelStateStore: ", $viewerPanelStateStore);
   }

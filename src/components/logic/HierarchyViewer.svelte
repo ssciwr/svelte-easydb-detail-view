@@ -1,7 +1,43 @@
 <script>
-  import { Accordion, AccordionItem } from "flowbite-svelte";
+  import { easydbChildrenObject } from "../../lib/apiaccess";
+  import { pushUUID } from "../../lib/stores";
 
-  export let data;
+  import { A, Accordion, AccordionItem } from "flowbite-svelte";
+  import StandardRendering from "./StandardRendering.svelte";
+  import Waiting from "../utils/Waiting.svelte";
+
+  export let openids = [];
+  export let table;
+  export let root;
 </script>
 
-Hierarchy View!
+<Accordion>
+  {#if root._has_children}
+    <AccordionItem open={openids.includes(root[table]._id)}>
+     <span slot="header">
+        <A on:click={ () => { pushUUID(root._uuid); }}>
+          <StandardRendering data={root} />
+        </A>
+      </span>
+      {#await easydbChildrenObject(root[table]._id, table)}
+        <Waiting>
+          Loading children...
+        </Waiting>
+      {:then children}
+        {#each children.objects as child}
+          <svelte:self openids={openids} root={child} table={table}/>
+        {/each}
+      {/await}
+    </AccordionItem>
+  {:else}
+    <AccordionItem open={openids.includes(root[table]._id)}>
+      <div slot="arrowup" />
+      <div slot="arrowdown" />
+      <span slot="header">
+        <A on:click={ () => { pushUUID(root._uuid); }}>
+          <StandardRendering data={root} />
+        </A>
+      </span>
+    </AccordionItem>
+  {/if}
+</Accordion>

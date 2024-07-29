@@ -1,5 +1,5 @@
 <script>
-  import { appLanguageStore, uuidStore, viewerPanelStateStore } from "../../lib/stores";
+  import { appLanguageStore, popUUID, uuidStore, viewerPanelStateStore } from "../../lib/stores";
 
   import { Button, ButtonGroup, Tooltip } from "flowbite-svelte";
   import { BackwardStepOutline, ImageOutline, MapPinAltOutline, RectangleListOutline } from "flowbite-svelte-icons";
@@ -41,7 +41,7 @@
 
 <ButtonGroup class="pb-2">
   {#if $uuidStore.length > 1}
-    <Button id="back-nav" on:click={() => { uuidStore.update((existing) => existing.slice(0, -1)); }}>
+    <Button id="back-nav" on:click={popUUID}>
       <BackwardStepOutline class="inline-block w-6 h-6"/>
     </Button>
     <Tooltip triggeredBy="#back-nav" placement="bottom" class="z-10">
