@@ -1,6 +1,6 @@
 <script>
   import { fieldData, hasField } from "../../lib/easydbHelpers";
-  import { dataLanguagesStore } from "../../lib/stores";
+  import { dataLanguagesStore, easydbInstanceStore } from "../../lib/stores";
   import { A, Card, P } from "flowbite-svelte";
 
   import FieldLabel from "./FieldLabel.svelte";
@@ -37,13 +37,13 @@
   {/if}
   {#if assetImage()}
     <Card class="easydb-link max-w-full h-32" img={assetImage()} horizontal>
-      <A href="https://heidicon.ub.uni-heidelberg.de/#/detail/{fdata._uuid}">
+      <A href="{$easydbInstanceStore}/#/detail/{fdata._uuid}">
         {fdata["_standard"]["1"].text[$dataLanguagesStore[0]]}
       </A>
     </Card>
   {:else}
     <span class="easydb-link">
-      <A href="https://heidicon.ub.uni-heidelberg.de/#/detail/{fdata._uuid}">
+      <A href="{$easydbInstanceStore}/#/detail/{fdata._uuid}">
         {fdata["_standard"]["1"].text[$dataLanguagesStore[0]]}
       </A>
     </span>
