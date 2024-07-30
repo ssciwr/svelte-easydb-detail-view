@@ -17,6 +17,7 @@
   import FieldLabel from "../fields/FieldLabel.svelte";
   import NotImplemented from "../utils/NotImplemented.svelte";
   import Waiting from "../utils/Waiting.svelte";
+  import Block from "../splitter/Block.svelte";
 
   export let fields;
   export let data;
@@ -140,6 +141,11 @@
         <svelte:self fields={fields.slice(1, findMatch("panel-begin", "panel-end"))} data={data} table={table} condensed={condensed} output={output}/>
       </Panel>
       <svelte:self fields={fields.slice(findMatch("panel-begin", "panel-end") + 1)} data={data} table={table} condensed={condensed} output={output}/>
+    {:else if firstField.type === "block-begin" }
+      <Block fields={fields.slice(0, findMatch("block-begin", "block-end"))} data={data} table={table} output={output}>
+        <svelte:self fields={fields.slice(1, findMatch("block-begin", "block-end"))} data={data} table={table} condensed={condensed} output={output}/>
+      </Block>
+      <svelte:self fields={fields.slice(findMatch("block-begin", "block-end") + 1)} data={data} table={table} condensed={condensed} output={output}/>
     {:else if firstField.type === "tabs-begin" }
       <Tabs fields={fields} data={data} table={table} output={output}>
         {#each findTabs() as tab}
