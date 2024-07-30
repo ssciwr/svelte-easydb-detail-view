@@ -1,6 +1,7 @@
 <script>
   import { fieldData, hasReverseSubData, hasSubData, linkedSubData, maskObj, reverseLinkedSubData, splitterTitle } from "../../lib/easydbHelpers";
   import { easydb_api_object } from "../../lib/apiaccess";
+  import { requiresEndMapping } from "../splitter/splitterMapping.js";
 
   import { Card, Li, P } from "flowbite-svelte";
   
@@ -36,13 +37,13 @@
     }
   }
 
-  function findMatch(start, end) {
+  function findMatch(start, end, condition = (f) => true) {
     let count = 0;
     for (const [i, field] of fields.entries()) {
-      if (field.type === start) {
+      if ((field.type === start) && condition(field)) {
         count += 1;
       }
-      if (field.type === end) {
+      if ((field.type === end) && condition(field)) {
         count -= 1;
       }
       if (count === 0) {
@@ -152,10 +153,17 @@
       <Split field={firstField} data={data} table={table}/>
       <svelte:self fields={fields.slice(1)} data={data} table={table} condensed={condensed} output={output}/>
     {:else if firstField.type === "custom-begin" }
-      <CustomSplitterDispatch field={firstField} data={data} table={table}/>
-      <svelte:self fields={fields.slice(1)} data={data} table={table} condensed={condensed} output={output}/>
+      {#if requiresEndMapping[JSON.parse(firstField.options).__customSplitterType] }
+        <CustomSplitterDispatch field={firstField} data={data} table={table}>
+          <svelte:self fields={fields.slice(1, findMatch("custom-begin", "custom-end", (f) => requiresEndMapping[JSON.parse(f.options).__customSplitterType]))} data={data} table={table} condensed={condensed} output={output}/>
+        </CustomSplitterDispatch>
+        <svelte:self fields={fields.slice(findMatch("custom-begin", "custom-end", (f) => requiresEndMapping[JSON.parse(f.options).__customSplitterType]) + 1)} data={data} table={table} condensed={condensed} output={output}/>
+      {:else}
+        <CustomSplitterDispatch field={firstField} data={data} table={table}/>
+        <svelte:self fields={fields.slice(1)} data={data} table={table} condensed={condensed} output={output}/>
+      {/if}
     {:else}
-      <p>Splitter of type {firstField.type} not yet implemented.</p>
+      <NotImplemented message="Splitter of type {firstField.type} not yet implemented." />
       <svelte:self fields={fields.slice(1)} data={data} table={table} condensed={condensed} output={output}/>
     {/if}
   {:else if firstField.kind === "link" }
