@@ -44,8 +44,6 @@
     }
     return `(${fdata.types.map((t) => l10n[t]["de-DE"]).join(", ")})`;
   }
-
-  console.log(fdata);
 </script>
 
 

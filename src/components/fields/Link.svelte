@@ -19,7 +19,6 @@
     }
 
     for (const pref of image_preference) {
-      console.log(fdata._standard.eas);
       if (pref in fdata._standard.eas["1"][0].versions) {
         return fdata._standard.eas["1"][0].versions[pref].url;
       }
