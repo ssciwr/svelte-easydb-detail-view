@@ -22,3 +22,12 @@ npm run dev
 ## Usage
 
 T.B.A.
+
+## Issues
+
+If you find any issues with using this component, please open an issue.
+Preferrably, include the following information:
+
+* The instance URL where this is happening
+* The UUID of the object that triggers the behaviour (if non-standard, also the mask)
+* A screenshot of the intended and the observed behaviour
