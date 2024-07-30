@@ -45,6 +45,8 @@ export const easydbInstanceDataPromiseStore = derived(
   }
 );
 
+export const userTokenStore = writable("");
+
 export const easydbTokenPromiseStore = derived(
   easydbInstanceStore,
   ($instance, set) => {

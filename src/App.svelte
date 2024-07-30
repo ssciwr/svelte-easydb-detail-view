@@ -1,11 +1,12 @@
 <script>
   import { Button, Heading, Input, Label, MultiSelect, Select } from "flowbite-svelte";
-  import { easydbInstanceStore, easydbInstanceDataStore, easydbInstanceDataPromiseStore, easydbTokenPromiseStore, uuidStore, viewerPanelStateStore } from "./lib/stores";
+  import { easydbInstanceStore, easydbInstanceDataStore, easydbInstanceDataPromiseStore, easydbTokenPromiseStore, userTokenStore, uuidStore, viewerPanelStateStore } from "./lib/stores";
   import EasyDbDetailView from "./components/EasyDBDetailView.svelte";
 
   let uuid = "859e2318-32f6-4013-8468-ef8cec0b581b";
   let mask = "";
   let instance = "https://heidicon.ub.uni-heidelberg.de";
+  let token = "";
 
   let languages = [
     { value: 'de-DE', name: 'Deutsch'},
@@ -14,11 +15,14 @@
   let selected_app_language = 'de-DE';
   let selected_data_languages = ['de-DE', 'en-US'];
 
+  $: userTokenStore.set(token);
+
   function dumpStores() {
     console.log("easydbInstanceStore: ", $easydbInstanceStore);
     console.log("easydbInstanceDataStore: ", $easydbInstanceDataStore);
     console.log("easydbInstanceDataPromiseStore: ", $easydbInstanceDataPromiseStore);
     console.log("easydbTokenPromiseStore: ", $easydbTokenPromiseStore);
+    console.log("userTokenStore: ", $userTokenStore);
     console.log("uuidStore: ", $uuidStore);
     console.log("viewerPanelStateStore: ", $viewerPanelStateStore);
   }
@@ -39,6 +43,12 @@
           URL of the EasyDB instance
         </Label>
         <Input type="text" bind:value={instance} size="lg" class="w-full"></Input>
+      </div>
+      <div class="space-y-2 p-4">
+        <Label>
+          EasyDB Token (only give if your instance requires authenticated access).
+        </Label>
+        <Input type="text" bind:value={token} size="lg" class="w-full"></Input>
       </div>
       <div class="space-y-2 p-4">
         <Label>

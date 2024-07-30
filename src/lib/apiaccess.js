@@ -1,5 +1,5 @@
 import { get } from 'svelte/store';
-import { easydbTokenPromiseStore, easydbInstanceStore } from './stores';
+import { easydbTokenPromiseStore, easydbInstanceStore, userTokenStore } from './stores';
 
 export async function easydb_api_object(uuid, mask) {
   if (!uuid) {
@@ -9,6 +9,9 @@ export async function easydb_api_object(uuid, mask) {
   let url = `${get(easydbInstanceStore)}/api/objects/uuid/${uuid}`;
   if (mask !== '') {
     url = `${url}/mask/${mask}`;
+  }
+  if (get(userTokenStore) !== "") {
+    url = url + '?' + new URLSearchParams({token: get(userTokenStore)});
   }
 
   // Fetch the schema data for this instance
