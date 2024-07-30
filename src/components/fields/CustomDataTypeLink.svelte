@@ -1,4 +1,6 @@
 <script>
+  import { bestLanguage } from "../../lib/l10n";
+  import { dataLanguagesStore } from "../../lib/stores";
   import { fieldData } from "../../lib/easydbHelpers";
 
   import { A } from "flowbite-svelte";
@@ -10,4 +12,4 @@
   const fdata = fieldData(data, table, field);
 </script>
 
-<A href={fdata.url}>{fdata.url}</A>
+<A href={fdata.url}>{bestLanguage(fdata.text, $dataLanguagesStore)}</A>

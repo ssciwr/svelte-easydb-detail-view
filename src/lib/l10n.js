@@ -3,14 +3,17 @@ const language_priority = ["de-DE", "en-US"];
 // Select the best language from the given data
 export function bestLanguage(data, lang) {
   // If the selected language exists, we take it
-  if (lang in data) {
-    return data[lang];
+  for (let l of lang) {
+    if ((l in data) && (data[l] !== "")) {
+      return data[l];
+    }
   }
 
   // Otherwise we select the language with the highest priority
-  for (let l in language_priority) {
-    if (l in data)
+  for (let l of language_priority) {
+    if ((l in data) && (data[l] !== "")) {
       return data[l];
+    }
   }
 
   // Finally, we select any language that we can find
