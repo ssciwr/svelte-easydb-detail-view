@@ -8,8 +8,6 @@
 
   export let data;
   export let table;
-
-  console.log(data);
 </script>
 
 <div class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400 space-w-8 pt-6 pb-6">
