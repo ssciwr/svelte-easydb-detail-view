@@ -35,9 +35,6 @@
     {l10n.hinweistext1[$appLanguageStore]}
     {l10n[options.label][$appLanguageStore]}
     {l10n.hinweistext2[$appLanguageStore]}
-    {#if options.direction === "up"}
-      <ArrowUpOutline class="inline-block w-6 h-6" />
-    {/if}
     {#if options.direction === "right"}
       <ArrowRightOutline class="inline-block w-6 h-6" />
     {/if}
