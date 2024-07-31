@@ -50,6 +50,9 @@ export const userTokenStore = writable("");
 export const easydbTokenPromiseStore = derived(
   easydbInstanceStore,
   ($instance, set) => {
+    if ($instance === null) {
+      return;
+    }
     fetch(`${$instance}/api/session`).then(
       response => {
         response.json().then(
