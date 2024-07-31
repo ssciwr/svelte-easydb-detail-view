@@ -27,3 +27,4 @@
   <!-- NB: The "asset" in the line below is a hard-coding to HeidICON that also happens upstream! -->
   {options.url_prefix}/{data._system_object_id}%3A{dtable.asset[0]._id}
 </P>
+<slot />
