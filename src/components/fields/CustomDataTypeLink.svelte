@@ -10,6 +10,13 @@
   export let field;
 
   const fdata = fieldData(data, table, field);
+
+  function findText() {
+    if ("text" in fdata) {
+      return bestLanguage(fdata.text, $dataLanguagesStore)
+    }
+    return fdata.url;
+  }
 </script>
 
-<A href={fdata.url}>{bestLanguage(fdata.text, $dataLanguagesStore)}</A>
+<A href={fdata.url}>{findText()}</A>
