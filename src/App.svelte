@@ -94,6 +94,46 @@
         </Button>
         <Button class="w-full" on:click={
           () => {
+            uuid = "a3f6109f-feb4-45f8-8e76-c4466efd0d20";
+            instance = "https://heidicon.ub.uni-heidelberg.de";
+          }
+        }>
+          a3f6109f-feb4-45f8-8e76-c4466efd0d20@HeidICON
+        </Button>
+        <Button class="w-full" on:click={
+          () => {
+            uuid = "bb7c84ae-4796-4c20-8df0-a4c5c49a7ac6";
+            instance = "https://heidicon.ub.uni-heidelberg.de";
+          }
+        }>
+          bb7c84ae-4796-4c20-8df0-a4c5c49a7ac6@HeidICON
+        </Button>
+        <Button class="w-full" on:click={
+          () => {
+            uuid = "1fde05f5-7767-448f-a104-4f4af9d8f9ed";
+            instance = "https://heidicon.ub.uni-heidelberg.de";
+          }
+        }>
+          1fde05f5-7767-448f-a104-4f4af9d8f9ed@HeidICON
+        </Button>
+        <Button class="w-full" on:click={
+          () => {
+            uuid = "e95dcb74-77f6-4794-b468-506da8b7a3a1";
+            instance = "https://heidicon.ub.uni-heidelberg.de";
+          }
+        }>
+          e95dcb74-77f6-4794-b468-506da8b7a3a1@HeidICON
+        </Button>
+        <Button class="w-full" on:click={
+          () => {
+            uuid = "a1b154b0-2c89-4317-8bac-2a7e684740b8";
+            instance = "https://heidicon.ub.uni-heidelberg.de";
+          }
+        }>
+          a1b154b0-2c89-4317-8bac-2a7e684740b8@HeidICON
+        </Button>
+        <Button class="w-full" on:click={
+          () => {
             uuid = "bc679b8c-e8af-48d3-9339-5260c20c3e77";
             instance = "https://dmmp.ub.uni-heidelberg.de";
           }
