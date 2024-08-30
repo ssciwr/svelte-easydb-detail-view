@@ -19,6 +19,8 @@
   import Waiting from "../utils/Waiting.svelte";
   import Block from "../splitter/Block.svelte";
 
+  import "./bracket.css";
+
   export let fields;
   export let data;
   export let table;
@@ -115,9 +117,9 @@
           <FieldLabel field={firstField} table={firstField.other_table_name_hint}/>
         </P>
       {/if}
-      <LinkedTable bracket={!decideCondense(firstField)}>
+      <LinkedTable>
         {#each linkedSubData(data, table, firstField) as subdata}
-          <Li>
+          <Li class={decideCondense(firstField) ? null: "bracket-list"}>
             <svelte:self fields={firstField.mask.fields} data={subdata} table={firstField.other_table_name_hint} condensed={decideCondense(firstField)} output={output}/>
           </Li>
         {/each}

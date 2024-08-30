@@ -1,11 +1,7 @@
 <script>
   import { List } from "flowbite-svelte";
-
-  export let bracket;
-
-  import "./bracket.css";
 </script>
 
-<List class={bracket ? "bracket-list" : null}>
+<List class="space-y-2">
   <slot/>
 </List>
