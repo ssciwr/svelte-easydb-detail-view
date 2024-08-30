@@ -16,7 +16,7 @@
     <AccordionItem open={openids.includes(root[table]._id)}>
      <span slot="header">
         <A on:click={ () => { pushUUID(root._uuid); }}>
-          <StandardRendering data={root} />
+          <StandardRendering data={root} asset={true}/>
         </A>
       </span>
       {#await easydbChildrenObject(root[table]._id, table)}
@@ -35,7 +35,7 @@
       <div slot="arrowdown" />
       <span slot="header">
         <A on:click={ () => { pushUUID(root._uuid); }}>
-          <StandardRendering data={root} />
+          <StandardRendering data={root} asset={true}/>
         </A>
       </span>
     </AccordionItem>

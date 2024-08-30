@@ -1,5 +1,5 @@
 <script>
-  import { fieldData, hasField } from "../../lib/easydbHelpers";
+  import { fieldData, hasField, standardHasAsset, selectStandardAsset } from "../../lib/easydbHelpers";
   import { dataLanguagesStore, pushUUID } from "../../lib/stores";
   import { A, Card, P } from "flowbite-svelte";
 
@@ -11,21 +11,6 @@
   export let condensed;
 
   const fdata = fieldData(data, table, field);
-  const image_preference = ["preview", "small", "huge", "full", "original"];
-
-  function assetImage() {
-    if (!("eas" in fdata._standard)) {
-      return null;
-    }
-
-    for (const pref of image_preference) {
-      if (pref in fdata._standard.eas["1"][0].versions) {
-        return fdata._standard.eas["1"][0].versions[pref].url;
-      }
-    }
-
-    return null;
-  }
 </script>
 
 {#if hasField(data, table, field)}
@@ -34,8 +19,8 @@
       <FieldLabel table={table} field={field} />
     </P>
   {/if}
-  {#if assetImage()}
-    <Card class="easydb-link max-w-full h-32" img={assetImage()} horizontal>
+  {#if standardHasAsset(fdata)}
+    <Card class="easydb-link max-w-full h-32" img={selectStandardAsset(fdata)} horizontal>
       <A on:click={() => { pushUUID(fdata._uuid); }}>
         {fdata["_standard"]["1"].text[$dataLanguagesStore[0]]}
       </A>

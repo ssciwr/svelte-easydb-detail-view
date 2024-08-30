@@ -86,3 +86,17 @@ export function hasContent(data, table, fields, output) {
   }
   return false;
 }
+
+export function standardHasAsset(data) {
+  return "eas" in data._standard
+}
+
+const image_preference = ["preview", "small", "huge", "full", "original"];
+
+export function selectStandardAsset(data) {
+  for (const pref of image_preference) {
+    if (pref in data._standard.eas["1"][0].versions) {
+      return data._standard.eas["1"][0].versions[pref].url;
+    }
+  }
+}
