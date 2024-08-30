@@ -11,8 +11,6 @@
   // What is the highest possible key in the _standard object?
   // Do they have an actual meaning?
   const levels = ["1", "2", "3", "4", "5"];
-
-  console.log(data);
 </script>
 
 {#if asset && standardHasAsset(data)}
