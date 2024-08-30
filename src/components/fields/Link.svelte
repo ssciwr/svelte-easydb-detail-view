@@ -1,6 +1,6 @@
 <script>
   import { fieldData, hasField } from "../../lib/easydbHelpers";
-  import { dataLanguagesStore, easydbInstanceStore } from "../../lib/stores";
+  import { dataLanguagesStore, pushUUID } from "../../lib/stores";
   import { A, Card, P } from "flowbite-svelte";
 
   import FieldLabel from "./FieldLabel.svelte";
@@ -36,13 +36,13 @@
   {/if}
   {#if assetImage()}
     <Card class="easydb-link max-w-full h-32" img={assetImage()} horizontal>
-      <A href="{$easydbInstanceStore}/#/detail/{fdata._uuid}">
+      <A on:click={() => { pushUUID(fdata._uuid); }}>
         {fdata["_standard"]["1"].text[$dataLanguagesStore[0]]}
       </A>
     </Card>
   {:else}
     <span class="easydb-link">
-      <A href="{$easydbInstanceStore}/#/detail/{fdata._uuid}">
+      <A on:click={() => { pushUUID(fdata._uuid); }}>
         {fdata["_standard"]["1"].text[$dataLanguagesStore[0]]}
       </A>
     </span>
