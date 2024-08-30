@@ -1,6 +1,6 @@
 <script>
   import { Button, Heading, Input, Label, MultiSelect, Select } from "flowbite-svelte";
-  import { easydbInstanceStore, easydbInstanceDataStore, easydbInstanceDataPromiseStore, easydbTokenPromiseStore, userTokenStore, uuidStore, viewerPanelStateStore } from "./lib/stores";
+  import { easydbInstanceStore, easydbInstanceDataStore, easydbInstanceDataPromiseStore, easydbTokenPromiseStore, masksToRenderStore, userTokenStore, uuidStore, viewerPanelStateStore } from "./lib/stores";
   import EasyDbDetailView from "./components/EasyDBDetailView.svelte";
 
   let uuid = "859e2318-32f6-4013-8468-ef8cec0b581b";
@@ -15,6 +15,11 @@
   let selected_app_language = 'de-DE';
   let selected_data_languages = ['de-DE', 'en-US'];
 
+  function getAvailableMasks() {
+    return Array.from(Object.keys($easydbInstanceDataStore.masks), (m) => { return { value: m, name: m }});
+  }
+  let selected_masks = [];
+
   $: userTokenStore.set(token);
 
   function dumpStores() {
@@ -22,6 +27,7 @@
     console.log("easydbInstanceDataStore: ", $easydbInstanceDataStore);
     console.log("easydbInstanceDataPromiseStore: ", $easydbInstanceDataPromiseStore);
     console.log("easydbTokenPromiseStore: ", $easydbTokenPromiseStore);
+    console.log("masksToRenderStore: ", $masksToRenderStore);
     console.log("userTokenStore: ", $userTokenStore);
     console.log("uuidStore: ", $uuidStore);
     console.log("viewerPanelStateStore: ", $viewerPanelStateStore);
@@ -159,12 +165,23 @@
         </Label>
         <Input bind:value={mask} />
       </div>
+
+      {#await $easydbInstanceDataPromiseStore }
+        Waiting for instance data...
+      {:then}
+        <div class="space-y-2 p-4">
+          <Label>
+            Masks to render (objects using these masks will render in the detail view, all others as popovers):
+          </Label>
+          <MultiSelect items={getAvailableMasks()} bind:value={selected_masks}/>
+        </div>
+      {/await}
       <div class="space-y-2 p-4">
         <Button on:click={dumpStores} class="w-full">Dump all stores to the console (Debugging)</Button>
       </div>
     </div>
     <div class="w-1/2 p-4 border border-gray-300">
-      <EasyDbDetailView uuid={uuid} appLanguage={selected_app_language} dataLanguages={selected_data_languages} easydbInstance={instance} mask={mask}/>
+      <EasyDbDetailView uuid={uuid} appLanguage={selected_app_language} dataLanguages={selected_data_languages} easydbInstance={instance} mask={mask} masksToRender={selected_masks} />
     </div>
   </div>
 </main>

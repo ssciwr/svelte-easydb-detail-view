@@ -19,7 +19,7 @@ export async function easydb_api_object(uuid, mask) {
   if(response.status != 200) {
     throw new Error(`Could not fetch the data for uuid: ${uuid}`);
   }
-  const response_json = await response.json()
+  const response_json = await response.json();
   return response_json;
 }
 

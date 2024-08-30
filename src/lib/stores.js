@@ -96,3 +96,23 @@ export function popUUID() {
   uuidStore.update(uuids => uuids.slice(0, -1));
   viewerPanelStateStore.set("asset");
 }
+
+// A store for the user given choice of which masks to render
+export const userGivenMasksToRenderStore = writable([]);
+
+// The list of masks that should be rendered in the component
+export const masksToRenderStore = derived(
+  [userGivenMasksToRenderStore, easydbInstanceDataStore],
+  ([$userGivenMasksToRenderStore, $easydbInstanceDataStore]) => {
+    if ($easydbInstanceDataStore === undefined) {
+      return [];
+    }
+    if ($userGivenMasksToRenderStore.length === 0) {
+      if ($easydbInstanceDataStore.masks === null) {
+        return [];
+      }
+      return Object.keys($easydbInstanceDataStore.masks);
+    }
+    return $userGivenMasksToRenderStore;
+  }
+);

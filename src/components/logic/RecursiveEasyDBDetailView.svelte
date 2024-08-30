@@ -177,7 +177,7 @@
   {:else if firstField.kind === "link" }
     {#if firstField.output[output] }
       {#if (firstField.inline === "standard") || (firstField.inline === "short") }
-        <Link field={firstField} data={data} table={table} condensed={condensed}/>
+        <Link field={firstField} data={data} table={table} condensed={condensed} />
       {:else if firstField.inline === "text" }
         <Card horizontal class="max-w-full block">
           {#await loadAdditionalUUID(firstField)}
