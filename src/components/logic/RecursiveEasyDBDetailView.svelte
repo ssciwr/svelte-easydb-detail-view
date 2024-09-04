@@ -1,5 +1,5 @@
 <script>
-  import { fieldData, hasReverseSubData, hasSubData, linkedSubData, maskObj, reverseLinkedSubData, splitterTitle } from "../../lib/easydbHelpers";
+  import { fieldData, hasContent, hasReverseSubData, hasSubData, linkedSubData, maskObj, reverseLinkedSubData, splitterTitle } from "../../lib/easydbHelpers";
   import { easydb_api_object } from "../../lib/apiaccess";
   import { requiresEndMapping } from "../splitter/splitterMapping.js";
 
@@ -162,9 +162,11 @@
       <svelte:self fields={fields.slice(1)} data={data} table={table} condensed={condensed} output={output}/>
     {:else if firstField.type === "custom-begin" }
       {#if requiresEndMapping[JSON.parse(firstField.options).__customSplitterType] }
-        <CustomSplitterDispatch field={firstField} data={data} table={table}>
-          <svelte:self fields={fields.slice(1, findMatch("custom-begin", "custom-end", (f) => requiresEndMapping[JSON.parse(f.options).__customSplitterType]))} data={data} table={table} condensed={condensed} output={output}/>
-        </CustomSplitterDispatch>
+        {#if hasContent(data, table, fields.slice(1, findMatch("custom-begin", "custom-end", (f) => requiresEndMapping[JSON.parse(f.options).__customSplitterType])), output)}
+          <CustomSplitterDispatch field={firstField} data={data} table={table}>
+            <svelte:self fields={fields.slice(1, findMatch("custom-begin", "custom-end", (f) => requiresEndMapping[JSON.parse(f.options).__customSplitterType]))} data={data} table={table} condensed={condensed} output={output}/>
+          </CustomSplitterDispatch>
+        {/if}
         <svelte:self fields={fields.slice(findMatch("custom-begin", "custom-end", (f) => requiresEndMapping[JSON.parse(f.options).__customSplitterType]) + 1)} data={data} table={table} condensed={condensed} output={output}/>
       {:else}
         <CustomSplitterDispatch field={firstField} data={data} table={table}/>
