@@ -1,7 +1,7 @@
 <script>
   import { fieldData, hasField, standardHasAsset, selectStandardAsset } from "../../lib/easydbHelpers";
   import { dataLanguagesStore, pushUUID, masksToRenderStore } from "../../lib/stores";
-  import { A, Card, P, Popover } from "flowbite-svelte";
+  import { A, Breadcrumb, BreadcrumbItem, Card, P, Popover } from "flowbite-svelte";
 
   import FieldLabel from "./FieldLabel.svelte";
 
@@ -33,6 +33,16 @@
       detailViewComponent = import("../logic/DetailViewImpl.svelte");
     }
   }
+
+  function hasNontrivialPath() {
+    if (!("_path" in fdata)) {
+      return false;
+    }
+    if (fdata["_path"].length < 2) {
+      return false;
+    }
+    return true;
+  }
 </script>
 
 {#if hasField(data, table, field)}
@@ -40,6 +50,15 @@
     <P>
       <FieldLabel table={table} field={field} />
     </P>
+  {/if}
+  {#if hasNontrivialPath()}
+    <Breadcrumb>
+      {#each fdata["_path"].slice(0, -1) as pathItem}
+        <BreadcrumbItem>
+          {pathItem._standard["1"].text[$dataLanguagesStore[0]]}
+        </BreadcrumbItem>
+      {/each}
+    </Breadcrumb>
   {/if}
   {#if standardHasAsset(fdata)}
     <Card class="easydb-link max-w-full h-32" img={selectStandardAsset(fdata)} horizontal>
