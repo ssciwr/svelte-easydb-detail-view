@@ -21,5 +21,7 @@
   <DetailControls data={data}/>
   <ViewerPanel fields={maskObj(data).fields} data={data} table={maskObj(data).table_name_hint}/>
   <TitleDisplay data={data} table={maskObj(data).table_name_hint}/>
-  <RecursiveEasyDbDetailView fields={maskObj(data).fields} data={data} table={maskObj(data).table_name_hint}/>
+  <div class="space-y-2">
+    <RecursiveEasyDbDetailView fields={maskObj(data).fields} data={data} table={maskObj(data).table_name_hint}/>
+  </div>
 {/await}
