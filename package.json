@@ -8,9 +8,13 @@
     "build": "vite build",
     "easydb": "node ./src/generate.js",
     "preview": "vite preview",
-    "check": "svelte-check --tsconfig ./tsconfig.json && tsc -p tsconfig.node.json"
+    "check": "svelte-check --tsconfig ./tsconfig.json && tsc -p tsconfig.node.json",
+    "bundle": "rollup -c"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^26.0.1",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-replace": "^5.0.7",
     "@sveltejs/vite-plugin-svelte": "^3.1.1",
     "@tsconfig/svelte": "^5.0.4",
     "autoprefixer": "^10.4.2",
@@ -19,6 +23,9 @@
     "oclif": "^4.14.11",
     "postcss": "^8.4.32",
     "postcss-load-config": "^5.0.2",
+    "rollup": "^4.21.2",
+    "rollup-plugin-css-only": "^4.5.2",
+    "rollup-plugin-svelte": "^7.2.2",
     "svelte": "^4.2.18",
     "svelte-check": "^3.8.1",
     "tailwind-merge": "^2.4.0",

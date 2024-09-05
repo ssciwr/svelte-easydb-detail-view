@@ -1,3 +1,9 @@
+<svelte:options customElement={{
+  tag: 'easydb-detail-view',
+  shadow: 'none'
+  }}
+/>
+
 <script>
   import { pregen_instance } from "../lib/easydbPregen";
   import { appLanguageStore, dataLanguagesStore, easydbInstanceStore, easydbInstanceDataPromiseStore, userGivenMasksToRenderStore, uuidStore } from "../lib/stores";
