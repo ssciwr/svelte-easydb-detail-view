@@ -21,7 +21,22 @@ npm run dev
 
 ## Usage
 
-T.B.A.
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Svelte Component</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" type="text/css" crossorigin href="bundle.css">
+    <script src="bundle.js"></script>
+</head>
+<body>
+    <easydb-detail-view uuid="e95dcb74-77f6-4794-b468-506da8b7a3a1"/>
+</body>
+</html>
+```
 
 ## Issues
 
