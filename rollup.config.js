@@ -3,6 +3,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import replace from '@rollup/plugin-replace';
 import css from 'rollup-plugin-css-only';
+import terser from '@rollup/plugin-terser';
 
 export default {
   input: './src/bundle.js',
@@ -32,6 +33,7 @@ export default {
       browser: true,
       dedupe: ['svelte', 'flowbite-svelte']
     }),
-    commonjs()
+    commonjs(),
+    terser()
   ]
 };
