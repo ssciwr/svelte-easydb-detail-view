@@ -16,9 +16,6 @@
   let detailViewComponent;
 
   function requiresPopover() {
-    console.log($masksToRenderStore);
-    console.log(fdata._mask);
-    console.log($masksToRenderStore.includes(fdata._mask));
     if (!$masksToRenderStore) {
       return false;
     }

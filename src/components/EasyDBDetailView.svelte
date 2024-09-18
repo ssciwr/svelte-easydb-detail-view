@@ -6,7 +6,7 @@
 
 <script>
   import { pregen_instance } from "../lib/easydbPregen";
-  import { appLanguageStore, dataLanguagesStore, easydbInstanceStore, easydbInstanceDataPromiseStore, userGivenMasksToRenderStore, uuidStore } from "../lib/stores";
+  import { appLanguageStore, dataLanguagesStore, easydbInstanceStore, easydbInstanceDataStore, userGivenMasksToRenderStore, uuidStore } from "../lib/stores";
 
   import DetailViewImpl from "./logic/DetailViewImpl.svelte";
   import Waiting from "./utils/Waiting.svelte";
@@ -25,10 +25,10 @@
   $: uuidStore.set([uuid]);
 </script>
 
-{#await $easydbInstanceDataPromiseStore }
+{#if !$easydbInstanceDataStore }
   <Waiting>
     Accessing the EasyDB instance...
   </Waiting>
-{:then}
+{:else}
   <DetailViewImpl mask={mask}/>
-{/await}
+{/if}
