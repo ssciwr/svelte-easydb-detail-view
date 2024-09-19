@@ -2,8 +2,9 @@ import svelte from 'rollup-plugin-svelte';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import replace from '@rollup/plugin-replace';
-import css from 'rollup-plugin-css-only';
 import terser from '@rollup/plugin-terser';
+import postcss from 'rollup-plugin-postcss';
+import { sveltePreprocess } from 'svelte-preprocess';
 
 export default {
   input: './src/bundle.js',
@@ -16,6 +17,9 @@ export default {
   plugins: [
     svelte({
       emitCss: true,
+      preprocess: sveltePreprocess({
+        postcss: true, // Use PostCSS to process TailwindCSS
+      }),
       compilerOptions: {
         customElement: true
       }
@@ -26,9 +30,7 @@ export default {
       },
       delimiters: ['', '']
     }),
-    css({
-      output: 'bundle.css'
-    }),
+    postcss(),
     resolve({
       browser: true,
       dedupe: ['svelte', 'flowbite-svelte']
