@@ -16,7 +16,7 @@ export default {
   },
   plugins: [
     svelte({
-      emitCss: true,
+      emitCss: false,
       preprocess: sveltePreprocess({
         postcss: true, // Use PostCSS to process TailwindCSS
       }),
