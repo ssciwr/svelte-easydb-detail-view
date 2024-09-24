@@ -2,7 +2,7 @@
   import { bestLanguage } from "../../lib/l10n";
   import { appLanguageStore, dataLanguagesStore, easydbInstanceDataStore } from "../../lib/stores";
   
-  import { Breadcrumb, BreadcrumbItem, Card, P } from "flowbite-svelte";
+  import { Breadcrumb, BreadcrumbItem } from "flowbite-svelte";
 
   import StandardRendering from "./StandardRendering.svelte";
 
