@@ -24,13 +24,9 @@ export default {
         customElement: true
       }
     }),
-    replace({
-      values: {
-        "this.attachShadow({ mode: 'open' });": ""
-      },
-      delimiters: ['', '']
+    postcss({
+      extract: "bundle.css"
     }),
-    postcss(),
     resolve({
       browser: true,
       dedupe: ['svelte', 'flowbite-svelte']
