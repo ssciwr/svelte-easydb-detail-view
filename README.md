@@ -21,22 +21,14 @@ npm run dev
 
 ## Usage
 
+You can create a bundle with the following commands:
 ```
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Svelte Component</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" type="text/css" crossorigin href="bundle.css">
-    <script src="bundle.js"></script>
-</head>
-<body>
-    <easydb-detail-view uuid="e95dcb74-77f6-4794-b468-506da8b7a3a1"/>
-</body>
-</html>
+npm run easydb -- --instance-url=https://heidicon.ub.uni-heidelberg.de
+npm run bundle
 ```
+
+This will generate `bundle.{js,css}` in the `bundle/` directory. You can look at the provided
+`index.html` for an example of how to integrate into your HTML page.
 
 ## Issues
 
