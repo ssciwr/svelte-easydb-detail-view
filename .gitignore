@@ -1,5 +1,9 @@
+# We exclude the bundle, although we do track index.html
+bundle
+!bundle/index.html
+
 # This file is regularyl overwritten for pregeneration
-src/lib/easydb.js
+src/lib/easydbPregen.js
 
 # Logs
 logs
