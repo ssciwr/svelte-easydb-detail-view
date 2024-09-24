@@ -23,7 +23,7 @@
   $: systemidStore.set([systemid]);
 </script>
 
-{#if !$easydbInstanceDataStore }
+{#if !$easydbInstanceDataStore || ($easydbInstanceDataStore.instance !== easydbInstance) }
   <Waiting>
     Accessing the EasyDB instance...
   </Waiting>
