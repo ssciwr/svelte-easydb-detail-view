@@ -21,28 +21,30 @@ function reorganize_schemas(schemadata) {
   return newdata;
 }
 
-export async function accessInstance(instance) {
-  // Get a session token from the EasyDB instance
-  const token_response = await fetch(`${instance}/api/session`);
-  if(token_response.status != 200) {
-    throw new Error("Could not get a session token from the EasyDB instance.");
-  }
-  const token_json = await token_response.json();
-  const token = token_json.token;
-
-  // Authenticcate the session token
-  const auth_response = await fetch(
-    `${instance}/api/session/authenticate?` +
-    new URLSearchParams({
-      token: token,
-      method: 'anonymous',
-    }),
-    {
-      method: 'POST',
+export async function accessInstance(instance, token = null) {
+  if(token === null) {
+    // Get a session token from the EasyDB instance
+    const token_response = await fetch(`${instance}/api/session`);
+    if(token_response.status != 200) {
+      throw new Error("Could not get a session token from the EasyDB instance.");
     }
-  );
-  if(auth_response.status != 200) {
-    throw new Error("Could not authenticate the session token.");
+    const token_json = await token_response.json();
+    token = token_json.token;
+
+    // Authenticcate the session token
+    const auth_response = await fetch(
+      `${instance}/api/session/authenticate?` +
+      new URLSearchParams({
+        token: token,
+        method: 'anonymous',
+      }),
+      {
+        method: 'POST',
+      }
+    );
+    if(auth_response.status != 200) {
+      throw new Error("Could not authenticate the session token.");
+    }
   }
 
   // Fetch all the masks for this instance

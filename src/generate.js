@@ -43,13 +43,16 @@ export class PrefetchCommand extends Command {
       multiple: true,
       exclusive: ['exclude_mask'],
     }),
+    token: Flags.string({
+      description: 'A session token to use for the prefetch',
+    }),
   }
 
   async run() {
     const { flags } = await this.parse(PrefetchCommand);
     const instance = flags.instance;
 
-    const data = await accessInstance(instance);
+    const data = await accessInstance(instance, flags.token);
 
     data.masks = filterMasks(data.masks, flags.include_mask, flags.exclude_mask);
 
