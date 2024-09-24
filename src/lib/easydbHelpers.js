@@ -14,10 +14,10 @@ export function findSchemaColumn(table, field) {
 // Given a data JSON object and the field definition from a mask, return the label of the field with the language code lang
 export function fieldLabel(table, field, lang) {
   if (field.column_name_hint) {
-    return bestLanguage(get(easydbInstanceDataStore).l10n[`schema.${table}.column.${field.column_name_hint}`], lang);
+    return bestLanguage(get(easydbInstanceDataStore).l10n[`schema.${table}.column.${field.column_name_hint}`], [lang]);
   }
   if (field.other_table_name_hint) {
-    return bestLanguage(get(easydbInstanceDataStore).l10n[`schema.${field.other_table_name_hint}.name`], lang);
+    return bestLanguage(get(easydbInstanceDataStore).l10n[`schema.${field.other_table_name_hint}.name`], [lang]);
   }
   return "Error retrieving label";
 }
@@ -66,7 +66,7 @@ export function reverseLinkedSubData(data, table, field) {
 }
 
 export function splitterTitle(data, table, options, lang) {
-  return bestLanguage(get(easydbInstanceDataStore).l10n[`mask.${get(easydbInstanceDataStore).schemas[table].table_id}.${maskObj(data).name}.splitter.${String(options.splitterIdx)}`], lang);
+  return bestLanguage(get(easydbInstanceDataStore).l10n[`mask.${get(easydbInstanceDataStore).schemas[table].table_id}.${maskObj(data).name}.splitter.${String(options.splitterIdx)}`], [lang]);
 }
 
 export function hasContent(data, table, fields, output) {
