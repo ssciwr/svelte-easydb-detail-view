@@ -4,7 +4,7 @@
   import '../app.pcss';
 
   import { pregen_instance } from "../lib/easydbPregen";
-  import { appLanguageStore, dataLanguagesStore, easydbInstanceStore, easydbInstanceDataStore, systemidStore, userGivenMasksToRenderStore } from "../lib/stores";
+  import { appLanguageStore, dataLanguagesStore, easydbInstanceStore, easydbInstanceDataStore, systemidStore, userGivenMasksToRenderStore, userTokenStore } from "../lib/stores";
 
   import DetailViewImpl from "./logic/DetailViewImpl.svelte";
   import Waiting from "./utils/Waiting.svelte";
@@ -15,12 +15,14 @@
   export let easydbInstance = pregen_instance;
   export let mask = "";
   export let masksToRender = [];
+  export let token = "";
 
   $: appLanguageStore.set(appLanguage);
   $: dataLanguagesStore.set(dataLanguages);
   $: easydbInstanceStore.set(easydbInstance);
   $: userGivenMasksToRenderStore.set(masksToRender)
   $: systemidStore.set([systemid]);
+  $: userTokenStore.set(token);
 </script>
 
 {#if !$easydbInstanceDataStore || ($easydbInstanceDataStore.instance !== easydbInstance) }
