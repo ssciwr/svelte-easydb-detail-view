@@ -27,9 +27,9 @@ export const appLanguageStore = writable(null);
 // This manages the global state of the current data language
 export const dataLanguagesStore = writable(null);
 
-// This manages the global state of the currently shown object UUID
+// This manages the global state of the currently shown object System ID
 // It is organized as a stack to allow for back navigation
-export const uuidStore = writable([]);
+export const systemidStore = writable([]);
 
 // This manages the global state of the EasyDB instance we are talking to
 export const easydbInstanceStore = writable(null);
@@ -86,14 +86,14 @@ export const easydbInstanceDataStore = derivedPromise(easydbInstanceDataPromiseS
 // Possible values are "hierarchy", "asset" and "map" (currently).
 export const viewerPanelStateStore = writable("asset");
 
-// A helper function to add a new UUID to the store and reset relevant other stores
-export function pushUUID(uuid) {
-  uuidStore.update(uuids => [...uuids, uuid]);
+// A helper function to add a new System ID to the store and reset relevant other stores
+export function pushSystemID(systemid) {
+  systemidStore.update(systemids => [...systemids, systemid]);
   viewerPanelStateStore.set("asset");
 }
 
-export function popUUID() {
-  uuidStore.update(uuids => uuids.slice(0, -1));
+export function popSystemID() {
+  systemidStore.update(systemids => systemids.slice(0, -1));
   viewerPanelStateStore.set("asset");
 }
 

@@ -1,12 +1,12 @@
 import { get } from 'svelte/store';
 import { easydbTokenPromiseStore, easydbInstanceStore, userTokenStore } from './stores';
 
-export async function easydb_api_object(uuid, mask) {
-  if (!uuid) {
+export async function easydb_api_object(systemid, mask) {
+  if (!systemid) {
     return {}
   }
 
-  let url = `${get(easydbInstanceStore)}/api/objects/uuid/${uuid}`;
+  let url = `${get(easydbInstanceStore)}/api/objects/id/${systemid}`;
   if (mask !== '') {
     url = `${url}/mask/${mask}`;
   }
@@ -17,7 +17,7 @@ export async function easydb_api_object(uuid, mask) {
   // Fetch the schema data for this instance
   const response = await fetch(url);
   if(response.status != 200) {
-    throw new Error(`Could not fetch the data for uuid: ${uuid}`);
+    throw new Error(`Could not fetch the data for systemid: ${systemid}`);
   }
   const response_json = await response.json();
   return response_json;

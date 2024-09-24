@@ -1,7 +1,7 @@
 <script>
   import { easydb_api_object } from "../../lib/apiaccess";
   import { maskObj } from "../../lib/easydbHelpers";
-  import { uuidStore } from "../../lib/stores";
+  import { systemidStore } from "../../lib/stores";
 
   import RecursiveEasyDbDetailView from "./RecursiveEasyDBDetailView.svelte";
   import TitleDisplay from "./TitleDisplay.svelte";
@@ -9,11 +9,11 @@
   import Waiting from "../utils/Waiting.svelte";
   import DetailControls from "./DetailControls.svelte";
 
-  export let uuid;
+  export let systemid;
   export let mask = "";
 </script>
 
-{#await easydb_api_object(uuid ? uuid : $uuidStore.at(-1), mask) }
+{#await easydb_api_object(systemid ? systemid : $systemidStore.at(-1), mask) }
   <Waiting>
     Waiting for API response...
   </Waiting>

@@ -1,5 +1,5 @@
 <script>
-  import { appLanguageStore, pushUUID } from "../../lib/stores";
+  import { appLanguageStore, pushSystemID } from "../../lib/stores";
 
   import { A, P } from "flowbite-svelte";
   import { ArrowDownOutline, ArrowRightOutline } from "flowbite-svelte-icons";
@@ -31,7 +31,7 @@
 </script>
 
 <P class="text-right ubhd-obj-mask-splitter-text">
-  <A on:click={() => { pushUUID(data._uuid); }}>
+  <A on:click={() => { pushSystemID(data._system_object_id); }}>
     {l10n.hinweistext1[$appLanguageStore]}
     {l10n[options.label][$appLanguageStore]}
     {l10n.hinweistext2[$appLanguageStore]}

@@ -1,5 +1,5 @@
 <script>
-  import { appLanguageStore, popUUID, uuidStore, viewerPanelStateStore } from "../../lib/stores";
+  import { appLanguageStore, popSystemID, systemidStore, viewerPanelStateStore } from "../../lib/stores";
 
   import { Button, ButtonGroup, Tooltip } from "flowbite-svelte";
   import { BackwardStepOutline, ImageOutline, MapPinAltOutline, RectangleListOutline } from "flowbite-svelte-icons";
@@ -40,12 +40,12 @@
 </script>
 
 <ButtonGroup class="pb-2">
-  {#if $uuidStore.length > 1}
-    <Button id="back-nav" on:click={popUUID}>
+  {#if $systemidStore.length > 1}
+    <Button id="back-nav" on:click={popSystemID}>
       <BackwardStepOutline class="inline-block w-6 h-6"/>
     </Button>
     <Tooltip triggeredBy="#back-nav" placement="bottom" class="z-10">
-      {l10n.returntext[$appLanguageStore]}{$uuidStore.at(-2)}
+      {l10n.returntext[$appLanguageStore]}{$systemidStore.at(-2)}
     </Tooltip>
   {/if}
   {#if hasRelations()}

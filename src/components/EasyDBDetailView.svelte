@@ -4,12 +4,12 @@
   import '../app.pcss';
 
   import { pregen_instance } from "../lib/easydbPregen";
-  import { appLanguageStore, dataLanguagesStore, easydbInstanceStore, easydbInstanceDataStore, userGivenMasksToRenderStore, uuidStore } from "../lib/stores";
+  import { appLanguageStore, dataLanguagesStore, easydbInstanceStore, easydbInstanceDataStore, systemidStore, userGivenMasksToRenderStore } from "../lib/stores";
 
   import DetailViewImpl from "./logic/DetailViewImpl.svelte";
   import Waiting from "./utils/Waiting.svelte";
 
-  export let uuid = "";
+  export let systemid = "";
   export let appLanguage = "de-DE";
   export let dataLanguages = ["de-DE", "en-US"];
   export let easydbInstance = pregen_instance;
@@ -20,7 +20,7 @@
   $: dataLanguagesStore.set(dataLanguages);
   $: easydbInstanceStore.set(easydbInstance);
   $: userGivenMasksToRenderStore.set(masksToRender)
-  $: uuidStore.set([uuid]);
+  $: systemidStore.set([systemid]);
 </script>
 
 {#if !$easydbInstanceDataStore }

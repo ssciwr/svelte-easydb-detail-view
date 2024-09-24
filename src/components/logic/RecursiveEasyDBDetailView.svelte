@@ -98,9 +98,9 @@
     return false;
   }
 
-  function loadAdditionalUUID(field) {
+  function loadAdditionalSystemID(field) {
     const fdata = fieldData(data, table, field);
-    return easydb_api_object(fdata._uuid, fdata._mask);
+    return easydb_api_object(fdata._system_object_id, fdata._mask);
   }
 </script>
 
@@ -182,7 +182,7 @@
         <Link field={firstField} data={data} table={table} condensed={condensed} />
       {:else if firstField.inline === "text" }
         <Card horizontal class="max-w-full block">
-          {#await loadAdditionalUUID(firstField)}
+          {#await loadAdditionalSystemID(firstField)}
             <Waiting>
               Accessing API...
             </Waiting>

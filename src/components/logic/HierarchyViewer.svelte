@@ -1,6 +1,6 @@
 <script>
   import { easydbChildrenObject } from "../../lib/apiaccess";
-  import { pushUUID } from "../../lib/stores";
+  import { pushSystemID } from "../../lib/stores";
 
   import { A, Accordion, AccordionItem } from "flowbite-svelte";
   import StandardRendering from "./StandardRendering.svelte";
@@ -15,7 +15,7 @@
   {#if root._has_children}
     <AccordionItem open={openids.includes(root[table]._id)}>
      <span slot="header">
-        <A on:click={ () => { pushUUID(root._uuid); }}>
+        <A on:click={ () => { pushSystemID(root._system_object_id); }}>
           <StandardRendering data={root} asset={true}/>
         </A>
       </span>
@@ -34,7 +34,7 @@
       <div slot="arrowup" />
       <div slot="arrowdown" />
       <span slot="header">
-        <A on:click={ () => { pushUUID(root._uuid); }}>
+        <A on:click={ () => { pushSystemID(root._system_object_id); }}>
           <StandardRendering data={root} asset={true}/>
         </A>
       </span>

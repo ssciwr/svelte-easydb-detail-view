@@ -1,9 +1,9 @@
 <script>
   import { Button, Heading, Input, Label, MultiSelect, Select } from "flowbite-svelte";
-  import { appLanguageStore, easydbInstanceStore, easydbInstanceDataStore, easydbInstanceDataPromiseStore, easydbTokenPromiseStore, masksToRenderStore, userTokenStore, uuidStore, viewerPanelStateStore } from "./lib/stores";
+  import { appLanguageStore, easydbInstanceStore, easydbInstanceDataStore, easydbInstanceDataPromiseStore, easydbTokenPromiseStore, masksToRenderStore, systemidStore, userTokenStore, viewerPanelStateStore } from "./lib/stores";
   import EasyDbDetailView from "./components/EasyDBDetailView.svelte";
 
-  let uuid = "859e2318-32f6-4013-8468-ef8cec0b581b";
+  let systemid = "906249";
   let mask = "";
   let instance = "https://heidicon.ub.uni-heidelberg.de";
   let token = "";
@@ -30,7 +30,7 @@
     console.log("easydbTokenPromiseStore: ", $easydbTokenPromiseStore);
     console.log("masksToRenderStore: ", $masksToRenderStore);
     console.log("userTokenStore: ", $userTokenStore);
-    console.log("uuidStore: ", $uuidStore);
+    console.log("systemidStore: ", $systemidStore);
     console.log("viewerPanelStateStore: ", $viewerPanelStateStore);
   }
 </script>
@@ -59,93 +59,93 @@
       </div>
       <div class="space-y-2 p-4">
         <Label>
-          UUID of EasyDB record
+          System ID of EasyDB record
         </Label>
-        <Input type="text" bind:value={uuid} size="lg" class="w-full"></Input>
+        <Input type="text" bind:value={systemid} size="lg" class="w-full"></Input>
       </div>
       <div class="space-y-2 p-4">
         <Label>
-          Some pre-selected UUIDs:
+          Some pre-selected System IDs:
         </Label>
         <Button class="w-full" on:click={
           () => { 
-            uuid = "6deddff8-c600-447e-8892-3359c3516a94";
+            systemid = "23823812";
             instance = "https://heidicon.ub.uni-heidelberg.de";
           }
         }>
-          6deddff8-c600-447e-8892-3359c3516a94@HeidICON
+          23823812@HeidICON
         </Button>
         <Button class="w-full" on:click={
           () => {
-            uuid = "859e2318-32f6-4013-8468-ef8cec0b581b";
+            systemid = "906249";
             instance = "https://heidicon.ub.uni-heidelberg.de";
           }
         }>
-          859e2318-32f6-4013-8468-ef8cec0b581b@HeidICON
+          906249@HeidICON
         </Button>
         <Button class="w-full" on:click={
           () => { 
-            uuid = "acbc91a3-2c1f-49be-b937-9d78de838640";
+            systemid = "360156";
             instance = "https://heidicon.ub.uni-heidelberg.de"; 
           }
         }>
-          acbc91a3-2c1f-49be-b937-9d78de838640@HeidICON
+          360156@HeidICON
         </Button>
         <Button class="w-full" on:click={
           () => {
-            uuid = "2ee862d1-180d-4222-bbbf-41a8ec06e41a";
+            systemid = "23817051";
             instance = "https://heidicon.ub.uni-heidelberg.de";
           }
         }>
-          2ee862d1-180d-4222-bbbf-41a8ec06e41a@HeidICON
+          23817051@HeidICON
         </Button>
         <Button class="w-full" on:click={
           () => {
-            uuid = "a3f6109f-feb4-45f8-8e76-c4466efd0d20";
+            systemid = "23824557";
             instance = "https://heidicon.ub.uni-heidelberg.de";
           }
         }>
-          a3f6109f-feb4-45f8-8e76-c4466efd0d20@HeidICON
+          23824557@HeidICON
         </Button>
         <Button class="w-full" on:click={
           () => {
-            uuid = "bb7c84ae-4796-4c20-8df0-a4c5c49a7ac6";
+            systemid = "1748947";
             instance = "https://heidicon.ub.uni-heidelberg.de";
           }
         }>
-          bb7c84ae-4796-4c20-8df0-a4c5c49a7ac6@HeidICON
+          1748947@HeidICON
         </Button>
         <Button class="w-full" on:click={
           () => {
-            uuid = "1fde05f5-7767-448f-a104-4f4af9d8f9ed";
+            systemid = "1706516";
             instance = "https://heidicon.ub.uni-heidelberg.de";
           }
         }>
-          1fde05f5-7767-448f-a104-4f4af9d8f9ed@HeidICON
+          1706516@HeidICON
         </Button>
         <Button class="w-full" on:click={
           () => {
-            uuid = "e95dcb74-77f6-4794-b468-506da8b7a3a1";
+            systemid = "1019633";
             instance = "https://heidicon.ub.uni-heidelberg.de";
           }
         }>
-          e95dcb74-77f6-4794-b468-506da8b7a3a1@HeidICON
+          1019633@HeidICON
         </Button>
         <Button class="w-full" on:click={
           () => {
-            uuid = "a1b154b0-2c89-4317-8bac-2a7e684740b8";
+            systemid = "1655171";
             instance = "https://heidicon.ub.uni-heidelberg.de";
           }
         }>
-          a1b154b0-2c89-4317-8bac-2a7e684740b8@HeidICON
+          1655171@HeidICON
         </Button>
         <Button class="w-full" on:click={
           () => {
-            uuid = "bc679b8c-e8af-48d3-9339-5260c20c3e77";
+            systemid = "6493";
             instance = "https://dmmp.ub.uni-heidelberg.de";
           }
         }>
-          bc679b8c-e8af-48d3-9339-5260c20c3e77@DMMP
+          6493@DMMP
         </Button>
       </div>
       <div class="space-y-2 p-4">
@@ -182,7 +182,7 @@
       </div>
     </div>
     <div class="w-1/2 p-4 border border-gray-300">
-      <EasyDbDetailView uuid={uuid} appLanguage={selected_app_language} dataLanguages={selected_data_languages} easydbInstance={instance} mask={mask} masksToRender={selected_masks} />
+      <EasyDbDetailView systemid={systemid} appLanguage={selected_app_language} dataLanguages={selected_data_languages} easydbInstance={instance} mask={mask} masksToRender={selected_masks} />
     </div>
   </div>
 </main>

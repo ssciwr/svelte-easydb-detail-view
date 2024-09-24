@@ -1,6 +1,6 @@
 <script>
   import { fieldData, hasField, standardHasAsset, selectStandardAsset } from "../../lib/easydbHelpers";
-  import { dataLanguagesStore, pushUUID, masksToRenderStore } from "../../lib/stores";
+  import { dataLanguagesStore, pushSystemID, masksToRenderStore } from "../../lib/stores";
   import { A, Breadcrumb, BreadcrumbItem, Card, P, Popover } from "flowbite-svelte";
 
   import FieldLabel from "./FieldLabel.svelte";
@@ -24,7 +24,7 @@
 
   function handleClick() {
     if(!requiresPopover()) {
-      pushUUID(fdata._uuid);
+      pushSystemID(fdata._system_object_id);
     }
     else {
       detailViewComponent = import("../logic/DetailViewImpl.svelte");
@@ -81,7 +81,7 @@
 {#if detailViewComponent }
   {#await detailViewComponent then { default : DetailViewImpl }}
     <Popover class="w-[800px] h-[800px] overflow-auto z-20" triggeredBy="#link" trigger="click">
-      <DetailViewImpl uuid={fdata._uuid} />
+      <DetailViewImpl systemid={fdata._system_object_id} />
     </Popover>
   {/await}
 {/if}
