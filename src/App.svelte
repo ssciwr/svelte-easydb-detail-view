@@ -145,6 +145,14 @@
         }>
           6493@DMMP
         </Button>
+        <Button class="w-full" on:click={
+          () => {
+            systemid = "1042";
+            instance = "https://dmmp.ub.uni-heidelberg.de";
+          }
+        }>
+          1042@DMMP
+        </Button>
       </div>
       <div class="space-y-2 p-4">
         <Label>
