@@ -6,7 +6,11 @@
   import Boolean from "../fields/Boolean.svelte";
   import CustomDataTypeGazetteer from "../fields/CustomDataTypeGazetteer.svelte";
   import CustomDataTypeGeonames from "../fields/CustomDataTypeGeonames.svelte";
+  import CustomDataTypeGeoref from "../fields/CustomDataTypeGeoref.svelte";
+  import CustomDataTypeGetty from "../fields/CustomDataTypeGetty.svelte";
+  import CustomDataTypeGND from "../fields/CustomDataTypeGND.svelte";
   import CustomDataTypeLink from "../fields/CustomDataTypeLink.svelte";
+  import CustomDataTypeLocation from "../fields/CustomDataTypeLocation.svelte";
   import CustomDataTypeUbhdgnd from "../fields/CustomDataTypeUBHDGND.svelte";
   import Date from "../fields/Date.svelte";
   import Daterange from "../fields/Daterange.svelte";
@@ -32,7 +36,11 @@
     "boolean": Boolean,
     "custom:base.custom-data-type-gazetteer.gazetteer": CustomDataTypeGazetteer,
     "custom:base.custom-data-type-geonames.geonames": CustomDataTypeGeonames,
+    "custom:base.custom-data-type-georef.georef": CustomDataTypeGeoref,
+    "custom:base.custom-data-type-getty.getty": CustomDataTypeGetty,
+    "custom:base.custom-data-type-gnd.gnd": CustomDataTypeGND,
     "custom:base.custom-data-type-link.link": CustomDataTypeLink,
+    "custom:base.custom-data-type-location.location": CustomDataTypeLocation,
     "custom:base.custom-data-type-ubhdgnd.ubhdgnd": CustomDataTypeUbhdgnd,
     "date": Date,
     "daterange": Daterange,
