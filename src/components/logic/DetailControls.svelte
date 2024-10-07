@@ -53,8 +53,6 @@
   }
 
   $: displayedButtons = calculate($systemidStore);
-
-  console.log(displayedButtons);
 </script>
 
 {#if displayedButtons.length > 0}
