@@ -7,6 +7,7 @@
 
   import AssetViewer from "./AssetViewer.svelte";
   import HierarchyViewer from "./HierarchyViewer.svelte";
+  import NotImplemented from "../utils/NotImplemented.svelte";
 
   import "./hierarchy.css";
 </script>
@@ -17,6 +18,6 @@
   <div class="hierarchy-viewer">
     <HierarchyViewer openids={data._path.map(entry => entry[table]._id)} table={table} root={data._path[0]}/>
   </div>
-{:else if $viewerPanelStateStore === "map"}
-  My Map
+{:else}
+  <NotImplemented message="The viewer panel {$viewerPanelStateStore} is unknown."/>
 {/if}
