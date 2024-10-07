@@ -2,7 +2,7 @@
   import { appLanguageStore, popSystemID, systemidStore, viewerPanelStateStore } from "../../lib/stores";
 
   import { Button, ButtonGroup, Tooltip } from "flowbite-svelte";
-  import { BackwardStepOutline, ImageOutline, MapPinAltOutline, RectangleListOutline } from "flowbite-svelte-icons";
+  import { BackwardStepOutline, ImageOutline, RectangleListOutline } from "flowbite-svelte-icons";
 
   export let data;
 
@@ -61,11 +61,5 @@
   </Button>
   <Tooltip triggeredBy="#assets-nav" placement="bottom" class="z-10">
     {l10n.assettext[$appLanguageStore]}
-  </Tooltip>
-  <Button id="map-nav" on:click={() => { viewerPanelStateStore.set("map"); }}>
-    <MapPinAltOutline class="inline-block w-6 h-6"/>
-  </Button>
-  <Tooltip triggeredBy="#map-nav" placement="bottom" class="z-10">
-    {l10n.maptext[$appLanguageStore]}
   </Tooltip>
 </ButtonGroup>
