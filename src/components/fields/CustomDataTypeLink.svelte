@@ -19,4 +19,6 @@
   }
 </script>
 
-<A href={fdata.url}>{findText()}</A>
+<A href={fdata.url} target="_blank" rel="noopener noreferrer">
+  {findText()}
+</A>

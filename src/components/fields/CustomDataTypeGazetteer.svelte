@@ -48,6 +48,6 @@
 
 
 {fdata.displayName} {detailString()}
-<A href={"https://gazetteer.dainst.org/app/#!/show/" + fdata.gazId}>
+<A href={"https://gazetteer.dainst.org/app/#!/show/" + fdata.gazId} target="_blank" rel="noopener noreferrer">
   <ArrowUpRightFromSquareOutline class="w-4 h-4"/>
 </A>

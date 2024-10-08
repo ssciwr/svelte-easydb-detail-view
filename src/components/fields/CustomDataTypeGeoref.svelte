@@ -4,4 +4,8 @@
   import { A } from "flowbite-svelte";
 </script>
 
-MapBox visualization is not implemented in this viewer. Look at it in the <A href="{$easydbInstanceStore}/#/details/{$systemidStore.at(-1)}">EasyDB instance</A> instead.
+MapBox visualization is not implemented in this viewer. Look at it in the
+<A href="{$easydbInstanceStore}/#/details/{$systemidStore.at(-1)}" target="_blank" rel="noopener noreferrer">
+  EasyDB instance
+</A>
+instead.

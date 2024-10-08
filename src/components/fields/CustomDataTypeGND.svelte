@@ -13,7 +13,7 @@
   
 <span class="easydb-custom-gnd">
   {fdata.conceptName}
-  <A href={fdata.conceptURI}>
+  <A href={fdata.conceptURI} target="_blank" rel="noopener noreferrer">
     <ArrowUpRightFromSquareOutline class="w-4 h-4"/>
   </A>
 </span>
