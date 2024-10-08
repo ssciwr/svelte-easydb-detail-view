@@ -9,7 +9,7 @@ import { sveltePreprocess } from 'svelte-preprocess';
 export default {
   input: './src/bundle.js',
   output: {
-    file: 'bundle/bundle.js',
+    file: 'bundle/easydb.js',
     format: 'iife',
     name: 'EasyDBDetailView',
     inlineDynamicImports: true
@@ -33,7 +33,7 @@ export default {
       }
     }),
     postcss({
-      extract: "bundle.css"
+      extract: "easydb.css"
     }),
     resolve({
       browser: true,
