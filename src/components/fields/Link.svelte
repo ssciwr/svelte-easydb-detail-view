@@ -1,4 +1,6 @@
 <script>
+  import { onMount } from "svelte";
+
   import { fieldData, hasField, standardHasAsset, selectStandardAsset } from "../../lib/easydbHelpers";
   import { dataLanguagesStore, pushSystemID, masksToRenderStore } from "../../lib/stores";
   import { A, Breadcrumb, BreadcrumbItem, Card, P, Popover } from "flowbite-svelte";
@@ -22,12 +24,13 @@
     return !($masksToRenderStore.includes(fdata._mask));
   }
 
+  onMount(() => {
+    detailViewComponent = import("../logic/DetailViewImpl.svelte");
+  });
+
   function handleClick() {
     if(!requiresPopover()) {
       pushSystemID(fdata._system_object_id);
-    }
-    else {
-      detailViewComponent = import("../logic/DetailViewImpl.svelte");
     }
   }
 
@@ -66,13 +69,13 @@
   {/if}
   {#if standardHasAsset(fdata)}
     <Card class="easydb-link max-w-full h-32" img={selectStandardAsset(fdata)} horizontal>
-      <A id="link" on:click={handleClick}>
+      <A id="link" href={null} on:click={handleClick}>
         {fdata["_standard"]["1"].text[$dataLanguagesStore[0]]}
       </A>
     </Card>
   {:else}
     <span class="easydb-link">
-      <A id="link" on:click={handleClick}>
+      <A id="link" href={null} on:click={handleClick}>
         {fdata["_standard"]["1"].text[$dataLanguagesStore[0]]}
       </A>
     </span>
