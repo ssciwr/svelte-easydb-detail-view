@@ -13,7 +13,8 @@ function derivedPromise(store) {
 
 // Our pregenerated defaults wrapped in a Promise
 async function pregenDefaults() {
-  const response = await fetch(`/pregen/data.json`);
+  const baseUrl = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, '');
+  const response = await fetch(`${baseUrl}/pregen/data.json`);
   return response.json();
 }
 
