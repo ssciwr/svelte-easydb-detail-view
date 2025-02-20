@@ -1,5 +1,5 @@
 import { get } from 'svelte/store';
-import { easydbInstanceStore, userTokenStore } from './stores';
+import { easydbInstanceStore, easydbTokenPromiseStore, userTokenStore } from './stores';
 
 export async function easydb_api_object(systemid, mask) {
   if (!systemid) {
@@ -24,8 +24,11 @@ export async function easydb_api_object(systemid, mask) {
 }
 
 export async function easydbChildrenObject(id, table) {
-  const token = await get(userTokenStore);
-  
+  let token = await get(userTokenStore);
+  if (token === "") {
+    token = await get(easydbTokenPromiseStore);
+  }
+
   const response = await fetch(`${get(easydbInstanceStore)}/api/search?` +
     new URLSearchParams({
       "token": token,
