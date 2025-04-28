@@ -27,7 +27,7 @@ npm run easydb -- --instance=https://heidicon.ub.uni-heidelberg.de
 npm run bundle
 ```
 
-This will generate `bundle.{js,css}` in the `bundle/` directory. You can look at the provided
+This will generate `easydb.{js,css}` in the `bundle/` directory. You can look at the provided
 `index.html` for an example of how to integrate into your HTML page.
 
 ## Issues
