@@ -23,7 +23,7 @@ npm run dev
 
 You can create a bundle with the following commands:
 ```
-npm run easydb -- --instance-url=https://heidicon.ub.uni-heidelberg.de
+npm run easydb -- --instance=https://heidicon.ub.uni-heidelberg.de
 npm run bundle
 ```
 
