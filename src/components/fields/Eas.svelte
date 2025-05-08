@@ -9,6 +9,9 @@
   const fdata = fieldData(data, table, field);
 
   function has_preview_image(img) {
+    if (!img.versions.preview) {
+      return false;
+    }
     if (img.versions.preview.class === "image") {
       return true;
     }
