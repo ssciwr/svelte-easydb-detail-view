@@ -1,4 +1,5 @@
 <script>
+  import { DownloadOutline } from "flowbite-svelte-icons";
   import { fieldData } from "../../lib/easydbHelpers";
   import { Card, P } from "flowbite-svelte";
 
@@ -28,19 +29,28 @@
     }
     return snippets.join(", ");
   }
+
+  console.log(fdata)
 </script>
 
 {#each fdata as image}
   <Card img={has_preview_image(image) ? image.versions["preview"].url : null} horizontal class="max-w-full">
-    <P>
-      {image.original_filepath}
-    </P>
-    <P>
-      {#if image.versions.original.compiled}
-        {image.versions.original.compiled}
-      {:else}
-        {technical_metadata(image)}
-      {/if}
-    </P>
+    <div class="flex items-center ">
+    <span>
+      <P>
+        {image.original_filepath}
+      </P>
+      <P>
+        {#if image.versions.original.compiled}
+          {image.versions.original.compiled}
+        {:else}
+          {technical_metadata(image)}
+        {/if}
+      </P>
+    </span>
+    <a href={image.versions.original.url} target="_blank" rel="noopener noreferrer">
+      <DownloadOutline class="w-6 h-6" />
+    </a>
+    </div>
   </Card>
 {/each}
