@@ -17,12 +17,13 @@
   export let masksToRender = [];
   export let token = "";
 
+  // Set stores for global features that need them, but avoid systemid conflicts
   $: appLanguageStore.set(appLanguage);
   $: dataLanguagesStore.set(dataLanguages);
   $: easydbInstanceStore.set(easydbInstance);
-  $: userGivenMasksToRenderStore.set(masksToRender)
-  $: systemidStore.set([systemid]);
+  $: userGivenMasksToRenderStore.set(masksToRender);
   $: userTokenStore.set(token);
+  // Don't set systemidStore - pass systemid as prop instead
 </script>
 
 {#if !$easydbInstanceDataStore || ($easydbInstanceDataStore.instance !== easydbInstance) }
@@ -30,5 +31,5 @@
     Accessing the EasyDB instance...
   </Waiting>
 {:else}
-  <DetailViewImpl mask={mask}/>
+  <DetailViewImpl {systemid} {mask}/>
 {/if}

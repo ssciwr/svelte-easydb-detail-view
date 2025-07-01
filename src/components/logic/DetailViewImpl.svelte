@@ -13,7 +13,7 @@
   export let mask = "";
 </script>
 
-{#await easydb_api_object(systemid ? systemid : $systemidStore.at(-1), mask) }
+{#await easydb_api_object(systemid, mask) }
   <Waiting>
     Waiting for API response...
   </Waiting>
