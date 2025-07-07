@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Dual EasyDB Test</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .test-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .test-panel {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .control-group {
+            margin-bottom: 15px;
+        }
+        
+        .control-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .control-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .submit-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        
+        .submit-btn:hover {
+            background: #0056b3;
+        }
+        
+        .component-area {
+            border: 2px solid #007bff;
+            border-radius: 8px;
+            padding: 15px;
+            min-height: 400px;
+            background: #fafafa;
+        }
+        
+        .status {
+            margin-bottom: 10px;
+            padding: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+        }
+    </style>
+
+    <!-- Import the generated bundle -->
+    <script src="bundle/easydb.js"></script>
+
+    <script>
+        // Load CSS for web components
+        customElements.whenDefined("easydb-detail-view").then(() => {
+            setTimeout(() => {
+                document.querySelectorAll('easydb-detail-view').forEach(element => {
+                    if (element.shadowRoot) {
+                        var link = document.createElement("link");
+                        link.setAttribute("rel", "stylesheet");
+                        link.setAttribute("href", "bundle/easydb.css");
+                        element.shadowRoot.appendChild(link);
+                    }
+                });
+            }, 100);
+        });
+
+        function updateComponent1() {
+            const systemid = document.getElementById('systemid1').value;
+            const container = document.getElementById('component1');
+            
+            // Update status
+            document.getElementById('status1').textContent = `Instance 1: SystemID = ${systemid} (Updated: ${new Date().toLocaleTimeString()})`;
+            
+            // Remove existing component
+            const existing = container.querySelector('easydb-detail-view');
+            if (existing) existing.remove();
+            
+            // Create new component
+            const component = document.createElement('easydb-detail-view');
+            component.setAttribute('systemid', systemid);
+            component.setAttribute('appLanguage', 'en-US');
+            component.setAttribute('easydbInstance', 'https://heidicon.ub.uni-heidelberg.de');
+            container.appendChild(component);
+            
+            // Apply CSS
+            setTimeout(() => {
+                if (component.shadowRoot) {
+                    var link = document.createElement("link");
+                    link.setAttribute("rel", "stylesheet");
+                    link.setAttribute("href", "bundle/easydb.css");
+                    component.shadowRoot.appendChild(link);
+                }
+            }, 100);
+        }
+
+        function updateComponent2() {
+            const systemid = document.getElementById('systemid2').value;
+            const container = document.getElementById('component2');
+            
+            // Update status
+            document.getElementById('status2').textContent = `Instance 2: SystemID = ${systemid} (Updated: ${new Date().toLocaleTimeString()})`;
+            
+            // Remove existing component
+            const existing = container.querySelector('easydb-detail-view');
+            if (existing) existing.remove();
+            
+            // Create new component
+            const component = document.createElement('easydb-detail-view');
+            component.setAttribute('systemid', systemid);
+            component.setAttribute('appLanguage', 'de-DE');
+            component.setAttribute('easydbInstance', 'https://heidicon.ub.uni-heidelberg.de');
+            container.appendChild(component);
+            
+            // Apply CSS
+            setTimeout(() => {
+                if (component.shadowRoot) {
+                    var link = document.createElement("link");
+                    link.setAttribute("rel", "stylesheet");
+                    link.setAttribute("href", "bundle/easydb.css");
+                    component.shadowRoot.appendChild(link);
+                }
+            }, 100);
+        }
+
+        // Initialize on load
+        window.addEventListener('load', () => {
+            document.getElementById('systemid1').value = '1019633';
+            document.getElementById('systemid2').value = '1655171';
+            updateComponent1();
+            updateComponent2();
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔬 Simple Dual EasyDB Component Test</h1>
+            <p>Each component should display a different SystemID independently</p>
+        </div>
+        
+        <div class="test-grid">
+            <!-- Component 1 -->
+            <div class="test-panel">
+                <h3>🎯 Component Instance 1</h3>
+                
+                <div class="control-group">
+                    <label for="systemid1">System ID:</label>
+                    <input type="text" id="systemid1" placeholder="Enter System ID (e.g., 1019633)">
+                </div>
+                
+                <button class="submit-btn" onclick="updateComponent1()">Update Component 1</button>
+                
+                <div class="status" id="status1">Instance 1: Ready</div>
+                
+                <div class="component-area" id="component1">
+                    <!-- Component will be inserted here -->
+                </div>
+            </div>
+
+            <!-- Component 2 -->
+            <div class="test-panel">
+                <h3>🎯 Component Instance 2</h3>
+                
+                <div class="control-group">
+                    <label for="systemid2">System ID:</label>
+                    <input type="text" id="systemid2" placeholder="Enter System ID (e.g., 1655171)">
+                </div>
+                
+                <button class="submit-btn" onclick="updateComponent2()">Update Component 2 (Latest version)</button>
+                
+                <div class="status" id="status2">Instance 2: Ready</div>
+                
+                <div class="component-area" id="component2">
+                    <!-- Component will be inserted here -->
+                </div>
+            </div>
+        </div>
+        
+        <div style="margin-top: 30px; text-align: center; color: #666;">
+            <p><strong>Test:</strong> Set different System IDs (e.g., 1019633 vs 1655171) and verify each component shows different content. These IDs have back buttons for hierarchy navigation testing.</p>
+        </div>
+    </div>
+</body>
+</html>
