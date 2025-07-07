@@ -1,7 +1,6 @@
 <script>
   import { easydb_api_object } from "../../lib/apiaccess";
   import { maskObj } from "../../lib/easydbHelpers";
-  import { systemidStore } from "../../lib/stores";
 
   import RecursiveEasyDbDetailView from "./RecursiveEasyDBDetailView.svelte";
   import TitleDisplay from "./TitleDisplay.svelte";
