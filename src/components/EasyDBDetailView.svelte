@@ -62,6 +62,14 @@
     ? ($easydbInstanceDataStore?.masks ? Object.keys($easydbInstanceDataStore.masks) : [])
     : masksToRender;
   
+  // Debug reactive statements for template state
+  $: if (!$easydbInstanceDataStore || ($easydbInstanceDataStore && $easydbInstanceDataStore.instance !== easydbInstance)) {
+    console.log(`🧪 [EasyDBDetailView] WAITING - easydbInstanceDataStore:`, $easydbInstanceDataStore);
+    console.log(`🧪 [EasyDBDetailView] WAITING - easydbInstance:`, easydbInstance);
+  } else {
+    console.log(`🧪 [EasyDBDetailView] LOADED - easydbInstanceDataStore:`, $easydbInstanceDataStore);
+  }
+  
   // Pass stores, masksToRender and seeded ID to children through context
   import { setContext } from 'svelte';
   setContext('stores', stores);
@@ -73,13 +81,6 @@
   <Waiting>
     Accessing the EasyDB instance...
   </Waiting>
-  <script>
-    console.log(`🧪 [EasyDBDetailView] WAITING - easydbInstanceDataStore:`, $easydbInstanceDataStore);
-    console.log(`🧪 [EasyDBDetailView] WAITING - easydbInstance:`, easydbInstance);
-  </script>
 {:else}
   <DetailViewImpl {mask}/>
-  <script>
-    console.log(`🧪 [EasyDBDetailView] LOADED - easydbInstanceDataStore:`, $easydbInstanceDataStore);
-  </script>
 {/if}
