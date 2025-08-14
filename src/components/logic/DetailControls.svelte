@@ -1,5 +1,9 @@
 <script>
-  import { appLanguageStore, popSystemID, systemidStore, viewerPanelStateStore } from "../../lib/stores";
+  import { getContext } from 'svelte';
+  
+  // Get stores from context
+  const stores = getContext('stores');
+  const { appLanguageStore, popSystemID, systemidStore, viewerPanelStateStore } = stores;
 
   import { Button, ButtonGroup, Tooltip } from "flowbite-svelte";
   import { BackwardStepOutline, ImageOutline, RectangleListOutline } from "flowbite-svelte-icons";

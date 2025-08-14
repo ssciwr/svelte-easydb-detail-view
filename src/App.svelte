@@ -1,6 +1,6 @@
 <script>
   import { Button, Heading, Input, Label, MultiSelect, Select } from "flowbite-svelte";
-  import { appLanguageStore, easydbInstanceStore, easydbInstanceDataStore, easydbInstanceDataPromiseStore, easydbTokenPromiseStore, masksToRenderStore, systemidStore, userTokenStore, viewerPanelStateStore } from "./lib/stores";
+  import { appLanguageStore, easydbInstanceStore, easydbInstanceDataStore, easydbInstanceDataPromiseStore, easydbTokenPromiseStore, systemidStore, userTokenStore, viewerPanelStateStore } from "./lib/stores";
   import EasyDbDetailView from "./components/EasyDBDetailView.svelte";
 
   let systemid = "906249";
@@ -26,7 +26,7 @@
     console.log("easydbInstanceDataStore: ", $easydbInstanceDataStore);
     console.log("easydbInstanceDataPromiseStore: ", $easydbInstanceDataPromiseStore);
     console.log("easydbTokenPromiseStore: ", $easydbTokenPromiseStore);
-    console.log("masksToRenderStore: ", $masksToRenderStore);
+    console.log("selected_masks: ", selected_masks);
     console.log("userTokenStore: ", $userTokenStore);
     console.log("systemidStore: ", $systemidStore);
     console.log("viewerPanelStateStore: ", $viewerPanelStateStore);

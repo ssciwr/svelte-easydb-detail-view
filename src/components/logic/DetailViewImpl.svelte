@@ -1,7 +1,11 @@
 <script>
   import { easydb_api_object } from "../../lib/apiaccess";
   import { maskObj } from "../../lib/easydbHelpers";
-  import { systemidStore } from "../../lib/stores";
+  import { getContext } from 'svelte';
+  
+  // Get stores from context
+  const stores = getContext('stores');
+  const { currentSystemId } = stores;
 
   import RecursiveEasyDbDetailView from "./RecursiveEasyDBDetailView.svelte";
   import TitleDisplay from "./TitleDisplay.svelte";
@@ -13,7 +17,7 @@
   export let mask = "";
 </script>
 
-{#await easydb_api_object(systemid ? systemid : $systemidStore.at(-1), mask) }
+{#await easydb_api_object(systemid ? systemid : $currentSystemId, mask) }
   <Waiting>
     Waiting for API response...
   </Waiting>
