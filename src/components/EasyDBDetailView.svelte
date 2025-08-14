@@ -82,5 +82,5 @@
     Accessing the EasyDB instance...
   </Waiting>
 {:else}
-  <DetailViewImpl {mask}/>
+  <DetailViewImpl {mask} systemid={$currentSystemId}/>
 {/if}
