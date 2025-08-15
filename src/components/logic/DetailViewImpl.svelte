@@ -30,6 +30,12 @@
 
   export let systemid;
   export let mask = "";
+  
+  // Reactive statement to debug API responses without rendering
+  let apiData = null;
+  $: if (apiData) {
+    debugAPIResponse(apiData);
+  }
 </script>
 
 {#await easydb_api_object(systemid ? systemid : $currentSystemId, mask, stores) }
@@ -37,7 +43,7 @@
     Waiting for API response...
   </Waiting>
 {:then data }
-  {debugAPIResponse(data)}
+  {apiData = data, ''}
   
   <!-- Wait for real schemas to be loaded, not pregen placeholder data -->
   {#if $easydbInstanceDataStore?.instance === 'https://example.easydb.com' || !$easydbInstanceDataStore?.schemas || !$easydbInstanceDataStore?.schemas['objekte'] || !$easydbInstanceDataStore?.masks || !$easydbInstanceDataStore?.masks[data._mask]}
