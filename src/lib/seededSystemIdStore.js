@@ -17,7 +17,7 @@ export function getSeededSystemIdStore(seedKey, initialSystemId = "") {
   }
 
   // Create a new isolated store for this seed
-  const systemIdStack = writable(initialSystemId ? [initialSystemId] : []);
+  const systemIdStack = writable(initialSystemId ? [String(initialSystemId)] : []);
   
   // Derived store for current (latest) systemID
   const currentSystemId = derived(systemIdStack, ($stack) => {
@@ -27,9 +27,10 @@ export function getSeededSystemIdStore(seedKey, initialSystemId = "") {
   // Navigation functions that operate only on this seeded instance
   function pushSystemID(systemid) {
     systemIdStack.update(stack => {
-      // Add to stack and reset viewer panel for this specific seed
-      const newStack = [...stack, systemid];
-      console.log(`[SeededStore:${seedKey}] Pushed systemID ${systemid}, stack:`, newStack);
+      // Ensure consistent string typing for systemIDs
+      const normalizedSystemId = String(systemid);
+      const newStack = [...stack, normalizedSystemId];
+      console.log(`[SeededStore:${seedKey}] Pushed systemID ${systemid} (normalized to ${normalizedSystemId}), stack:`, newStack);
       return newStack;
     });
   }
@@ -48,8 +49,10 @@ export function getSeededSystemIdStore(seedKey, initialSystemId = "") {
   }
 
   function setSystemIdStack(newStack) {
-    console.log(`[SeededStore:${seedKey}] Setting entire stack:`, newStack);
-    systemIdStack.set(newStack);
+    // Ensure all items in the stack are strings
+    const normalizedStack = newStack.map(id => String(id));
+    console.log(`[SeededStore:${seedKey}] Setting entire stack:`, normalizedStack);
+    systemIdStack.set(normalizedStack);
   }
 
   function getCurrentSystemId() {

@@ -50,7 +50,8 @@
   // SystemID is managed by seeded store - only update if it's different from current
   $: if (systemid && systemid !== $currentSystemId) {
     console.log(`🧪 [EasyDBDetailView] Setting systemID: ${systemid}, current: ${$currentSystemId}`);
-    systemIdStoreInterface.setSystemIdStack([systemid]);
+    systemIdStoreInterface.setSystemIdStack([$currentSystemId]);
+    //systemIdStoreInterface.setSystemIdStack([systemid]);
   }
   $: {
     console.log(`🧪 [EasyDBDetailView] Setting token: ${token}`);
