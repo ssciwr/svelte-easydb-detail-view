@@ -22,6 +22,19 @@ export function bestLanguage(data, lang) {
 
 // Order the languages in a multi-language display
 export function orderLanguages(available, chosen) {
+  // Debug logging for the iterator error
+  console.log("🔍 [DEBUG] orderLanguages called with available:", available, "chosen:", chosen);
+  
+  if (!chosen || chosen === null || chosen === undefined) {
+    console.error("🔍 [DEBUG] orderLanguages: chosen is null/undefined, returning empty array");
+    return [];
+  }
+  
+  if (!Array.isArray(chosen)) {
+    console.error("🔍 [DEBUG] orderLanguages: chosen is not an array:", typeof chosen, chosen);
+    return [];
+  }
+
   // The return data structure
   let ret = [];
 

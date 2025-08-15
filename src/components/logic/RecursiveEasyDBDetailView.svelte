@@ -2,6 +2,7 @@
   import { fieldData, hasContent, hasReverseSubData, hasSubData, linkedSubData, maskObj, reverseLinkedSubData, splitterTitle } from "../../lib/easydbHelpers";
   import { easydb_api_object } from "../../lib/apiaccess";
   import { requiresEndMapping } from "../splitter/splitterMapping.js";
+  import { getContext } from 'svelte';
 
   import { Card, Li, P } from "flowbite-svelte";
   
@@ -26,6 +27,9 @@
   export let table;
   export let condensed = false;
   export let output = "detail";
+
+  // Get stores from context
+  const stores = getContext('stores');
 
   const firstField = fields[0];
 
@@ -100,7 +104,7 @@
 
   function loadAdditionalSystemID(field) {
     const fdata = fieldData(data, table, field);
-    return easydb_api_object(fdata._system_object_id, fdata._mask);
+    return easydb_api_object(fdata._system_object_id, fdata._mask, stores);
   }
 </script>
 
@@ -162,7 +166,7 @@
       <svelte:self fields={fields.slice(1)} data={data} table={table} condensed={condensed} output={output}/>
     {:else if firstField.type === "custom-begin" }
       {#if requiresEndMapping[JSON.parse(firstField.options).__customSplitterType] }
-        {#if hasContent(data, table, fields.slice(1, findMatch("custom-begin", "custom-end", (f) => requiresEndMapping[JSON.parse(f.options).__customSplitterType])), output)}
+        {#if hasContent(data, table, fields.slice(1, findMatch("custom-begin", "custom-end", (f) => requiresEndMapping[JSON.parse(f.options).__customSplitterType])), output, stores.easydbInstanceDataStore)}
           <CustomSplitterDispatch field={firstField} data={data} table={table}>
             <svelte:self fields={fields.slice(1, findMatch("custom-begin", "custom-end", (f) => requiresEndMapping[JSON.parse(f.options).__customSplitterType]))} data={data} table={table} condensed={condensed} output={output}/>
           </CustomSplitterDispatch>
@@ -187,7 +191,7 @@
               Accessing API...
             </Waiting>
           {:then additionalData}
-            <svelte:self fields={maskObj(additionalData).fields} data={additionalData} table={maskObj(additionalData).table_name_hint} condensed={condensed} output="text"/>
+            <svelte:self fields={maskObj(additionalData, stores.easydbInstanceDataStore).fields} data={additionalData} table={maskObj(additionalData, stores.easydbInstanceDataStore).table_name_hint} condensed={condensed} output="text"/>
           {/await}
         </Card>
       {:else}

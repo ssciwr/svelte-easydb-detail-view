@@ -1,9 +1,13 @@
 <script>
   import { bestLanguage } from "../../lib/l10n";
-  import { dataLanguagesStore } from "../../lib/stores";
+  import { getContext } from 'svelte';
   import { selectStandardAsset, standardHasAsset } from "../../lib/easydbHelpers";
 
   import { Img } from "flowbite-svelte";
+
+  // Get stores from context
+  const stores = getContext('stores');
+  const { dataLanguagesStore } = stores;
 
   export let data;
   export let asset = false;

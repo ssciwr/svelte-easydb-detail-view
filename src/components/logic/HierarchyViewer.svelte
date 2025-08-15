@@ -23,7 +23,7 @@
           <StandardRendering data={root} asset={true}/>
         </A>
       </span>
-      {#await easydbChildrenObject(root[table]._id, table)}
+      {#await easydbChildrenObject(root[table]._id, table, stores)}
         <Waiting>
           Loading children...
         </Waiting>

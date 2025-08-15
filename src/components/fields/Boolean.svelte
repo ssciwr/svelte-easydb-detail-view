@@ -1,6 +1,10 @@
 <script>
   import { fieldData } from "../../lib/easydbHelpers";
-  import { appLanguageStore } from "../../lib/stores";
+  import { getContext } from 'svelte';
+
+  // Get stores from context
+  const stores = getContext('stores');
+  const { appLanguageStore } = stores;
 
   export let data;
   export let field;

@@ -1,5 +1,6 @@
 <script>
   import { findSchemaColumn, hasField } from "../../lib/easydbHelpers";
+  import { getContext } from 'svelte';
   import { P } from "flowbite-svelte";
 
   // Import our field components
@@ -28,9 +29,13 @@
   export let table;
   export let condensed;
 
+  // Get stores from context
+  const stores = getContext('stores');
+  const { easydbInstanceDataStore } = stores;
+
   const WrapperComponent = condensed ? NoOp : P;
 
-  const fieldtype = findSchemaColumn(table, field).type;
+  const fieldtype = findSchemaColumn(table, field, easydbInstanceDataStore).type;
 
   const componentMapping = {
     "boolean": Boolean,
@@ -54,7 +59,7 @@
 </script>
 
 <!-- Fields that are not present in the data are also omitted -->
-{#if hasField(data, table, field) }
+{#if hasField(data, table, field, easydbInstanceDataStore) }
   <svelte:component this={WrapperComponent}>
     {#if !condensed}
       <P>

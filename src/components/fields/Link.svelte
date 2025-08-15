@@ -7,7 +7,7 @@
   // Get stores and masksToRender from context
   const stores = getContext('stores');
   const masksToRender = getContext('masksToRender');
-  const { dataLanguagesStore, pushSystemID } = stores;
+  const { dataLanguagesStore, pushSystemID, easydbInstanceDataStore } = stores;
   import { A, Breadcrumb, BreadcrumbItem, Card, P, Popover } from "flowbite-svelte";
 
   import FieldLabel from "./FieldLabel.svelte";
@@ -57,7 +57,7 @@
   }
 </script>
 
-{#if hasField(data, table, field)}
+{#if hasField(data, table, field, easydbInstanceDataStore)}
   {#if !condensed}
     <P>
       <FieldLabel table={table} field={field} />

@@ -1,6 +1,5 @@
 import { derived, get, writable } from "svelte/store";
 import { accessInstance } from "./easydbData";
-import { pregen_instance } from "./easydbPregen";
 
 // A derived store that resolves a promise
 function derivedPromise(store) {
@@ -11,12 +10,6 @@ function derivedPromise(store) {
   });
 }
 
-// Our pregenerated defaults wrapped in a Promise
-async function pregenDefaults() {
-  const baseUrl = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, '');
-  const response = await fetch(`${baseUrl}/pregen/data.json`);
-  return response.json();
-}
 
 // This manages the global state of the current app language
 export const appLanguageStore = writable(null);
@@ -35,8 +28,8 @@ export const easydbInstanceStore = writable(null);
 export const easydbInstanceDataPromiseStore = derived(
   easydbInstanceStore,
   ($instance) => {
-    if (($instance === null) || ($instance === pregen_instance)) {
-      return pregenDefaults();
+    if ($instance === null) {
+      return Promise.resolve(null);
     }
     return accessInstance($instance);
   }

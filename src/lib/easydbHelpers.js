@@ -2,22 +2,49 @@ import { easydbInstanceDataStore } from './stores';
 import { get } from 'svelte/store';
 import { bestLanguage } from './l10n';
 
-export function maskObj(data) {
-  return get(easydbInstanceDataStore).masks[data._mask];
+export function maskObj(data, easydbInstanceDataStoreParam = null) {
+  const store = easydbInstanceDataStoreParam || easydbInstanceDataStore;
+  const instanceData = get(store);
+  if (!instanceData || !instanceData.masks) {
+    console.error('maskObj: EasyDB instance data not available or masks missing');
+    return { fields: [], table_name_hint: '' };
+  }
+  return instanceData.masks[data._mask] || { fields: [], table_name_hint: '' };
 }
 
 // Given a data JSON object and a field from a mask, return the schema for that column
-export function findSchemaColumn(table, field) {
-  return get(easydbInstanceDataStore).schemas[table].columns.find((column) => column.name === field.column_name_hint);
+export function findSchemaColumn(table, field, easydbInstanceDataStoreParam = null) {
+  const store = easydbInstanceDataStoreParam || easydbInstanceDataStore;
+  const instanceData = get(store);
+  if (!instanceData || !instanceData.schemas || !instanceData.schemas[table]) {
+    console.log("Tried to get store:", store)
+    console.log("Easy DB Instance DAta store:", easydbInstanceDataStore);
+    console.log("While Param itself was:", easydbInstanceDataStoreParam);
+    console.error("Schemas was: ", instanceData.schemas);
+    console.error(`🔍 [DEBUG] findSchemaColumn: Schema not found for table "${table}"`);
+    console.error(`🔍 [DEBUG] Available schemas:`, instanceData?.schemas ? Object.keys(instanceData.schemas) : 'none');
+    console.error(`🔍 [DEBUG] Field requesting schema:`, field);
+    return {};
+  }
+  const result = instanceData.schemas[table].columns.find((column) => column.name === field.column_name_hint) || {};
+  console.log(`🔍 [DEBUG] findSchemaColumn: Found column for "${table}.${field.column_name_hint}":`, result?.type || 'not found');
+  return result;
 }
 
 // Given a data JSON object and the field definition from a mask, return the label of the field with the language code lang
-export function fieldLabel(table, field, lang) {
+export function fieldLabel(table, field, lang, easydbInstanceDataStoreParam = null) {
+  const store = easydbInstanceDataStoreParam || easydbInstanceDataStore;
+  const instanceData = get(store);
+  if (!instanceData || !instanceData.l10n) {
+    console.error('fieldLabel: EasyDB instance data or l10n not available');
+    return "Label not available";
+  }
+  
   if (field.column_name_hint) {
-    return bestLanguage(get(easydbInstanceDataStore).l10n[`schema.${table}.column.${field.column_name_hint}`], [lang]);
+    return bestLanguage(instanceData.l10n[`schema.${table}.column.${field.column_name_hint}`], [lang]);
   }
   if (field.other_table_name_hint) {
-    return bestLanguage(get(easydbInstanceDataStore).l10n[`schema.${field.other_table_name_hint}.name`], [lang]);
+    return bestLanguage(instanceData.l10n[`schema.${field.other_table_name_hint}.name`], [lang]);
   }
   return "Error retrieving label";
 }
@@ -29,11 +56,11 @@ export function fieldData(data, table, field) {
 }
 
 // Given a data JSON object and the field definition from a mask, return a boolean whether it exists in the data
-export function hasField(data, table, field) {
+export function hasField(data, table, field, easydbInstanceDataStoreParam = null) {
   // Boolean fields with custom_settings.boolean_show_false set to false should not be shown if the value is false
   if (
     (field.kind === 'field') &&
-    (findSchemaColumn(table, field).type === 'boolean') &&
+    (findSchemaColumn(table, field, easydbInstanceDataStoreParam).type === 'boolean') &&
     (field.custom_settings.boolean_show_false === false) &&
     (fieldData(data, table, field) === false)
   ) {
@@ -65,16 +92,30 @@ export function reverseLinkedSubData(data, table, field) {
   return dtable[`_reverse_nested:${field.other_table_name_hint}:${field.other_column_name_hint}`];
 }
 
-export function splitterTitle(data, table, options, lang) {
-  return bestLanguage(get(easydbInstanceDataStore).l10n[`mask.${get(easydbInstanceDataStore).schemas[table].table_id}.${maskObj(data).name}.splitter.${String(options.splitterIdx)}`], [lang]);
+export function splitterTitle(data, table, options, lang, easydbInstanceDataStoreParam = null) {
+  const store = easydbInstanceDataStoreParam || easydbInstanceDataStore;
+  const instanceData = get(store);
+  if (!instanceData || !instanceData.l10n || !instanceData.schemas) {
+    console.error('splitterTitle: EasyDB instance data, l10n, or schemas not available');
+    return "Title not available";
+  }
+  
+  const mask = maskObj(data, store);
+  const tableId = instanceData.schemas[table]?.table_id;
+  if (!tableId || !mask?.name) {
+    console.error(`splitterTitle: Missing table_id for ${table} or mask name`);
+    return "Title not available";
+  }
+  
+  return bestLanguage(instanceData.l10n[`mask.${tableId}.${mask.name}.splitter.${String(options.splitterIdx)}`], [lang]);
 }
 
-export function hasContent(data, table, fields, output) {
+export function hasContent(data, table, fields, output, easydbInstanceDataStoreParam = null) {
   for (let field of fields) {
     if (("output" in field) && (field.output[output] === false)) {
       continue;
     }
-    if (((field.kind === 'field') || (field.kind === 'link')) && (hasField(data, table, field))) {
+    if (((field.kind === 'field') || (field.kind === 'link')) && (hasField(data, table, field, easydbInstanceDataStoreParam))) {
       return true;
     }
     if ((field.kind === 'linked-table') && (hasSubData(data, table, field))) {

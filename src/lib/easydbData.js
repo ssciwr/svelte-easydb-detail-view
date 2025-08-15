@@ -17,6 +17,7 @@ function reorganize_schemas(schemadata) {
   let newdata = {};
   for (let table of schemadata.tables) {
     newdata[table.name] = table;
+    console.log("Set schema", table)
   }
   return newdata;
 }
@@ -84,6 +85,7 @@ export async function accessInstance(instance, token = null) {
     throw new Error("Could not fetch the schema data for this instance");
   }
   const schema = await schema_response.json();
+  console.log("Schema was:", schema);
 
   return {
     instance: instance,
