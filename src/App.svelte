@@ -3,7 +3,7 @@
   import { appLanguageStore, easydbInstanceStore, easydbInstanceDataStore, easydbInstanceDataPromiseStore, easydbTokenPromiseStore, systemidStore, userTokenStore, viewerPanelStateStore } from "./lib/stores";
   import EasyDbDetailView from "./components/EasyDBDetailView.svelte";
 
-  let systemid = "906249";
+  let systemid = "1655171";
   let mask = "";
   let instance = "https://heidicon.ub.uni-heidelberg.de";
   let token = "";
