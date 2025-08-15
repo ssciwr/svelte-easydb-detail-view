@@ -1,1 +1,1 @@
-export const pregen_instance = null;
+export const pregen_instance = "https://heidicon.ub.uni-heidelberg.de";
