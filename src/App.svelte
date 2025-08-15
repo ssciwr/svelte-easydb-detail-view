@@ -188,7 +188,11 @@
       </div>
     </div>
     <div class="w-1/2 p-4 border border-gray-300">
-      <EasyDbDetailView systemid={systemid} appLanguage={selected_app_language} dataLanguages={selected_data_languages} easydbInstance={instance} mask={mask} masksToRender={selected_masks} token={token}/>
+      <EasyDbDetailView systemid={systemid} appLanguage={selected_app_language} dataLanguages={selected_data_languages}
+
+                        easydbInstance="https://heidicon.ub.uni-heidelberg.de"
+
+                        mask={mask} masksToRender={selected_masks} token={token}/>
     </div>
   </div>
 </main>
