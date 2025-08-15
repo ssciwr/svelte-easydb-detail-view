@@ -33,6 +33,8 @@ export async function easydb_api_object(systemid, mask, stores = null) {
 }
 
 export async function easydbChildrenObject(id, table, stores = null) {
+
+  console.log("Whenr ednering easydbchildrenobject, stores were:", stores)
   // Use isolated stores if provided, otherwise fall back to global stores
   const instanceStore = stores?.easydbInstanceStore || easydbInstanceStore;
   const tokenStore = stores?.userTokenStore || userTokenStore;
@@ -43,10 +45,17 @@ export async function easydbChildrenObject(id, table, stores = null) {
     throw new Error(`EasyDB instance is not set or is null. Cannot fetch children for table: ${table}`);
   }
 
-  let token = await get(tokenStore);
+  let token = get(tokenStore);
   if (token === "") {
-    token = await get(tokenPromiseStore);
+    console.log('Token Request Process: Had to fallback to promise store.');
+    const tokenPromise = get(tokenPromiseStore);
+    console.log('Token promise retrieved:', tokenPromise);
+    token = await tokenPromise; // Properly await the promise from the store
+    console.log("Response from promise token: ", token)
   }
+
+  console.log("Before child request, token was: ", token, "token Store", tokenStore)
+  console.log(stores?.userTokenStore)
 
   const response = await fetch(`${instance}/api/search?` +
     new URLSearchParams({

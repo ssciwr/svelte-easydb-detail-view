@@ -40,9 +40,13 @@ export const userTokenStore = writable("");
 export const easydbTokenPromiseStore = derived(
   easydbInstanceStore,
   ($instance, set) => {
-    if ($instance === null) {
-      return;
-    }
+    console.log("Fetching the token..")
+      if ($instance === null) {
+          console.error("Could not fetch token due to undefined instance!", $instance)
+          return;
+    } else {
+          console.log("Instance defined, so fetching token")
+      }
     fetch(`${$instance}/api/session`).then(
       response => {
         response.json().then(
