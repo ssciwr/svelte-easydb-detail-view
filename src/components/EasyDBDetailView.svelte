@@ -10,7 +10,7 @@
   export let systemid = "";
   export let appLanguage = "de-DE";
   export let dataLanguages = ["de-DE", "en-US"];
-  export let easydbInstance = "https://heidicon.ub.uni-heidelberg.de" // pregen_instance;
+  export let easydbInstance = pregen_instance;
   export let mask = "";
   export let masksToRender = [];
   export let token = "";

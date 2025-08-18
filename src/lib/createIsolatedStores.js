@@ -18,7 +18,7 @@ function derivedPromise(store) {
   });
 }
 
-// Helper: fetch pregenerated defaults
+// Helper: fetch pregenerated defaults from bundled data
 async function pregenDefaults() {
   try {
     const baseUrl = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, '');
@@ -29,6 +29,7 @@ async function pregenDefaults() {
     return null;
   }
 }
+
 
 // Factory function to create isolated store instances
 export function createIsolatedStores(seedKey = null, initialSystemId = "") {
