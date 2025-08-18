@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔬 Seeded SystemID Isolation Test - Multiple Components</title>
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+        
+        .component-section {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .component-header {
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            color: white;
+            padding: 25px;
+            position: relative;
+        }
+        
+        .component-header.alt {
+            background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);
+        }
+        
+        .component-header h2 {
+            margin: 0 0 15px 0;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        .seed-info {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .seed-info strong {
+            color: #FFF3CD;
+        }
+        
+        .component-wrapper {
+            padding: 30px;
+            min-height: 700px;
+            position: relative;
+        }
+        
+        .test-panel {
+            background: #F8F9FA;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+            border: 2px solid #E9ECEF;
+        }
+        
+        .test-instructions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .test-category {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid #DEE2E6;
+        }
+        
+        .test-category h4 {
+            margin: 0 0 15px 0;
+            color: #495057;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .test-category ul {
+            margin: 0;
+            padding-left: 20px;
+            line-height: 1.6;
+        }
+        
+        .test-category li {
+            margin-bottom: 8px;
+            color: #6C757D;
+        }
+        
+        .expectation-box {
+            background: linear-gradient(135deg, #E3F2FD 0%, #F3E5F5 100%);
+            border: 2px solid #2196F3;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .expectation-box h4 {
+            margin: 0 0 12px 0;
+            color: #1976D2;
+            font-size: 1.1rem;
+        }
+        
+        .debug-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 15px;
+            border-radius: 12px;
+            font-family: monospace;
+            font-size: 12px;
+            max-width: 300px;
+            z-index: 1000;
+        }
+        
+        .debug-controls button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+            margin: 2px;
+        }
+        
+        .debug-controls button:hover {
+            background: #0056b3;
+        }
+        
+        .isolation-indicator {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    </style>
+    
+    <!-- Import the generated bundle -->
+    <script src="bundle/easydb.js"></script>
+    
+    <!-- Load CSS into shadow DOM for all components -->
+    <script>
+        // Component seeds - these are the isolation keys
+        const SEED_ALPHA = "isolation-test-alpha-2024";
+        const SEED_BETA = "isolation-test-beta-2024";
+        
+        // SystemIDs to test with
+        const SYSTEM_ID_1 = "1655171";
+        const SYSTEM_ID_2 = "1019633";
+        
+        customElements.whenDefined("easydb-detail-view").then(() => {
+            setTimeout(() => {
+                console.log("THe components can be started!")
+                // Apply CSS to both instances
+                document.querySelectorAll('easydb-detail-view').forEach(element => {
+                    var link = document.createElement("link");
+                    link.setAttribute("rel", "stylesheet");
+                    link.setAttribute("href", "bundle/easydb.css");
+                    element.shadowRoot.appendChild(link);
+                });
+                
+                console.log("🧪 [Test Setup] Components initialized with CSS");
+                console.log("🔑 [Seeds] Alpha:", SEED_ALPHA, "Beta:", SEED_BETA);
+                console.log("📊 [SystemIDs] Component 1:", SYSTEM_ID_1, "Component 2:", SYSTEM_ID_2);
+            }, 100);
+        });
+        
+        // Debug functions
+        function logSeededStores() {
+            if (window.easydbComponents && window.easydbComponents.debugSeededStores) {
+                window.easydbComponents.debugSeededStores();
+            } else {
+                console.log("🔍 Debug: Seeded store registry not available");
+            }
+        }
+        
+        function simulateNavigation() {
+            // This will be available after components load
+            console.log("🧭 [Navigation Test] Simulating cross-component navigation...");
+            return false;
+            // Try to access the stores directly (this should show isolation)
+            setTimeout(() => {
+                try {
+                    // This is just for testing - in production these wouldn't be globally accessible
+                    const component1 = document.getElementById('easydb-alpha');
+                    const component2 = document.getElementById('easydb-beta');
+                    
+                    console.log("🏷️ [Component 1] Element:", component1?.tagName);
+                    console.log("🏷️ [Component 2] Element:", component2?.tagName);
+                    
+                    // The isolation test: each component should maintain its own navigation stack
+                    console.log("✅ [Isolation Test] Each component should have independent navigation stacks");
+                    console.log("📝 [Note] Check the seeded store registry in the console");
+                    
+                } catch (error) {
+                    console.error("❌ [Error] Navigation simulation failed:", error);
+                }
+            }, 2000);
+        }
+        
+        // Initialize test environment
+        window.addEventListener('load', () => {
+            console.log("🚀 [Test Environment] Seeded SystemID Isolation Test Started");
+            console.log("🎯 [Goal] Verify that two components with different seeds maintain separate SystemID navigation stacks");
+            
+            // Add debug interface to global scope
+            window.easydbTest = {
+                logStores: logSeededStores,
+                simulateNav: simulateNavigation,
+                seeds: { alpha: SEED_ALPHA, beta: SEED_BETA },
+                systemIds: { one: SYSTEM_ID_1, two: SYSTEM_ID_2 }
+            };
+            
+            setTimeout(simulateNavigation, 3000);
+        });
+    </script>
+</head>
+<body>
+    <div class="header">
+        <h1>🧬 Seeded SystemID Isolation Test</h1>
+        <p>Testing independent navigation stacks between isolated web components</p>
+    </div>
+    
+    <!-- Debug Controls -->
+    <div class="debug-controls">
+        <strong>🔧 Debug Controls</strong><br>
+        <button onclick="window.easydbTest.logStores()">Log Stores</button>
+        <button onclick="window.easydbTest.simulateNav()">Test Navigation</button>
+        <button onclick="console.clear()">Clear Console</button>
+        <br><br>
+        <strong>Seeds:</strong><br>
+        Alpha: <code style="font-size: 10px;">isolation-test-alpha-2024</code><br>
+        Beta: <code style="font-size: 10px;">isolation-test-beta-2024</code>
+    </div>
+    
+    <div class="container">
+        <!-- Component 1: Alpha Instance -->
+        <div class="component-section">
+            <div class="component-header">
+                <div class="isolation-indicator">🔒 ISOLATED</div>
+                <h2>🅰️ Component Alpha</h2>
+                <div class="seed-info">
+                    <strong>Seeded Initial ID:</strong> <code>isolation-test-alpha-2024</code><br>
+                    <strong>System ID:</strong> <code>1655171</code><br>
+                    <strong>Navigation Stack:</strong> Independent Alpha stack<br>
+                    <strong>Expected Behavior:</strong> Maintains separate navigation history
+                </div>
+            </div>
+            
+            <div class="component-wrapper">
+                <easydb-detail-view 
+                    id="easydb-alpha"
+                    systemid="1655171"
+                    seeded-initial-id="isolation-test-alpha-2024"
+                    appLanguage="en-US">
+                </easydb-detail-view>
+            </div>
+        </div>
+        
+        <!-- Component 2: Beta Instance -->
+        <div class="component-section">
+            <div class="component-header alt">
+                <div class="isolation-indicator">🔒 ISOLATED</div>
+                <h2>🅱️ Component Beta</h2>
+                <div class="seed-info">
+                    <strong>Seeded Initial ID:</strong> <code>isolation-test-beta-2024</code><br>
+                    <strong>System ID:</strong> <code>1019633</code><br>
+                    <strong>Navigation Stack:</strong> Independent Beta stack<br>
+                    <strong>Expected Behavior:</strong> Maintains separate navigation history
+                </div>
+            </div>
+            
+            <div class="component-wrapper">
+                <easydb-detail-view 
+                    id="easydb-beta"
+                    systemid="1019633"
+                    seeded-initial-id="isolation-test-beta-2024"
+                    appLanguage="de-DE">
+                </easydb-detail-view>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Test Instructions Panel -->
+    <div class="test-panel">
+        <h3 style="text-align: center; margin-bottom: 25px; color: #495057;">🧪 Isolation Testing Instructions</h3>
+        
+        <div class="test-instructions">
+            <div class="test-category">
+                <h4>🎯 Primary Tests</h4>
+                <ul>
+                    <li>Click links in Alpha component - check Beta remains unchanged</li>
+                    <li>Navigate hierarchy in Beta - verify Alpha navigation is independent</li>
+                    <li>Use back buttons in each component separately</li>
+                    <li>Verify viewer panel states are isolated (Asset/Hierarchy toggles)</li>
+                </ul>
+            </div>
+            
+            <div class="test-category">
+                <h4>🔍 Advanced Verification</h4>
+                <ul>
+                    <li>Open browser console and check seeded store registry</li>
+                    <li>Use debug controls to log store states</li>
+                    <li>Navigate deep in one component, ensure other stays at root</li>
+                    <li>Test simultaneous navigation in both components</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="expectation-box">
+            <h4>✅ Expected Results: Perfect State Isolation</h4>
+            <p><strong>Navigation Independence:</strong> Each component should maintain completely separate navigation stacks. Clicking links or using back buttons in Alpha should never affect Beta's current object or history.</p>
+            
+            <p><strong>Seeded Store Isolation:</strong> The console should show two distinct store entries with keys <code>isolation-test-alpha-2024</code> and <code>isolation-test-beta-2024</code>, each maintaining independent SystemID arrays.</p>
+            
+            <p><strong>UI State Separation:</strong> Viewer panel states (Asset/Hierarchy toggles), language preferences, and all other component state should be completely isolated between instances.</p>
+        </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 30px; color: white; opacity: 0.8;">
+        <p>🧬 <strong>Seeded SystemID Isolation Architecture</strong> - Each component instance operates in its own state bubble</p>
+        <p>Check your browser console for detailed isolation logs and debug information</p>
+    </div>
+</body>
+</html>
