@@ -16,7 +16,7 @@
   export let token = "";
   export let seededInitialId = ""; // Unique seed for this component instance
   
-  // Generate unique seed if not provided
+  // Generate unique seed if not provided - use either camelCase or kebab-case prop
   const componentSeed = seededInitialId || `easydb-${Math.random().toString(36).substr(2, 9)}`;
   console.log(`🧪 [EasyDBDetailView] Component seed: ${componentSeed}, systemid: ${systemid}, seededInitialId: ${seededInitialId}`);
   
@@ -48,10 +48,12 @@
     easydbInstanceStore.set(easydbInstance);
   }
   // SystemID is managed by seeded store - only update if it's different from current
-  $: if (systemid && systemid !== $currentSystemId) {
-    console.log(`🧪 [EasyDBDetailView] Setting systemID: ${systemid}, current: ${$currentSystemId}`);
-    systemIdStoreInterface.setSystemIdStack([$currentSystemId]);
-    //systemIdStoreInterface.setSystemIdStack([systemid]);
+  // Track the last systemid we set to prevent reactive loops
+  let lastSetSystemId = "";
+  $: if (systemid && systemid !== $currentSystemId && systemid !== lastSetSystemId) {
+    console.log(`🧪 [EasyDBDetailView] Setting systemID: ${systemid}, current: ${$currentSystemId}, lastSet: ${lastSetSystemId}`);
+    lastSetSystemId = systemid;
+    systemIdStoreInterface.setSystemIdStack([systemid]);
   }
   $: {
     console.log(`🧪 [EasyDBDetailView] Setting token: ${token}`);
