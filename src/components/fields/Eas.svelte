@@ -1,6 +1,6 @@
 <script>
   import { DownloadOutline } from "flowbite-svelte-icons";
-  import { fieldData } from "../../lib/easydbHelpers";
+  import { fieldData, selectDownloadAsset, selectPreviewAsset } from "../../lib/easydbHelpers";
   import { Card, P } from "flowbite-svelte";
 
   export let data;
@@ -8,16 +8,6 @@
   export let table;
 
   const fdata = fieldData(data, table, field);
-
-  function has_preview_image(img) {
-    if (!img.versions.preview) {
-      return false;
-    }
-    if (img.versions.preview.class === "image") {
-      return true;
-    }
-    return false;
-  }
 
   function technical_metadata(image) {
     let snippets = [];
@@ -29,12 +19,10 @@
     }
     return snippets.join(", ");
   }
-
-  console.log(fdata)
 </script>
 
 {#each fdata as image}
-  <Card img={has_preview_image(image) ? image.versions["preview"].url : null} horizontal class="max-w-full">
+  <Card img={selectPreviewAsset(image)} horizontal class="max-w-full">
     <div class="flex items-center ">
     <span>
       <P>
@@ -48,7 +36,7 @@
         {/if}
       </P>
     </span>
-    <a href={image.versions.original.url} target="_blank" rel="noopener noreferrer">
+    <a href={selectDownloadAsset(image)} target="_blank" rel="noopener noreferrer">
       <DownloadOutline class="w-6 h-6" />
     </a>
     </div>

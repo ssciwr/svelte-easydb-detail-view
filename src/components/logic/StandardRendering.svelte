@@ -1,7 +1,7 @@
 <script>
   import { bestLanguage } from "../../lib/l10n";
   import { getContext } from 'svelte';
-  import { selectStandardAsset, standardHasAsset } from "../../lib/easydbHelpers";
+  import { selectPreviewAsset, standardHasAsset } from "../../lib/easydbHelpers";
 
   import { Img } from "flowbite-svelte";
 
@@ -18,7 +18,7 @@
 </script>
 
 {#if asset && standardHasAsset(data)}
-  <Img src={selectStandardAsset(data)} class="h-16 pr-2" />
+  <Img src={selectPreviewAsset(data)} class="h-16 pr-2" />
 {/if}
 {#each levels as level}
   {#if data._standard[level]}

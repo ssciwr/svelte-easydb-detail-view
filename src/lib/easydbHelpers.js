@@ -125,12 +125,28 @@ export function standardHasAsset(data) {
   return "eas" in data._standard
 }
 
-const image_preference = ["preview", "small", "huge", "full", "original"];
+const preview_preference = ["small", "preview", "huge", "full", "original"];
 
-export function selectStandardAsset(data) {
-  for (const pref of image_preference) {
-    if (pref in data._standard.eas["1"][0].versions) {
-      return data._standard.eas["1"][0].versions[pref].url;
+export function selectPreviewAsset(data) {
+  if ("_standard" in data) {
+    return selectStandardPreviewAsset(data._standard.eas["1"][0]);
+  }
+  for (const pref of preview_preference) {
+    if (pref in data.versions) {
+      return data.versions[pref].url;
+    }
+  }
+}
+
+const download_preference = ["original", "full", "huge", "preview", "small"];
+
+export function selectDownloadAsset(data) {
+  for (const pref of download_preference) {
+    if (pref in data.versions) {
+      if (data.versions[pref]._not_allowed) {
+        continue;
+      }
+      return data.versions[pref].url;
     }
   }
 }

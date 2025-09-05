@@ -1,7 +1,7 @@
 <script>
   import { onMount } from "svelte";
 
-  import { fieldData, hasField, standardHasAsset, selectStandardAsset } from "../../lib/easydbHelpers";
+  import { fieldData, hasField, standardHasAsset, selectPreviewAsset } from "../../lib/easydbHelpers";
   import { getContext } from 'svelte';
   
   // Get stores and masksToRender from context
@@ -73,7 +73,7 @@
     </Breadcrumb>
   {/if}
   {#if standardHasAsset(fdata)}
-    <Card class="easydb-link max-w-full h-32" img={selectStandardAsset(fdata)} horizontal>
+    <Card class="easydb-link max-w-full h-32" img={selectPreviewAsset(fdata)} horizontal>
       <A id="link" href={null} on:click={handleClick}>
         {fdata["_standard"]["1"].text[$dataLanguagesStore[0]]}
       </A>
