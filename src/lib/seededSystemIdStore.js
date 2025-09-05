@@ -90,30 +90,3 @@ export function getSeededSystemIdStore(seedKey, initialSystemId = "") {
   
   return storeInterface;
 }
-
-/**
- * Debug function to see all registered seeded stores
- * @returns {Map} All registered stores
- */
-export function getSeededStoreRegistry() {
-  return seededStoreRegistry;
-}
-
-/**
- * Clear a specific seeded store (for cleanup)
- * @param {string} seedKey - Key of store to clear
- */
-export function clearSeededStore(seedKey) {
-  if (seededStoreRegistry.has(seedKey)) {
-    seededStoreRegistry.delete(seedKey);
-    console.log(`[SeededStore] Cleared seeded store for key: ${seedKey}`);
-  }
-}
-
-/**
- * Clear all seeded stores (for complete reset)
- */
-export function clearAllSeededStores() {
-  seededStoreRegistry.clear();
-  console.log(`[SeededStore] Cleared all seeded stores`);
-}

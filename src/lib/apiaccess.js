@@ -34,7 +34,6 @@ export async function easydb_api_object(systemid, mask, stores = null) {
 
 export async function easydbChildrenObject(id, table, stores = null) {
 
-  console.log("Whenr ednering easydbchildrenobject, stores were:", stores)
   // Use isolated stores if provided, otherwise fall back to global stores
   const instanceStore = stores?.easydbInstanceStore || easydbInstanceStore;
   const tokenStore = stores?.userTokenStore || userTokenStore;

@@ -92,16 +92,13 @@ export function createIsolatedStores(seedKey = null, initialSystemId = "") {
       // Return a single promise that resolves only after full authentication
       return fetch(`${$instance}/api/session`)
         .then(response => {
-          console.log("🔍 [Token] Session response status:", response.status);
           if (!response.ok) {
             throw new Error(`Session request failed: ${response.status}`);
           }
           return response.json();
         })
         .then(response_json => {
-          console.log("🔍 [Token] Session response JSON:", response_json);
           const token = response_json.token;
-          console.log("🔍 [Token] Extracted token:", token);
           
           if (!token) {
             throw new Error("No token received from session endpoint");
@@ -118,12 +115,10 @@ export function createIsolatedStores(seedKey = null, initialSystemId = "") {
               method: 'POST',
             }
           ).then(auth_response => {
-            console.log("🔍 [Token] Auth response status:", auth_response.status);
             if (!auth_response.ok) {
               throw new Error(`Authentication failed: ${auth_response.status}`);
             }
-            console.log("🔍 [Token] Authentication successful, resolving with token:", token);
-            return token; // Return the token only after authentication succeeds
+            return token;
           });
         })
         .catch(err => {

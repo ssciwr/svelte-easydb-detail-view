@@ -15,12 +15,11 @@
   export let masksToRender = [];
   export let token = "";
   export let seededInitialId = ""; // Unique seed for this component instance
-  
-  // Generate unique seed if not provided - use either camelCase or kebab-case prop
+
   const componentSeed = seededInitialId || `easydb-${Math.random().toString(36).substr(2, 9)}`;
   console.log(`🧪 [EasyDBDetailView] Component seed: ${componentSeed}, systemid: ${systemid}, seededInitialId: ${seededInitialId}`);
   
-  // Create isolated store instances for this component with seeded SystemID
+  // Create isolated store instances for this component with seeded SystemID (will be generated randomly if not provided)
   const stores = createIsolatedStores(componentSeed, systemid);
   console.log(`🧪 [EasyDBDetailView] Created stores:`, stores);
   const {
@@ -64,15 +63,7 @@
   $: resolvedMasksToRender = masksToRender.length === 0 
     ? ($easydbInstanceDataStore?.masks ? Object.keys($easydbInstanceDataStore.masks) : [])
     : masksToRender;
-  
-  // Debug reactive statements for template state
-  $: if (!$easydbInstanceDataStore || ($easydbInstanceDataStore && $easydbInstanceDataStore.instance !== easydbInstance)) {
-    console.log(`🧪 [EasyDBDetailView] WAITING - easydbInstanceDataStore:`, $easydbInstanceDataStore);
-    console.log(`🧪 [EasyDBDetailView] WAITING - easydbInstance:`, easydbInstance);
-  } else {
-    console.log(`🧪 [EasyDBDetailView] LOADED - easydbInstanceDataStore:`, $easydbInstanceDataStore);
-  }
-  
+
   // Pass stores, masksToRender and seeded ID to children through context
   import { setContext } from 'svelte';
   setContext('stores', stores);

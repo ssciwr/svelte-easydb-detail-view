@@ -17,17 +17,10 @@ export function findSchemaColumn(table, field, easydbInstanceDataStoreParam = nu
   const store = easydbInstanceDataStoreParam || easydbInstanceDataStore;
   const instanceData = get(store);
   if (!instanceData || !instanceData.schemas || !instanceData.schemas[table]) {
-    console.log("Tried to get store:", store)
-    console.log("Easy DB Instance DAta store:", easydbInstanceDataStore);
-    console.log("While Param itself was:", easydbInstanceDataStoreParam);
-    console.error("Schemas was: ", instanceData.schemas);
     console.error(`🔍 [DEBUG] findSchemaColumn: Schema not found for table "${table}"`);
-    console.error(`🔍 [DEBUG] Available schemas:`, instanceData?.schemas ? Object.keys(instanceData.schemas) : 'none');
-    console.error(`🔍 [DEBUG] Field requesting schema:`, field);
     return {};
   }
   const result = instanceData.schemas[table].columns.find((column) => column.name === field.column_name_hint) || {};
-  console.log(`🔍 [DEBUG] findSchemaColumn: Found column for "${table}.${field.column_name_hint}":`, result?.type || 'not found');
   return result;
 }
 
