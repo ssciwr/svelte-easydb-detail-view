@@ -1,12 +1,15 @@
 <script>
+  import { getContext } from "svelte";
   import { splitterTitle } from "../../lib/easydbHelpers";
-  import { appLanguageStore } from "../../lib/stores";
 
   import { Heading } from "flowbite-svelte";
 
   export let field;
   export let data;
   export let table;
+
+  const stores = getContext('stores');
+  const { appLanguageStore } = stores;
 </script>
 
 <Heading tag="h6">
