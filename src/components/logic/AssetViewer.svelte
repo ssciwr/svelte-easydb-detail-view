@@ -1,8 +1,13 @@
 <script>
   import { fieldData, findSchemaColumn, hasReverseSubData, hasSubData, linkedSubData, reverseLinkedSubData } from "../../lib/easydbHelpers";
+  import { getContext } from 'svelte';
 
   import { Carousel, Pagination } from "flowbite-svelte";
   import AssetDispatch from "./AssetDispatch.svelte";
+
+  // Get stores from context
+  const stores = getContext('stores');
+  const { easydbInstanceDataStore } = stores;
 
   export let fields;
   export let table;
@@ -12,7 +17,7 @@
     let ret = [];
     for (const field of fields) {
       if (field.kind === "field") {
-        if (findSchemaColumn(table, field).type === "eas") {
+        if (findSchemaColumn(table, field, easydbInstanceDataStore).type === "eas") {
           ret = ret.concat(fieldData(data, table, field));
         }
       }

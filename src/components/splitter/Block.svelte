@@ -1,6 +1,6 @@
 <script>
+  import { getContext } from "svelte";
   import { splitterTitle } from "../../lib/easydbHelpers";
-  import { appLanguageStore } from "../../lib/stores";
 
   import { Card, Heading } from "flowbite-svelte";
 
@@ -8,6 +8,9 @@
   export let data;
   export let table;
   export let output;
+
+  const stores = getContext('stores');
+  const { appLanguageStore } = stores;
 
   const options = JSON.parse(fields[0].options);
 </script>

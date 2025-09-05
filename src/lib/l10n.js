@@ -22,6 +22,14 @@ export function bestLanguage(data, lang) {
 
 // Order the languages in a multi-language display
 export function orderLanguages(available, chosen) {
+  if (!chosen || chosen === null || chosen === undefined) {
+    return [];
+  }
+  
+  if (!Array.isArray(chosen)) {
+    return [];
+  }
+
   // The return data structure
   let ret = [];
 

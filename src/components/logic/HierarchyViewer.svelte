@@ -1,6 +1,10 @@
 <script>
   import { easydbChildrenObject } from "../../lib/apiaccess";
-  import { pushSystemID } from "../../lib/stores";
+  import { getContext } from 'svelte';
+  
+  // Get stores from context
+  const stores = getContext('stores');
+  const { pushSystemID } = stores;
 
   import { A, Accordion, AccordionItem } from "flowbite-svelte";
   import StandardRendering from "./StandardRendering.svelte";
@@ -19,7 +23,7 @@
           <StandardRendering data={root} asset={true}/>
         </A>
       </span>
-      {#await easydbChildrenObject(root[table]._id, table)}
+      {#await easydbChildrenObject(root[table]._id, table, stores)}
         <Waiting>
           Loading children...
         </Waiting>

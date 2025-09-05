@@ -1,10 +1,14 @@
 <script>
   import { bestLanguage } from "../../lib/l10n";
-  import { appLanguageStore, dataLanguagesStore, easydbInstanceDataStore } from "../../lib/stores";
+  import { getContext } from 'svelte';
   
   import { Breadcrumb, BreadcrumbItem } from "flowbite-svelte";
 
   import StandardRendering from "./StandardRendering.svelte";
+
+  // Get stores from context
+  const stores = getContext('stores');
+  const { appLanguageStore, dataLanguagesStore, easydbInstanceDataStore } = stores;
 
   export let data;
   export let table;

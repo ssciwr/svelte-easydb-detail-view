@@ -18,6 +18,7 @@ async function pregenDefaults() {
   return response.json();
 }
 
+
 // This manages the global state of the current app language
 export const appLanguageStore = writable(null);
 
@@ -47,9 +48,13 @@ export const userTokenStore = writable("");
 export const easydbTokenPromiseStore = derived(
   easydbInstanceStore,
   ($instance, set) => {
-    if ($instance === null) {
-      return;
-    }
+    console.log("Fetching the token..")
+      if ($instance === null) {
+          console.error("Could not fetch token due to undefined instance!", $instance)
+          return;
+    } else {
+          console.log("Instance defined, so fetching token")
+      }
     fetch(`${$instance}/api/session`).then(
       response => {
         response.json().then(
@@ -94,22 +99,3 @@ export function popSystemID() {
   viewerPanelStateStore.set("asset");
 }
 
-// A store for the user given choice of which masks to render
-export const userGivenMasksToRenderStore = writable([]);
-
-// The list of masks that should be rendered in the component
-export const masksToRenderStore = derived(
-  [userGivenMasksToRenderStore, easydbInstanceDataStore],
-  ([$userGivenMasksToRenderStore, $easydbInstanceDataStore]) => {
-    if ($easydbInstanceDataStore === undefined) {
-      return [];
-    }
-    if ($userGivenMasksToRenderStore.length === 0) {
-      if ($easydbInstanceDataStore.masks === null) {
-        return [];
-      }
-      return Object.keys($easydbInstanceDataStore.masks);
-    }
-    return $userGivenMasksToRenderStore;
-  }
-);

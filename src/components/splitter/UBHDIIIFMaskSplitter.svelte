@@ -1,11 +1,13 @@
 <script>
-  import { appLanguageStore } from "../../lib/stores";
-
+  import { getContext } from "svelte";
   import { P } from "flowbite-svelte";
 
   export let data;
   export let field;
   export let table;
+
+  const stores = getContext('stores');
+  const { appLanguageStore } = stores;
   
   const options = JSON.parse(field.options);
 

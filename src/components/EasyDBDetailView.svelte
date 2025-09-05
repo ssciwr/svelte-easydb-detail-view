@@ -2,12 +2,10 @@
 
 <script>
   import '../app.pcss';
-
-  import { pregen_instance } from "../lib/easydbPregen";
-  import { appLanguageStore, dataLanguagesStore, easydbInstanceStore, easydbInstanceDataStore, systemidStore, userGivenMasksToRenderStore, userTokenStore } from "../lib/stores";
-
-  import DetailViewImpl from "./logic/DetailViewImpl.svelte";
-  import Waiting from "./utils/Waiting.svelte";
+  import { createIsolatedStores } from '../lib/createIsolatedStores';
+  import { pregen_instance } from '../lib/easydbPregen';
+  import DetailViewImpl from './logic/DetailViewImpl.svelte';
+  import Waiting from './utils/Waiting.svelte';
 
   export let systemid = "";
   export let appLanguage = "de-DE";
@@ -16,19 +14,67 @@
   export let mask = "";
   export let masksToRender = [];
   export let token = "";
+  export let seededInitialId = ""; // Unique seed for this component instance
 
-  $: appLanguageStore.set(appLanguage);
-  $: dataLanguagesStore.set(dataLanguages);
-  $: easydbInstanceStore.set(easydbInstance);
-  $: userGivenMasksToRenderStore.set(masksToRender)
-  $: systemidStore.set([systemid]);
-  $: userTokenStore.set(token);
+  const componentSeed = seededInitialId || `easydb-${Math.random().toString(36).substr(2, 9)}`;
+  console.log(`🧪 [EasyDBDetailView] Component seed: ${componentSeed}, systemid: ${systemid}, seededInitialId: ${seededInitialId}`);
+  
+  // Create isolated store instances for this component with seeded SystemID (will be generated randomly if not provided)
+  const stores = createIsolatedStores(componentSeed, systemid);
+  console.log(`🧪 [EasyDBDetailView] Created stores:`, stores);
+  const {
+    appLanguageStore,
+    dataLanguagesStore,
+    systemidStore,
+    currentSystemId,
+    easydbInstanceStore,
+    userTokenStore,
+    easydbInstanceDataStore,
+    systemIdStoreInterface
+  } = stores;
+
+  // Update stores when props change
+  $: {
+    console.log(`🧪 [EasyDBDetailView] Setting appLanguage: ${appLanguage}`);
+    appLanguageStore.set(appLanguage);
+  }
+  $: {
+    console.log(`🧪 [EasyDBDetailView] Setting dataLanguages:`, dataLanguages);
+    dataLanguagesStore.set(dataLanguages);
+  }
+  $: {
+    console.log(`🧪 [EasyDBDetailView] Setting easydbInstance: ${easydbInstance}`);
+    easydbInstanceStore.set(easydbInstance);
+  }
+  // SystemID is managed by seeded store - only update if it's different from current
+  // Track the last systemid we set to prevent reactive loops
+  let lastSetSystemId = "";
+  $: if (systemid && systemid !== $currentSystemId && systemid !== lastSetSystemId) {
+    console.log(`🧪 [EasyDBDetailView] Setting systemID: ${systemid}, current: ${$currentSystemId}, lastSet: ${lastSetSystemId}`);
+    lastSetSystemId = systemid;
+    systemIdStoreInterface.setSystemIdStack([systemid]);
+  }
+  $: {
+    console.log(`🧪 [EasyDBDetailView] Setting token: ${token}`);
+    userTokenStore.set(token);
+  }
+  
+  // Create resolved masksToRender value
+  $: resolvedMasksToRender = masksToRender.length === 0 
+    ? ($easydbInstanceDataStore?.masks ? Object.keys($easydbInstanceDataStore.masks) : [])
+    : masksToRender;
+
+  // Pass stores, masksToRender and seeded ID to children through context
+  import { setContext } from 'svelte';
+  setContext('stores', stores);
+  setContext('masksToRender', resolvedMasksToRender);
+  setContext('seededInitialId', componentSeed);
 </script>
 
-{#if !$easydbInstanceDataStore || ($easydbInstanceDataStore.instance !== easydbInstance) }
+{#if !$easydbInstanceDataStore || ($easydbInstanceDataStore && $easydbInstanceDataStore.instance !== easydbInstance)}
   <Waiting>
     Accessing the EasyDB instance...
   </Waiting>
 {:else}
-  <DetailViewImpl mask={mask}/>
+  <DetailViewImpl {mask} systemid={$currentSystemId}/>
 {/if}

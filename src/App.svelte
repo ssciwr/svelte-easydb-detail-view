@@ -1,9 +1,9 @@
 <script>
   import { Button, Heading, Input, Label, MultiSelect, Select } from "flowbite-svelte";
-  import { appLanguageStore, easydbInstanceStore, easydbInstanceDataStore, easydbInstanceDataPromiseStore, easydbTokenPromiseStore, masksToRenderStore, systemidStore, userTokenStore, viewerPanelStateStore } from "./lib/stores";
+  import { appLanguageStore, easydbInstanceStore, easydbInstanceDataStore, easydbInstanceDataPromiseStore, easydbTokenPromiseStore, systemidStore, userTokenStore, viewerPanelStateStore } from "./lib/stores";
   import EasyDbDetailView from "./components/EasyDBDetailView.svelte";
 
-  let systemid = "906249";
+  let systemid = "1655171";
   let mask = "";
   let instance = "https://heidicon.ub.uni-heidelberg.de";
   let token = "";
@@ -26,7 +26,7 @@
     console.log("easydbInstanceDataStore: ", $easydbInstanceDataStore);
     console.log("easydbInstanceDataPromiseStore: ", $easydbInstanceDataPromiseStore);
     console.log("easydbTokenPromiseStore: ", $easydbTokenPromiseStore);
-    console.log("masksToRenderStore: ", $masksToRenderStore);
+    console.log("selected_masks: ", selected_masks);
     console.log("userTokenStore: ", $userTokenStore);
     console.log("systemidStore: ", $systemidStore);
     console.log("viewerPanelStateStore: ", $viewerPanelStateStore);
@@ -188,7 +188,11 @@
       </div>
     </div>
     <div class="w-1/2 p-4 border border-gray-300">
-      <EasyDbDetailView systemid={systemid} appLanguage={selected_app_language} dataLanguages={selected_data_languages} easydbInstance={instance} mask={mask} masksToRender={selected_masks} token={token}/>
+      <EasyDbDetailView systemid={systemid} appLanguage={selected_app_language} dataLanguages={selected_data_languages}
+
+                        easydbInstance="https://heidicon.ub.uni-heidelberg.de"
+
+                        mask={mask} masksToRender={selected_masks} token={token}/>
     </div>
   </div>
 </main>

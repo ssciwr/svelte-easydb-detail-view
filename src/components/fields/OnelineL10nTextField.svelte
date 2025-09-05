@@ -1,9 +1,13 @@
 <script>
   import { fieldData } from "../../lib/easydbHelpers";
-  import { dataLanguagesStore } from "../../lib/stores";
+  import { getContext } from 'svelte';
   import { orderLanguages } from "../../lib/l10n";
 
   import { P, Table, TableBody, TableBodyRow, TableBodyCell } from "flowbite-svelte";
+
+  // Get stores from context
+  const stores = getContext('stores');
+  const { dataLanguagesStore } = stores;
 
   export let data;
   export let field;

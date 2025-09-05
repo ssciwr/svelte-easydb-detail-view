@@ -1,17 +1,26 @@
 import { get } from 'svelte/store';
 import { easydbInstanceStore, easydbTokenPromiseStore, userTokenStore } from './stores';
 
-export async function easydb_api_object(systemid, mask) {
+export async function easydb_api_object(systemid, mask, stores = null) {
   if (!systemid) {
     return {}
   }
 
-  let url = `${get(easydbInstanceStore)}/api/objects/id/${systemid}`;
+  // Use isolated stores if provided, otherwise fall back to global stores
+  const instanceStore = stores?.easydbInstanceStore || easydbInstanceStore;
+  const tokenStore = stores?.userTokenStore || userTokenStore;
+  
+  const instance = get(instanceStore);
+  if (!instance || instance === null) {
+    throw new Error(`EasyDB instance is not set or is null. Cannot fetch data for systemid: ${systemid}`);
+  }
+
+  let url = `${instance}/api/objects/id/${systemid}`;
   if (mask !== '') {
     url = `${url}/mask/${mask}`;
   }
-  if (get(userTokenStore) !== "") {
-    url = url + '?' + new URLSearchParams({token: get(userTokenStore)});
+  if (get(tokenStore) !== "") {
+    url = url + '?' + new URLSearchParams({token: get(tokenStore)});
   }
 
   // Fetch the schema data for this instance
@@ -23,13 +32,31 @@ export async function easydb_api_object(systemid, mask) {
   return response_json;
 }
 
-export async function easydbChildrenObject(id, table) {
-  let token = await get(userTokenStore);
-  if (token === "") {
-    token = await get(easydbTokenPromiseStore);
+export async function easydbChildrenObject(id, table, stores = null) {
+
+  // Use isolated stores if provided, otherwise fall back to global stores
+  const instanceStore = stores?.easydbInstanceStore || easydbInstanceStore;
+  const tokenStore = stores?.userTokenStore || userTokenStore;
+  const tokenPromiseStore = stores?.easydbTokenPromiseStore || easydbTokenPromiseStore;
+  
+  const instance = get(instanceStore);
+  if (!instance || instance === null) {
+    throw new Error(`EasyDB instance is not set or is null. Cannot fetch children for table: ${table}`);
   }
 
-  const response = await fetch(`${get(easydbInstanceStore)}/api/search?` +
+  let token = get(tokenStore);
+  if (token === "") {
+    console.log('Token Request Process: Had to fallback to promise store.');
+    const tokenPromise = get(tokenPromiseStore);
+    console.log('Token promise retrieved:', tokenPromise);
+    token = await tokenPromise; // Properly await the promise from the store
+    console.log("Response from promise token: ", token)
+  }
+
+  console.log("Before child request, token was: ", token, "token Store", tokenStore)
+  console.log(stores?.userTokenStore)
+
+  const response = await fetch(`${instance}/api/search?` +
     new URLSearchParams({
       "token": token,
     }),

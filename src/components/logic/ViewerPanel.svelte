@@ -1,5 +1,9 @@
 <script>
-  import { viewerPanelStateStore } from "../../lib/stores";
+  import { getContext } from 'svelte';
+
+  // Get stores from context
+  const stores = getContext('stores');
+  const { viewerPanelStateStore } = stores;
 
   export let data;
   export let table;
