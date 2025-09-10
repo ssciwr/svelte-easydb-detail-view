@@ -4,10 +4,9 @@
   import { fieldData, hasField, standardHasAsset, selectPreviewAsset } from "../../lib/easydbHelpers";
   import { getContext } from 'svelte';
   
-  // Get stores and masksToRender from context
+  // Get stores from context
   const stores = getContext('stores');
-  const masksToRender = getContext('masksToRender');
-  const { dataLanguagesStore, pushSystemID, easydbInstanceDataStore } = stores;
+  const { dataLanguagesStore, pushSystemID, easydbInstanceDataStore, masksToRenderStore } = stores;
   import { A, Breadcrumb, BreadcrumbItem, Card, P, Popover } from "flowbite-svelte";
 
   import FieldLabel from "./FieldLabel.svelte";
@@ -23,10 +22,10 @@
   let detailViewComponent;
 
   function requiresPopover() {
-    if (!masksToRender) {
+    if (!$masksToRenderStore) {
       return false;
     }
-    return !(masksToRender.includes(fdata._mask));
+    return !($masksToRenderStore.includes(fdata._mask));
   }
 
   onMount(() => {

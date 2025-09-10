@@ -58,6 +58,7 @@ export function createIsolatedStores(seedKey = null, initialSystemId = "") {
   const easydbInstanceStore = writable(null);
   const userTokenStore = writable("");
   const viewerPanelStateStore = writable("asset");
+  const userGivenMasksToRenderStore = writable([]);
   
   // Create derived stores
   const easydbInstanceDataPromiseStore = derived(
@@ -130,6 +131,22 @@ export function createIsolatedStores(seedKey = null, initialSystemId = "") {
   
   const easydbInstanceDataStore = derivedPromise(easydbInstanceDataPromiseStore);
   
+  const masksToRenderStore = derived(
+    [userGivenMasksToRenderStore, easydbInstanceDataStore],
+    ([$userGivenMasksToRenderStore, $easydbInstanceDataStore]) => {
+      if ($easydbInstanceDataStore === undefined) {
+        return [];
+      }
+      if ($userGivenMasksToRenderStore.length === 0) {
+        if ($easydbInstanceDataStore.masks === null) {
+          return [];
+        }
+        return Object.keys($easydbInstanceDataStore.masks);
+      }
+      return $userGivenMasksToRenderStore;
+    }
+  );
+  
   // Helper functions for this store instance that also reset viewer panel
   function pushSystemID(systemid) {
     systemIdStoreInterface.pushSystemID(systemid);
@@ -148,6 +165,7 @@ export function createIsolatedStores(seedKey = null, initialSystemId = "") {
     easydbInstanceStore,
     userTokenStore,
     viewerPanelStateStore,
+    userGivenMasksToRenderStore,
     
     // SystemID store interface (seeded or basic)
     systemidStore: systemIdStoreInterface.systemIdStack,
@@ -157,6 +175,7 @@ export function createIsolatedStores(seedKey = null, initialSystemId = "") {
     easydbInstanceDataPromiseStore,
     easydbTokenPromiseStore,
     easydbInstanceDataStore,
+    masksToRenderStore,
     
     // Helper functions
     pushSystemID,

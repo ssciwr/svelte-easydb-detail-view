@@ -30,6 +30,8 @@
     easydbInstanceStore,
     userTokenStore,
     easydbInstanceDataStore,
+    userGivenMasksToRenderStore,
+    masksToRenderStore,
     systemIdStoreInterface
   } = stores;
 
@@ -58,16 +60,14 @@
     console.log(`🧪 [EasyDBDetailView] Setting token: ${token}`);
     userTokenStore.set(token);
   }
-  
-  // Create resolved masksToRender value
-  $: resolvedMasksToRender = masksToRender.length === 0 
-    ? ($easydbInstanceDataStore?.masks ? Object.keys($easydbInstanceDataStore.masks) : [])
-    : masksToRender;
+  $: {
+    console.log(`🧪 [EasyDBDetailView] Setting masksToRender:`, masksToRender);
+    userGivenMasksToRenderStore.set(masksToRender);
+  }
 
-  // Pass stores, masksToRender and seeded ID to children through context
+  // Pass stores and seeded ID to children through context
   import { setContext } from 'svelte';
   setContext('stores', stores);
-  setContext('masksToRender', resolvedMasksToRender);
   setContext('seededInitialId', componentSeed);
 </script>
 
